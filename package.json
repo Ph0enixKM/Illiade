@@ -1,10 +1,14 @@
 {
   "name": "illiade",
   "version": "1.0.0",
-  "description": "Online Notebook for students",
-  "main": "app.js",
+  "description": "The Ultimate App Visual Builder",
+  "main": "dist/main/main.js",
   "scripts": {
-    "start": "node compile.js"
+    "start": "electron .",
+    "tsc": "tsc --watch",
+    "sass": "sass src/style/style.sass dist/style/style.css --watch",
+    "pug": "pug src/view/view.pug -o dist/view --watch",
+    "build": "concurrently -c \"blue,magenta,red\" -n \"TypeScript,Sass,Pug\" \"npm run tsc\" \"npm run sass\" \"npm run pug\""
   },
   "repository": {
     "type": "git",
@@ -17,8 +21,15 @@
   },
   "homepage": "https://github.com/Ph0enixKM/Illiade#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "magma-script": "^1.4.0"
+    "concurrently": "^5.0.0",
+    "electron-pug": "^2.0.0",
+    "flowchart-core": "^1.1.4",
+    "pug-cli": "^1.0.0-alpha6",
+    "sass": "^1.23.3",
+    "three": "^0.110.0",
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "electron": "^7.0.1"
   }
 }

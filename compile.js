@@ -1,7 +1,4 @@
-const MagmaScript = require('magma-script')
+const sass = require('node-sass')
+const tsc = require('node-typescript')
 
-let mg = new MagmaScript({
-    input : __dirname + '/src/main.mg'
-})
-
-eval(mg.result)
+console.log(tsc)

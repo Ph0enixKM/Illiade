@@ -1,0 +1,65 @@
+body {
+  margin: 0px;
+  background-color: #222;
+  overflow: hidden;
+}
+
+#toolbar {
+  position: absolute;
+  top: calc( 24px + 10vh );
+  left: 5vh;
+  height: calc( 80vh - 24px);
+  width: 3vw;
+  border-radius: 1vw;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0.5;
+  transition: 300ms;
+  overflow: hidden;
+}
+#toolbar:hover {
+  opacity: 1;
+}
+#toolbar .btn {
+  height: 3vw;
+  background-color: rgba(0, 0, 0, 0);
+  transition: 100ms;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#toolbar .btn:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+#toolbar #block {
+  background-image: url("../art/block.svg");
+}
+
+header {
+  border-bottom: 2px #212121 solid;
+  padding: 2px 5px 2px 5px;
+  -webkit-app-region: drag;
+}
+header .btn {
+  -webkit-app-region: no-drag;
+  vertical-align: middle;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-size: cover;
+  transition: 100ms;
+  margin: 0 3px;
+}
+header .btn:hover {
+  opacity: 0.5;
+}
+header #exit {
+  background-image: url("../art/titlebutton-close.svg");
+}
+header #min {
+  background-image: url("../art/titlebutton-minimize.svg");
+}
+header #max {
+  background-image: url("../art/titlebutton-maximize.svg");
+}
+
+/*# sourceMappingURL=style.css.map */

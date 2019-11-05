@@ -3,6 +3,4 @@
 </div>
 
 # Illiade
-Online Notebook for students
-
-> In Development [1%]
+The Ultimate App Visual Builder
