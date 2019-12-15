@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const THREE = global["3D"];
 const controller_1 = require("./flowchart/controller");
+const toolbar_1 = require("./flowchart/toolbar");
 // Flowchart
 class default_1 {
     constructor() {
@@ -35,6 +36,7 @@ class default_1 {
         this.viewer.position.z = 10;
         this.scene.add(this.viewer);
         let cont = new controller_1.default(this.viewer);
+        new toolbar_1.default();
         setInterval(() => {
             // Render Flow
             this.renderer.setClearColor('#2a2a2a');

@@ -1,14 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const electron_1 = require("electron");
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
+
 // Globals
 let win;
+
 // Configs
-electron_1.Menu.setApplicationMenu(null);
+Menu.setApplicationMenu(null);
+
 // Main Ready Call
-electron_1.app.on('ready', () => {
-    win = new electron_1.BrowserWindow({
+app.on('ready', () => {
+    win = new BrowserWindow({
         width: 1280,
         height: 720,
         backgroundColor: '#222',
@@ -20,4 +21,3 @@ electron_1.app.on('ready', () => {
     });
     win.loadFile(path.join(__dirname, '../view/view.html'));
 });
-//# sourceMappingURL=main.js.map

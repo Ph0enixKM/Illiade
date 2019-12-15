@@ -6,12 +6,16 @@ html(lang="en")
         link(rel="stylesheet", href="../style/style.css")
         script.
             let exports = {"__esModule": true}
-        script(src="../render/render.js")
+            function $(query) { return document.querySelector(query) }
+            const DEBUG = true
     body
         header
             .btn#exit
             .btn#min
             .btn#max
-        canvas#grid
-        #toolbar
-            .btn#block
+            
+        #editor
+
+        script(src="../lib/ace.js")
+        script(src="../render/render.js")
+        script(src="../render/window-controls.js")

@@ -1,14 +1,41 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const THREE = require('three');
-global["3D"] = THREE;
-const electron_1 = require("electron");
-const debug_1 = require("../render/debug");
-const header_1 = require("../render/header");
-const flowchart_1 = require("../render/flowchart");
-window.onload = () => {
-    new debug_1.default(true);
-    new header_1.default(electron_1.remote);
-    new flowchart_1.default();
-};
-//# sourceMappingURL=render.js.map
+const path = require('path');
+const fs = require('fs');
+const amdLoader = require('../../node_modules/monaco-editor/min/vs/loader.js');
+const parseTmTheme = require('monaco-themes').parseTmTheme;
+const amdRequire = amdLoader.require;
+const amdDefine = amdLoader.require.define;
+
+function uriFromPath(_path) {
+    pathName = path.resolve(_path).replace(/\\/g, '/');
+    if (pathName.length > 0 && pathName.charAt(0) !== '/') pathName = '/' + pathName;
+    return encodeURI('file://' + pathName);
+}
+
+amdRequire.config({
+    baseUrl: uriFromPath(path.join(__dirname, '../../node_modules/monaco-editor/min'))
+});
+
+// workaround monaco-css not understanding the environment
+self.module = undefined;
+
+amdRequire(['vs/editor/editor.main'], () => {
+
+    // Config Theme
+    monaco.editor.defineTheme('blaze', {
+        base: 'vs-dark', // can also be vs-dark or hc-black
+        inherit: true, // can also be false to completely replace the builtin rules
+        rules: [{ token: 'comment.cpp', foreground: '555555', fontStyle: 'italic' }, { token: 'keyword', foreground: 'cc4400' }, { token: 'number', foreground: 'ff8800' }, { token: 'string', foreground: '44aa00' }]
+    });
+
+    editor = monaco.editor.create(document.getElementById('editor'), {
+        value: ['int main() {', '\treturn 0;', '}'].join('\n'),
+        language: 'cpp',
+        theme: "blaze",
+        contextmenu: false
+    });
+
+    setTimeout(() => {
+        let style = $('.monaco-list style');
+        style.remove();
+    }, 1000);
+});

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron'
+const { app, BrowserWindow, Menu } = require('electron')
 const path = require('path')
 
 
@@ -9,8 +9,8 @@ let win
 Menu.setApplicationMenu(null)
 
 // Main Ready Call
-app.on('ready', () => {
-    win = new BrowserWindow({
+app.on('ready', () => { 
+    win = new BrowserWindow ({
         width: 1280,
         height: 720,
         backgroundColor: '#222',

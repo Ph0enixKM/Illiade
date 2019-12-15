@@ -1,37 +1,164 @@
+#editor {
+  width: 100vw;
+  height: 100vh;
+}
+#editor .current-line {
+  border: none;
+  background-color: #3333;
+}
+#editor .cslr.selected-text {
+  background-color: #3c3732;
+}
+#editor span.mtk1 {
+  background: -webkit-linear-gradient(45deg, #FFaaaa, #FFeeaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#editor span.mtk13 {
+  background: -webkit-linear-gradient(45deg, #F03900, #FF7700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#editor span.mtk23 {
+  background: -webkit-linear-gradient(45deg, #55ffaa, #aaff55);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#editor .slider {
+  border-radius: 15px;
+  background-color: #333;
+}
+#editor .fields {
+  background-color: red !important;
+}
+#editor .cursor {
+  transition: 100ms;
+  visibility: inherit !important;
+  animation: blink 2s infinite;
+}
+#editor .tree {
+  transition: 300ms;
+  background-color: transparent !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: none;
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+}
+#editor .minimap-shadow-visible {
+  box-shadow: #111 -6px 0 6px -6px inset;
+}
+#editor .scroll-decoration {
+  box-shadow: #111 0 6px 6px -6px inset;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+.monaco-list-row {
+  transition: 200ms;
+}
+.monaco-list-row span.highlight {
+  background: -webkit-linear-gradient(45deg, #F03900, #FF7700) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.monaco-list.list_id_1:focus .monaco-list-row.focused {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.monaco-list.list_id_1:focus .monaco-list-row.focused:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.monaco-list.list_id_1:focus .monaco-list-row.selected {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.monaco-list.list_id_1:focus .monaco-list-row.selected:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.monaco-list.list_id_1:focus .monaco-list-row.selected {
+  color: #ffffff;
+}
+
+.monaco-list.list_id_1:not(.drop-target) .monaco-list-row:hover:not(.selected):not(.focused) {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.monaco-drag-image, .monaco-list.list_id_1:focus .monaco-list-row.selected.focused {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.monaco-drag-image, .monaco-list.list_id_1:focus .monaco-list-row.selected.focused {
+  color: #ffffff;
+}
+
+.monaco-list.list_id_1 .monaco-list-row.focused {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.monaco-list.list_id_1 .monaco-list-row.focused:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.monaco-list.list_id_1 .monaco-list-row.selected {
+  background-color: red;
+  border-radius: 10px;
+}
+
+.monaco-list.list_id_1 .monaco-list-row.selected:hover {
+  background-color: red;
+  border-radius: 10px;
+}
+
+.monaco-list.list_id_1:not(.drop-target) .monaco-list-row:hover:not(.selected):not(.focused) {
+  background-color: #2a2d2e;
+  border-radius: 10px;
+}
+
+.monaco-list.list_id_1.drop-target, .monaco-list.list_id_1 .monaco-list-row.drop-target {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  color: inherit !important;
+}
+
+.monaco-list-type-filter {
+  background-color: #653723;
+}
+
+.monaco-list-type-filter {
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.monaco-list-type-filter.no-matches {
+  border: 1px solid #be1100;
+}
+
+.monaco-list-type-filter {
+  box-shadow: 1px 1px 1px #000000;
+}
+
 body {
   margin: 0px;
   background-color: #222;
   overflow: hidden;
-}
-
-#toolbar {
-  position: absolute;
-  top: calc( 24px + 10vh );
-  left: 5vh;
-  height: calc( 80vh - 24px);
-  width: 3vw;
-  border-radius: 1vw;
-  background-color: rgba(0, 0, 0, 0.3);
-  opacity: 0.5;
-  transition: 300ms;
-  overflow: hidden;
-}
-#toolbar:hover {
-  opacity: 1;
-}
-#toolbar .btn {
-  height: 3vw;
-  background-color: rgba(0, 0, 0, 0);
-  transition: 100ms;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-#toolbar .btn:hover {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-#toolbar #block {
-  background-image: url("../art/block.svg");
 }
 
 header {

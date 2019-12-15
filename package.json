@@ -5,10 +5,10 @@
   "main": "dist/main/main.js",
   "scripts": {
     "start": "electron .",
-    "tsc": "tsc --watch",
+    "babel": "babel --watch src/ --out-dir dist/",
     "sass": "sass src/style/style.sass dist/style/style.css --watch",
     "pug": "pug src/view/view.pug -o dist/view --watch",
-    "build": "concurrently -c \"blue,magenta,red\" -n \"TypeScript,Sass,Pug\" \"npm run tsc\" \"npm run sass\" \"npm run pug\""
+    "build": "concurrently -c \"yellow,magenta,red\" -n \"JavaScript,Sass,Pug\" \"npm run babel\" \"npm run sass\" \"npm run pug\""
   },
   "repository": {
     "type": "git",
@@ -21,9 +21,16 @@
   },
   "homepage": "https://github.com/Ph0enixKM/Illiade#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "coffeescript": "^2.4.1",
     "concurrently": "^5.0.0",
     "electron-pug": "^2.0.0",
     "flowchart-core": "^1.1.4",
+    "monaco-editor": "^0.18.1",
+    "monaco-editor-textmate": "^2.2.1",
+    "monaco-textmate": "^3.0.1",
+    "monaco-themes": "^0.3.3",
+    "onigasm": "^2.2.4",
     "pug-cli": "^1.0.0-alpha6",
     "sass": "^1.23.3",
     "three": "^0.110.0",

@@ -39,6 +39,9 @@ class default_1 {
                 this.axis[3] = false;
             }
         });
+        document.body.addEventListener('mousemove', e => {
+            console.log(e);
+        });
     }
     update() {
         // Forward
