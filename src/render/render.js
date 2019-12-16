@@ -33,7 +33,8 @@ amdRequire(['vs/editor/editor.main'], () => {
             { token: 'comment.cpp', foreground: '555555', fontStyle: 'italic' },
             { token: 'keyword', foreground: 'cc4400' },
             { token: 'number', foreground: 'ff8800' },
-            { token: 'string', foreground: '44aa00' }
+            { token: 'string', foreground: '44aa00' },
+            { background : '000000'}
         ]
     })
 
@@ -45,7 +46,8 @@ amdRequire(['vs/editor/editor.main'], () => {
         ].join('\n'),
         language: 'cpp',
         theme: "blaze",
-        contextmenu: false
+        contextmenu: false,
+        automaticLayout: true
     })
 
     setTimeout(() => {

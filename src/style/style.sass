@@ -3,13 +3,24 @@
 
 body
     margin: 0px
-    background-color: #222
+    background-color: #000
     overflow: hidden
 
+#bg
+    width: 100vw
+    height: 100vh
+    position: absolute
+    top: 0
+    filter: hue-rotate(135deg)
+    // background-size: cover
+    // background-image: url('../art/wallpaper.jpg')
+
+
 header
-    border-bottom: 2px #212121 solid
-    padding: 2px 5px 2px 5px
+    padding: 5px 5px 5px 5px
     -webkit-app-region: drag
+    backdrop-filter: blur(20px)
+    background-color: rgba(0, 0, 0, 0.3)
     .btn
         -webkit-app-region: no-drag
         vertical-align: middle

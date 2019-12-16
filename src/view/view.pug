@@ -9,6 +9,8 @@ html(lang="en")
             function $(query) { return document.querySelector(query) }
             const DEBUG = true
     body
+        video#bg(autoplay height="100vh" loop="true" muted)
+            source(src="../art/bg.mp4" type="video/mp4")
         header
             .btn#exit
             .btn#min
@@ -16,6 +18,6 @@ html(lang="en")
             
         #editor
 
-        script(src="../lib/ace.js")
+        script(src="../render/sky.js")
         script(src="../render/render.js")
         script(src="../render/window-controls.js")
