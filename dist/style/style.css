@@ -14,6 +14,11 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+#editor span.fun {
+  background: -webkit-linear-gradient(45deg, #aa00ff, #0000ff) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
 #editor span.mtk13 {
   background: -webkit-linear-gradient(45deg, #F03900, #FF7700);
   -webkit-background-clip: text;
@@ -175,6 +180,10 @@
 
 .monaco-list-type-filter {
   box-shadow: 1px 1px 1px #000000;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {

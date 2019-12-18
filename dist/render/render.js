@@ -35,7 +35,28 @@ amdRequire(['vs/editor/editor.main'], () => {
         automaticLayout: true
     });
 
+    // Highlight syntax
+    editor.getModel().onDidChangeDecorations((e) => {
+        let lines = document.querySelectorAll('.mtk1');
+        let prev = null;
+        
+        for (const line of lines) {
+            if (line.nextSibling != null) {
+                if (line.nextSibling.innerHTML[0] === '(') {
+                    if (!line.classList.contains('fun')) {
+                        line.classList.add('fun');
+                    }
+                } else {
+                    if (line.classList.contains('fun')) {
+                        line.classList.remove('fun');
+                    }
+                }
+            }
+        }
+    })
+
     setTimeout(() => {
+        console.log(editor.getModel().getAllDecorations())
         let style = $('.monaco-list style');
         style.remove();
     }, 1000);
