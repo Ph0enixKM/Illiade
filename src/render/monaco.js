@@ -16,8 +16,6 @@ amdRequire.config({
     baseUrl: uriFromPath(path.join(__dirname, '../../node_modules/monaco-editor/min'))
 })
 
-
-
 // workaround monaco-css not understanding the environment
 self.module = undefined
 
@@ -53,16 +51,17 @@ amdRequire(['vs/editor/editor.main'], () => {
     setTimeout(() => {
         let style = $('.monaco-list style')
         style.remove()
+        syntaxHighlight()
 
 
         // Highlight other parts of language
-        
-        syntaxHighlight()
         function syntaxHighlight () {
             let lines = document.querySelectorAll('.mtk1')
             let prev = null
-            console.log(lines.length);
+            
             for (const line of lines) {
+                if (line.nextSibling == null) continue
+
                 if (line.nextSibling.innerHTML[0] === '(') {
                     if (!line.classList.contains('fun')) {
                         line.classList.add('fun')
@@ -74,25 +73,10 @@ amdRequire(['vs/editor/editor.main'], () => {
                     }
                 }
             }
-            
-            
-            // console.log(Array.from(...lines.children))
-            // for (let index = 0; index < lines.length; index++) {
-            //     let line = lines[index]
-    
-            //     for (let i = 0; i < line.length; i++) {
-            //         console.log(line[i], prev)
-    
-            //         if (line[i].innerHTML[0] === '(' && prev.className === 'mtk1') {
-            //             console.log("YES", line[i], prev)
-            //         }
-    
-            //         prev = line[i]
-            //     }
-            //     prev = null
-            // }
-            // requestAnimationFrame(syntaxHighlight)
         }
+
+        editor.getModel().onDidChangeDecorations(syntaxHighlight)
+        setInterval(syntaxHighlight, 100)
     }, 1000)
 
 

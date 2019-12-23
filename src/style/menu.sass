@@ -1,0 +1,39 @@
+#menu
+    position: absolute
+    top: 28px
+    height: calc(100vh - 28px)
+    width: 100vw
+    backdrop-filter: blur(0px)
+    z-index: 3
+    visibility: hidden
+    transition: 300ms
+    #container
+        will-change: transform, bacdrop-filter
+        position: absolute
+        top: -50vh
+        left: 50vw
+        transform: translate(-50%, -50%)
+        transition: 300ms
+        transition-timing-function: cubic-bezier(0, .97, .51, .99)
+        user-select: none
+        #title
+            font-size: 50px
+            color: white
+            font-family: Lato
+        #subtitle
+            font-size: 30px
+            color: #888
+            font-family: Lato
+        #input
+            margin: 30px
+            padding: 30px
+            background-color: rgba(100, 100, 100, 0.5)
+            border: none
+            border-radius: 30px
+            outline: none
+            color: white
+            font-family: Lato
+            font-size: 30px
+            &::selection
+                background-color: orange
+

@@ -1,0 +1,44 @@
+#error
+    z-index: 5
+    width: 175px
+    height: 75px
+    overflow-y: scroll
+    overflow-x: hidden
+    position: absolute
+    bottom: 30px
+    right: -250px
+    will-change: border
+    background: linear-gradient(rgba(255, 0, 0, 0.4), rgba(255, 0, 0, 0.2))
+    border-radius: 20px
+    animation: error 3s infinite
+    opacity: 1
+    padding: 20px
+    color: rgb(255, 170, 170)
+    font-family: Lato
+    transition: 200ms
+    word-wrap: break-word
+        
+    &::-webkit-scrollbar
+        background-color: transparent
+    &::-webkit-scrollbar-track
+        background-color: transparent
+    &::-webkit-scrollbar-thumb
+        background-color: rgba(255, 0, 0, 0.5)
+        border-radius: 20px
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5)
+        
+    &:hover
+        cursor: pointer
+        transform: scale(0.95)
+    &:active
+        transform: scale(0.9)
+        opacity: 0.9
+
+@keyframes error
+    0%
+        bottom: 30px
+    50%
+        bottom: 40px
+    100%
+        bottom: 30px
+        

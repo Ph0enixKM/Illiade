@@ -1,4 +1,8 @@
 @import 'monaco.sass'
+@import 'file-system.sass'
+@import 'menu.sass'
+@import 'error.sass'
+
 
 html
     scroll-behavior: smooth
@@ -14,9 +18,11 @@ body
     position: absolute
     top: 0
     filter: hue-rotate(135deg)
-    // background-size: cover
-    // background-image: url('../art/wallpaper.jpg')
 
+.tippy-tooltip
+    font-family: Lato
+    background-color: rgba(100, 100, 100, 0.2) !important
+    backdrop-filter: blur(10px)
 
 header
     padding: 5px 5px 5px 5px
@@ -35,8 +41,12 @@ header
         &:hover
             opacity: 0.5
     #exit
-        background-image: url('../art/titlebutton-close.svg')
+        background-image: url('../../art/titlebutton-close.svg')
     #min
-        background-image: url('../art/titlebutton-minimize.svg')
+        background-image: url('../../art/titlebutton-minimize.svg')
     #max
-        background-image: url('../art/titlebutton-maximize.svg')
+        background-image: url('../../art/titlebutton-maximize.svg')
+
+@font-face
+    font-family: Lato
+    src: url('../../art/lato.ttf')

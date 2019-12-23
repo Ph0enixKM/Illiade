@@ -1,5 +1,5 @@
-const { app, BrowserWindow, Menu } = require('electron')
-const path = require('path')
+import { app, BrowserWindow, Menu, dialog } from 'electron'
+import path from 'path'
 
 
 // Globals

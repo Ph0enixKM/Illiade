@@ -4,20 +4,42 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="../style/style.css")
+        link(rel="stylesheet", href="../../node_modules/tippy.js/themes/light.css")
+        script(src="../../node_modules/popper.js/dist/umd/popper.min.js")
+        script(src="../../node_modules/tippy.js/dist/tippy-bundle.iife.js")
         script.
             let exports = {"__esModule": true}
             function $(query) { return document.querySelector(query) }
             const DEBUG = true
     body
         video#bg(autoplay height="100vh" loop="true" muted)
-            source(src="../art/bg.mp4" type="video/mp4")
+            source(src="../../art/bg.mp4" type="video/mp4")
         header
             .btn#exit
             .btn#min
             .btn#max
-            
+        #quick-files
+        #file-system
+            #change-dir(data-tippy-content="ALT + D")
+            ol.dir
+                span.icon
+                span.dir Folder
+                .files
+                    li.file File1
+                    li.file File2
+                    li.file File3
         #editor
+        #menu
+            #container
+                #title This is a title
+                #subtitle This is a subtitle
+                input#input(placeholder="This is a placeholder")
+        #error Error: Oopsie
 
-        script(src="../render/sky.js")
-        script(src="../render/render.js")
+
+        script(src="../render/main.js")
+        script(src="../render/error.js")
+        script(src="../render/menu.js")
+        script(src="../render/monaco.js")
+        script(src="../render/file-system.js")
         script(src="../render/window-controls.js")
