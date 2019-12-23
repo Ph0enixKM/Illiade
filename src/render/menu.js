@@ -7,7 +7,7 @@ class Menu{
             title: $('#menu #title'),
             subtitle: $('#menu #subtitle'),
             input: $('#menu #input'),
-            container: $('#container')
+            container: $('#menu #container')
         }
 
         this.busy = false
@@ -57,12 +57,12 @@ class Menu{
         this.element.style.visibility = 'visible'
         this.element.style.backdropFilter = 'blur(0px)'
         this.ui.container.style.transitionTimingFunction = 'cubic-bezier(0, .97, .51, .99)'
-        this.ui.container.style.transitionDuration = '1000ms'
+        this.ui.container.style.transitionDuration = '500ms'
 
         
         setTimeout(() => {
-            this.element.style.backdropFilter = 'blur(10px)'
             this.ui.container.style.top = '50vh'
+            this.element.style.backdropFilter = 'blur(10px)'
             this.ui.container.style.opacity = '1'
             this.ready = true
             this.tries = 0
@@ -95,7 +95,7 @@ class Menu{
         this.ui.container.style.top = '-50vh'
         this.ui.container.style.transitionTimingFunction = 'cubic-bezier(.84, 0, 0.96, .42)'
         this.ui.container.style.opacity = '0'
-        this.ui.container.style.transitionDuration = '300ms'
+        this.ui.container.style.transitionDuration = '200ms'
         
         setTimeout(() => {
             this.element.style.visibility = 'hidden'

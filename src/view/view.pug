@@ -7,6 +7,7 @@ html(lang="en")
         link(rel="stylesheet", href="../../node_modules/tippy.js/themes/light.css")
         script(src="../../node_modules/popper.js/dist/umd/popper.min.js")
         script(src="../../node_modules/tippy.js/dist/tippy-bundle.iife.js")
+        script(src="../../lang/cpp.js")
         script.
             let exports = {"__esModule": true}
             function $(query) { return document.querySelector(query) }
@@ -21,13 +22,7 @@ html(lang="en")
         #quick-files
         #file-system
             #change-dir(data-tippy-content="ALT + D")
-            ol.dir
-                span.icon
-                span.dir Folder
-                .files
-                    li.file File1
-                    li.file File2
-                    li.file File3
+            #container
         #editor
         #menu
             #container

@@ -20,18 +20,55 @@ amdRequire.config({
 self.module = undefined
 
 
-
 amdRequire(['vs/editor/editor.main'], () => {
+    
+    // ---------
+    
+    // Register a new language
+    monaco.languages.register({ id: 'C++' })
+    monaco.languages.setMonarchTokensProvider('C++', CPP_LANGUAGE)
+    
+    // Register a completion item provider for the new language
+    monaco.languages.registerCompletionItemProvider('C++', {
+        provideCompletionItems: () => {
+            var suggestions = [{
+                label: 'string',
+                kind: monaco.languages.CompletionItemKind.Text,
+                insertText: 'string'
+            }, {
+                label: 'cout',
+                kind: monaco.languages.CompletionItemKind.Keyword,
+                insertText: 'cout << ${1:condition} << \'\\n\';$0',
+                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            }, {
+                label: 'ifelse',
+                kind: monaco.languages.CompletionItemKind.Snippet,
+                insertText: [
+                    'if (${1:condition}) {',
+                    '\t$0',
+                    '} else {',
+                    '\t',
+                    '}'
+                ].join('\n'),
+                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+            }];
+            return { suggestions: suggestions };
+        },
+    })
+    
 
     // Config Theme
     monaco.editor.defineTheme('blaze', {
         base: 'vs-dark', // can also be vs-dark or hc-black
         inherit: true, // can also be false to completely replace the builtin rules
         rules: [
-            { token: 'comment.cpp', foreground: '555555', fontStyle: 'italic' },
-            { token: 'keyword', foreground: 'cc4400' },
-            { token: 'number', foreground: 'ff8800' },
-            { token: 'string', foreground: '44aa00' },
+            { token: 'comment', foreground: '555555', fontStyle: 'italic' },
+            { token: 'keyword', foreground: 'CA00B9' },
+            { token: 'number', foreground: 'FF7700' },
+            { token: 'string', foreground: '7CC471' },
+            { token: 'type', foreground: '30B8C3' },
+            { token: 'function', foreground: '5DA3F2' },
+            { token: 'identifier', foreground: 'EF575A' },
             { background : '000000'}
         ]
     })
@@ -42,41 +79,22 @@ amdRequire(['vs/editor/editor.main'], () => {
             '\treturn 0;',
             '}',
         ].join('\n'),
-        language: 'cpp',
-        theme: "blaze",
+        language: 'C++',
+        theme: 'blaze',
         contextmenu: false,
-        automaticLayout: true
+        automaticLayout: true,
+        scrollbar: {
+            useShadows: false,
+            verticalHasArrows: false,
+            horizontalHasArrows: false,
+            verticalScrollbarSize: 15,
+            horizontalScrollbarSize: 15
+        }
     })
 
     setTimeout(() => {
         let style = $('.monaco-list style')
         style.remove()
-        syntaxHighlight()
-
-
-        // Highlight other parts of language
-        function syntaxHighlight () {
-            let lines = document.querySelectorAll('.mtk1')
-            let prev = null
-            
-            for (const line of lines) {
-                if (line.nextSibling == null) continue
-
-                if (line.nextSibling.innerHTML[0] === '(') {
-                    if (!line.classList.contains('fun')) {
-                        line.classList.add('fun')
-                    }
-                }
-                else {
-                    if (line.classList.contains('fun')) {
-                        line.classList.remove('fun')
-                    }
-                }
-            }
-        }
-
-        editor.getModel().onDidChangeDecorations(syntaxHighlight)
-        setInterval(syntaxHighlight, 100)
     }, 1000)
 
 

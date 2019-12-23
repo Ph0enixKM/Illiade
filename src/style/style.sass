@@ -17,7 +17,17 @@ body
     height: 100vh
     position: absolute
     top: 0
-    filter: hue-rotate(135deg)
+    opacity: 0.5
+    filter: grayscale(100%)
+
+    // filter: hue-rotate(135deg)
+    // animation: bg-hue 360s infinite
+
+@keyframes bg-hue
+    0%
+        filter: hue-rotate(0deg)
+    100%
+        filter: hue-rotate(360deg)
 
 .tippy-tooltip
     font-family: Lato

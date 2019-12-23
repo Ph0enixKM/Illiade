@@ -1,7 +1,7 @@
 import fs from 'fs'
-import electronPackager from 'electron-packager'
 
 let fileSystem = $('#file-system')
+let fsCont = $('#file-system #container')
 let changeDir = $('#change-dir')
 
 changeDir.addEventListener('click', changeDirectory)
@@ -35,7 +35,7 @@ async function changeDirectory() {
             
             files.forEach((value, index) => {
                 let dir = new Directory(inputDir, value)
-                fileSystem.appendChild(dir.getElement())
+                fsCont.appendChild(dir.getElement())
             })
 
 
