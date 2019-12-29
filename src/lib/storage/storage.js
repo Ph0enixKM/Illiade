@@ -42,6 +42,6 @@ class Storage {
 }
 
 
-return new Storage
+return new Storage()
 
 })()

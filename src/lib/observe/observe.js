@@ -1,4 +1,4 @@
-const { Variable, List } = (() => {
+const Variable = (() => {
 
 const defaultWarn = 'Observable: Variable is being instantiated without a default value'
 const triggerWarn = 'Observable: Invalid trigger input'
@@ -6,12 +6,15 @@ const untriggerWarn = 'Observable: ID must be a string'
 const untriggerNullWarn = 'Observable: Couldn\'t untrigger - such observator not found'
 
 // Main Class
-class Core {
+class Variable {
     
-    constructor() {
+    constructor(initValue) {
         // Callbacks mechanics
         this.indexes = []
         this.callbacks = []
+
+        if (initValue == null) console.warn(defaultWarn)
+        this.value = initValue
     }
 
     // Triger all observations
@@ -71,26 +74,6 @@ class Core {
 
         else throw untriggerWarn
     }
-}
-
-// Variable Class
-class Variable extends Core {
-    constructor(initValue) {
-        if (initValue == null) console.warn(defaultWarn)
-        
-        super()
-        this.value = initValue
-    }
-}
-
-// Array Class
-class List extends Core {
-    constructor(initValue) {
-        if (initValue == null) initValue = []
-        
-        super()
-        this.value = initValue
-    }
 
     push(...given) {
         this.value.push(...given)
@@ -121,13 +104,9 @@ class List extends Core {
         this.value.splice(...given)
         this.change()
     }
-
-
 }
 
-return {
-    Variable,
-    List
-}
+
+return Variable
 
 })()

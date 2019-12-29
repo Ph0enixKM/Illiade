@@ -9,6 +9,7 @@ html(lang="en")
         script(src="../../node_modules/tippy.js/dist/tippy-bundle.iife.js")
         script(src="../../lang/cpp.js")
         script(src="../lib/observe/observe.js")
+        script(src="../lib/storage/storage.js")
         script.
             let exports = {"__esModule": true}
             function $(query) { return document.querySelector(query) }
@@ -32,6 +33,7 @@ html(lang="en")
                 input#input(placeholder="This is a placeholder")
         #error Error: Oopsie
 
+        script(src="../render/global.js")
         script(src="../render/main.js")
         script(src="../render/error.js")
         script(src="../render/menu.js")
