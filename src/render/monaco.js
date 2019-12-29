@@ -22,8 +22,6 @@ self.module = undefined
 
 amdRequire(['vs/editor/editor.main'], () => {
     
-    // ---------
-    
     // Register a new language
     monaco.languages.register({ id: 'C++' })
     monaco.languages.setMonarchTokensProvider('C++', CPP_LANGUAGE)
@@ -31,7 +29,7 @@ amdRequire(['vs/editor/editor.main'], () => {
     // Register a completion item provider for the new language
     monaco.languages.registerCompletionItemProvider('C++', {
         provideCompletionItems: () => {
-            var suggestions = [{
+            let suggestions = [{
                 label: 'string',
                 kind: monaco.languages.CompletionItemKind.Text,
                 insertText: 'string'
@@ -87,6 +85,8 @@ amdRequire(['vs/editor/editor.main'], () => {
             useShadows: false,
             verticalHasArrows: false,
             horizontalHasArrows: false,
+            vertical: 'hidden',
+            horizontal: 'hidden',
             verticalScrollbarSize: 15,
             horizontalScrollbarSize: 15
         }
