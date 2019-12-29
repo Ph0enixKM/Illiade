@@ -15,12 +15,13 @@ class Variable {
 
         if (initValue == null) console.warn(defaultWarn)
         this.value = initValue
+        this.before = null
     }
 
     // Triger all observations
     change() {
         for (const callback of this.callbacks) {
-            callback(this.value)
+            callback(this.value, this.before)
         }
     }
 
@@ -33,13 +34,14 @@ class Variable {
     set val(given) {
         this.value = given
         this.change()
+        this.before = this.value
         return this.value
     }
 
     // Observe the Variable
     trigger(given, optional) {
         let index = null
-        let callback = (_) => {}
+        let callback = (_value, _before) => {}
 
         if (typeof given === 'function') {
             callback = given
@@ -78,31 +80,37 @@ class Variable {
     push(...given) {
         this.value.push(...given)
         this.change()
+        this.before = this.value
     }
 
     pop() {
         this.value.pop()
         this.change()
+        this.before = this.value
     }
 
     shift() {
         this.value.shift()
         this.change()
+        this.before = this.value
     }
 
     unshift(...given) {
         this.value.unshift(...given)
         this.change()
+        this.before = this.value
     }
 
     sort(given) {
         this.value.sort(given)
         this.change()
+        this.before = this.value
     }
 
     splice(...given) {
         this.value.splice(...given)
         this.change()
+        this.before = this.value
     }
 }
 

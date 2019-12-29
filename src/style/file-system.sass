@@ -55,7 +55,7 @@
         box-shadow: -5px 0 black 5px
         color: #888
         border-radius: 5px
-        transition: 200ms
+        // transition: 100ms
         padding: 5px 5px
         cursor: pointer
         &:hover
@@ -71,6 +71,10 @@
             background-image: url('../../art/file-icon.svg')
             background-position: center
             background-size: cover
+        &.selected
+            background: -webkit-linear-gradient( 45deg, #CB4801, #F38A01) !important
+            -webkit-background-clip: text !important
+            -webkit-text-fill-color: transparent !important
     .cpp::before
             background-image: url('../../art/cpp-icon.svg')
     .mg::before

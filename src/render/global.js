@@ -31,6 +31,7 @@ class Global {
 new Global('always', 'ROOT', '', 'Current root diretory')
 new Global('always', 'ROOTS', [], 'Used root directories')
 new Global('always', 'FORMATS', ['cpp', 'mg'], 'All file formats supported')
+new Global('brief', 'OPENED', {}, 'Opened file - holds HTML Element')
 
 
 

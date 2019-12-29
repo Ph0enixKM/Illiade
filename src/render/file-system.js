@@ -5,6 +5,14 @@ let fileSystem = $('#file-system')
 let fsCont = $('#file-system #container')
 let changeDir = $('#change-dir')
 
+OPENED.trigger((element, lastElement) => {
+    element.children[0].classList.add('selected')
+    
+    if (lastElement !== null) {
+        lastElement.children[0].classList.remove('selected')
+    }
+})
+
 changeDir.addEventListener('click', changeDirectory)
 window.addEventListener('keydown', e => {
     if (e.key.toLowerCase() == 'd' && e.altKey)
@@ -70,7 +78,7 @@ class Directory {
         this.element.className = 'item'
 
         this.element.setAttribute('path', path)
-        this.element.setAttribute('name', name)
+        this.element.setAttribute('dir-name', name)
         this.element.setAttribute('fullpath', this.fullpath)
 
         this.element.innerHTML = `
@@ -78,11 +86,12 @@ class Directory {
             <div class="files">  </div>
         `
 
-        this.element.children[0].addEventListener('click', this.click, false)
+        this.element.addEventListener('click', this.click.bind(this), false)
     }
 
     click(event) {
         this.tree = !this.tree
+        this.element.children[0].classList.toggle('expanded')
         console.log(`Is expanded tree? ${this.tree}`)
     }
 
@@ -93,6 +102,7 @@ class Directory {
 
 class File {
     constructor(path, name) {
+
         // Setup full path
         if (path[path.length - 1] === '/')
             this.fullpath = path + name
@@ -122,10 +132,16 @@ class File {
         this.element.innerHTML = `
             <span class="file ${formatTag}" file-name="${name}"> ${short} </span>
         `
+        this.element.addEventListener('click', this.click.bind(this), false)
+    }
+
+    click(event) {
+        OPENED.val = this.element
     }
 
     getElement() {
         return this.element
     }
+    
 
 }
