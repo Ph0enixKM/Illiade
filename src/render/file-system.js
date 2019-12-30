@@ -1,5 +1,4 @@
 import fs from 'fs'
-import { formatDiagnostic } from 'typescript'
 
 let fileSystem = $('#file-system')
 let fsCont = $('#file-system #container')
@@ -8,19 +7,13 @@ let changeDir = $('#change-dir')
 OPENED.trigger((element, lastElement) => {
     element.children[0].classList.add('selected')
     
-    if (lastElement !== null) {
+    if (lastElement !== null && lastElement !== element) {
         lastElement.children[0].classList.remove('selected')
     }
 })
 
-changeDir.addEventListener('click', changeDirectory)
-window.addEventListener('keydown', e => {
-    if (e.key.toLowerCase() == 'd' && e.altKey)
-        changeDirectory()
-})
-
-
-async function changeDirectory() {
+// Menu "Change Directory" (button click)
+changeDir.addEventListener('click', async e => {
     menu.on({
         title: 'Change root directory',
         subtitle: 'You can only write absolute path.',
@@ -29,40 +22,93 @@ async function changeDirectory() {
 
     let inputDir = await menu.get()
     fsCont.innerHTML = ''
+    
+    if (inputDir === null) return false
+    changeDirectory(inputDir)
+})
 
+// Menu "Change Directory" (keyboard shortcut)
+window.addEventListener('keydown', async e => {
+    if (e.key.toLowerCase() == 'd' && e.altKey) {
+        menu.on({
+            title: 'Change root directory',
+            subtitle: 'You can only write absolute path.',
+            placeholder: '/home/'
+        })
+    
+        let inputDir = await menu.get()
+        fsCont.innerHTML = ''
+        
+        if (inputDir === null) return false
+        changeDirectory(inputDir)
+    }
+})
+
+// Menu "Change Directory" (init load)
+window.onload = () => {
+    if (ROOT.val != null && ROOT.val.length !== 0)
+        changeDirectory(ROOT.val)
+}
+
+// This function generates file system tree
+async function generateTree(container, files, directory) {
+    let isDirs = []
+
+    // Avoid this way stack overflow
+    async function checkFileStats(directory, file) {
+        return new Promise(res => {
+            fs.stat(path.join(directory, file), (err, stats) => {
+                if (err) return res(null)            
+                return res(stats.isDirectory())
+            })
+        })
+    }
+    
+    for (const file of files) {
+        let boolValue = await checkFileStats(directory, file)
+        isDirs.push(boolValue)
+    }
+    
+    files.forEach((value, index) => {
+        if (isDirs[index] === null) return
+
+        if (isDirs[index]) {
+            let dir = new Directory(directory, value)
+            container.appendChild(dir.getElement())
+        }
+
+        else {
+            let file = new File(directory, value)
+            container.appendChild(file.getElement())
+        }
+    })
+}
+
+// Main function to change current ROOT directory
+async function changeDirectory(inputDir) {
     fs.readdir(inputDir, (error, files) => {
         if (error) {
             err.spawn(`Such directory like '${inputDir}' does not exist`)
         }
 
         else {
-            let isDirs = []
-            
-            for (const file of files) {
-                let boolValue = fs.statSync(path.join(inputDir, file)).isDirectory()
-                isDirs.push(boolValue)
-            }
-            
-            files.forEach((value, index) => {
-                if (isDirs[index]) {
-                    let dir = new Directory(inputDir, value)
-                    fsCont.appendChild(dir.getElement())
-                }
-
-                else {
-                    let file = new File(inputDir, value)
-                    fsCont.appendChild(file.getElement())
-                }
-            })
+            generateTree(fsCont, files, inputDir)
             
             ROOT.val = inputDir
             ROOTS.push(inputDir)
+
+            ROOTS.val = [...new Set(ROOTS.val)]
+            
+            // Automate em
+            storage.set('ROOT', ROOT.val)
+            storage.set('ROOTS', ROOTS.val)
 
         }
     })    
 }
 
-
+// Directory Object Class
+// - Contains HTML representation
 class Directory {
     constructor(path, name) {
         this.tree = false
@@ -75,7 +121,7 @@ class Directory {
 
         // Element
         this.element = document.createElement('div')
-        this.element.className = 'item'
+        this.element.className = 'item'        
 
         this.element.setAttribute('path', path)
         this.element.setAttribute('dir-name', name)
@@ -88,10 +134,25 @@ class Directory {
 
         this.element.addEventListener('click', this.click.bind(this), false)
     }
+    
 
     click(event) {
+        // Prevent from children captiring event
+        if (![this.element, this.element.children[0]].includes(event.target)) return false
+
         this.tree = !this.tree
         this.element.children[0].classList.toggle('expanded')
+
+        // Expand
+        if (this.tree) {
+            let insides = fs.readdirSync(this.fullpath)
+            generateTree(this.element.children[1], insides, this.fullpath)
+        }
+
+        // Hide
+        else {
+            this.element.children[1].innerHTML = ''
+        }
         console.log(`Is expanded tree? ${this.tree}`)
     }
 
@@ -100,6 +161,8 @@ class Directory {
     }
 }
 
+// File Object Class
+// - Contains HTML representation
 class File {
     constructor(path, name) {
 

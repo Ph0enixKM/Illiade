@@ -4,7 +4,10 @@ class Global {
 
         // If saved with the app
         if (kind === 'always') {
-            storage.create(name, value)
+            let exists = storage.create(name, value)
+            if (!exists) {
+                value = storage.get(name)
+            }
             window[name] = new Variable(value)
         }
 

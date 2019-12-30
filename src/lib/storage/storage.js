@@ -10,7 +10,7 @@ class Storage {
     get(id) {
         let raw = localStorage.getItem(`${this.hash}-${id}`)
         if (raw === null) return null
-        return JSON.parse(raw)
+        return JSON.parse(raw).value
     }
 
     // Creates if non-existant
@@ -25,7 +25,9 @@ class Storage {
         
         if (raw === null) {
             localStorage.setItem(`${this.hash}-${id}`, JSON.stringify(record))
+            return true
         }
+        return false
     }
 
     // Overwrites value

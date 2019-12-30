@@ -20,6 +20,8 @@ class Menu{
         this.subtitle = ''
         this.input = ''
         this.placeholder = ''
+
+        this.closeEvent = new Variable(false)
     }
 
     _sleep() {
@@ -76,20 +78,32 @@ class Menu{
             this.ui.input.addEventListener('keydown', function _ (e) {
                 if (e.key === 'Enter') {
                     menu.ui.input.removeEventListener('keydown',_ , false)
-                    menu.off()
+                    menu.off('DONE')
                     return res(menu.ui.input.value)
                 }
             }, false)
+
+            this.closeEvent.triggerOnce(() => {
+                return res(null)
+            })
         })
     }
 
-    async off() {
+    async off(code) {
         // Wait for animation to end
         while(!this.ready) {
             if (this.tries >= this.maxTries) return null
             await this._sleep()
             this.tries++
         }
+
+        if (code === 'ABORT') {
+            this.closeEvent.tick(true)
+        }
+        else if (code === 'DONE') {
+            // Nothing yet
+        }
+        else throw 'BAD CODE'
 
         this.element.style.backdropFilter = 'blur(0px)'
         this.ui.container.style.top = '-50vh'
@@ -116,6 +130,6 @@ window.menu = new Menu()
 
 window.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-        menu.off()
+        menu.off('ABORT')
     }
 })
