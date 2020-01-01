@@ -1,0 +1,75 @@
+// Text Editor is in 'monaco.sass'
+
+
+#view
+    backdrop-filter: blur(10px)
+    display: inline-block
+    vertical-align: top
+    width: calc(100vw - 200px)
+    height: 100vh
+    #image
+        transition: opacity 200ms 
+        visibility: hidden
+        position: absolute
+        top: 0
+        left: 0
+        user-select: none
+        width: calc(100vw - 200px)
+        height: 100vh
+        text-align: center
+        opacity: 0
+        &:hover #image-container
+            transform: translate(0, -50%) scale(1.05)
+        #image-container
+            display: inline-block
+            position: relative
+            top: 50vh
+            transform: translate(0, -50%)
+            width: calc(80vw - 200px)
+            height: 80vh
+            background-position: center
+            background-size: contain
+            background-repeat: no-repeat
+            background-image: none
+            transition: transform 300ms
+
+
+    #welcome
+        transition: opacity 300ms
+        position: absolute
+        top: 0
+        left: 0
+        user-select: none
+        width: calc(100vw - 200px)
+        height: 100vh
+        text-align: center
+        vertical-align: middle
+        div
+            position: relative
+            top: 50vh
+            transform: translate(0, -50%)
+            display: inline-block
+            img
+                
+                width: 200px
+                height: 200px
+                animation: welcome 5s infinite
+            h1
+                letter-spacing: 3px
+                color: #aaa
+                font-family: Lato
+                margin: 5px
+            i
+                padding: 5px
+                font-family: Lato
+                background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
+                -webkit-background-clip: text
+                -webkit-text-fill-color: transparent
+
+@keyframes welcome
+    0%
+        filter: saturate(70%)
+    50%
+        filter: saturate(170%)
+    100%
+        filter: saturate(70%)

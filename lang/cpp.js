@@ -32,31 +32,36 @@ const CPP_LANGUAGE = {
     // The main tokenizer for our languages
     tokenizer: {
       root: [
+        // Structure declarations
+        [/\b(class|struct|union|enum|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
+
         // Keywords
-        [/\b(abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop)\b/, "keyword"],
-  
+        [/\b(using|typedef|namespace|abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop)\b/, "keyword"],
+        [/(\*|&)(?=[^&])/, 'keyword'],
+
         // Directives
         [/(#include)(\s+)(\S+)/, ['keyword', 'default', 'string']],
         [/#\S+/, 'keyword'],
-
-        // Types
-        [/([A-Za-z_][0-9A-Za-z_]*)(\s+)(?=[A-Za-z_])/, ['type', 'default']],
-        [/([A-Za-z_][0-9A-Za-z_]*)(\s+)(?=[*&][^\s])/, ['type', 'default']],
-  
-        // Functions
-        [/([A-Za-z][0-9A-Za-z_]*)(\()/, ['function', 'default']],
-        [/([A-Za-z][0-9A-Za-z_]*)(<[^\(\s]+>)(\()/, ['function', 'type', 'default']],
         
-        [/\b(NULL|nullptr)\b/, 'number' ],  // to show class names nicely
+        // Types
+        [/([A-Za-z_][0-9A-Za-z_:<>]*)(\s+)(?=[A-Za-z_])/, ['type', 'default']],
+        [/([A-Za-z_][0-9A-Za-z_:<>]*)(\s+)(?=[*&]+[^\s])/, ['type', 'default']],
+        [/([A-Za-z_][0-9A-Za-z_:<>]*)([*&]+)(\s+)(?=[A-Za-z_])/, ['type', 'keyword', 'default']],
+        
+        // Functions
+        [/([A-Za-z][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
+        // [/([A-Za-z][0-9A-Za-z_]*)(\s*<[^\(\s]+>\s*)(\()/, ['function', 'type', 'default']],
+        
+        [/\b(NULL|nullptr)\b/, 'number' ],
         [/\b([0-9A-Z_]+)\b/, 'number' ],
-  
+        
         // whitespace
         { include: '@whitespace' },
-  
+        
         // delimiters and operators
         [/@symbols/, { cases: { '@operators': 'operator',
-                                '@default'  : 'default' } } ],
-  
+        '@default'  : 'default' } } ],
+        
         // numbers
         [/\b\d*\.\d+([eE][\-+]?\d+)?\b/, 'number.float'],
         [/\b0[xX][0-9a-fA-F]+\b/, 'number.hex'],
@@ -64,11 +69,14 @@ const CPP_LANGUAGE = {
         
         // booleans
         [/\b(true|false)\b/, 'number'],
-  
+        
         // delimiter: after number because of .\d floats
-        [/[;,.]/, 'delimiter'],
+        [/[;,.:]/, 'delimiter'],
+        
+        // identifiers
+        [/([A-Za-z_$]+)(\<\S*\>)/, ['identifier', 'type']],
         [/\b[A-Za-z_$]+\b/, 'identifier'],
-  
+        
         // strings
         [/"/,  { token: 'string.quote', bracket: '@open', next: '@string' } ],
   

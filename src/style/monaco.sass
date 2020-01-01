@@ -4,21 +4,21 @@ $monaco-color: rgba(0, 0, 0, 0.2)
 
 #editor
     display: inline-block
+    visibility: hidden
     vertical-align: top
     width: calc(100vw - 200px)
     height: 100vh
+    transition: opacity 300ms
+    opacity: 0
     & .current-line
         border: none
         background-color: #3333
     & .cslr.selected-text
-        background-color: #3c3732
+        background-color: #333
 
-    // Word
+    // base color
     & span.mtk1
-        // background: -webkit-linear-gradient( 45deg, #FFaaaa, #FFeeaa)
-        // -webkit-background-clip: text
-        // -webkit-text-fill-color: transparent
-
+        color: #aaa
     // Function
     // & span.fun
     //     background: -webkit-linear-gradient( 45deg, #aa00ff, #0000ff) !important
@@ -71,7 +71,6 @@ $monaco-color: rgba(0, 0, 0, 0.2)
 
 .monaco-editor-background
     background-color: transparent !important
-    backdrop-filter: blur(10px)
 .monaco-editor
     background-color: transparent !important
 
@@ -81,14 +80,14 @@ $monaco-color: rgba(0, 0, 0, 0.2)
     backdrop-filter: blur(20px)
     
 .minimap-slider
-    background: rgba(100, 100, 100, 0.1) !important
+    background: rgba(100, 100, 100, 0.5) !important
 .minimap-slider-horizontal
     background: rgba(0, 0, 0, 0.1) !important
 
 .monaco-list-row
     transition: 200ms
     & span.highlight
-        background: -webkit-linear-gradient( 45deg, #F03900, #FF7700) !important
+        background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9) !important
         -webkit-background-clip: text !important
         -webkit-text-fill-color: transparent !important
 .monaco-list.list_id_1:focus .monaco-list-row.focused

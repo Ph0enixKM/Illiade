@@ -6,6 +6,5 @@ tippy('[data-tippy-content]', {
 window.onload = () => {
     setTimeout(() => {
         $('.inputarea').focus()
-
     }, 500)
 }

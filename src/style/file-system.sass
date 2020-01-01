@@ -45,7 +45,7 @@
             background-repeat: no-repeat
         &:hover
             opacity: 1
-            background: linear-gradient(90deg, red, orange)
+            background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
             &::after
                 background-image: url('../../art/home-button.svg')
 
@@ -72,13 +72,19 @@
             background-position: center
             background-size: cover
         &.selected
-            background: -webkit-linear-gradient( 45deg, #CB4801, #F38A01)
+            background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
             -webkit-background-clip: text
             -webkit-text-fill-color: transparent
     .cpp::before
-            background-image: url('../../art/cpp-icon.svg')
+        background-image: url('../../art/cpp-icon.svg')
     .mg::before
-            background-image: url('../../art/mg-icon.svg')
+        background-image: url('../../art/mg-icon.svg')
+    .png::before
+        background-image: url('../../art/png-icon.svg')
+    .jpg::before
+        background-image: url('../../art/jpg-icon.svg')
+    .svg::before
+        background-image: url('../../art/svg-icon.svg')
     .dir
         &::before
             vertical-align: middle
@@ -93,7 +99,7 @@
                 background-image: url('../../art/dir-open.svg')
     .files
         padding-left: 10px
-        padding-top: 5px
+        margin-top: 5px
     .icon
         display: inline-block
         width: 20px

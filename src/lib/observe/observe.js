@@ -12,8 +12,6 @@ class Variable {
         // Callbacks mechanics
         this.indexes = []
         this.callbacks = []
-
-        if (initValue == null) console.warn(defaultWarn)
         this.value = initValue
         this.before = null
     }
@@ -29,6 +27,19 @@ class Variable {
         }
     }
 
+    // Set value silently
+    set quiet(given) {
+        this.before = this.value
+        this.value = given
+        return this.value
+    }
+
+    // Get value silently (deprecated)
+    get quiet() {
+        console.warn('The \'quiet\' getter is deprecated. Use \'val\' getter instead')
+        return this.value
+    }
+
     // Get value of the observable Variable
     get val() {
         return this.value
@@ -36,9 +47,9 @@ class Variable {
 
     // Set value of the observable Variable
     set val(given) {
+        this.before = this.value
         this.value = given
         this.change()
-        this.before = this.value
         return this.value
     }
 
@@ -112,47 +123,47 @@ class Variable {
 
     // --- ARRAY ---
     push(...given) {
+        this.before = this.value
         this.value.push(...given)
         this.change()
-        this.before = this.value
     }
 
     pop() {
+        this.before = this.value
         this.value.pop()
         this.change()
-        this.before = this.value
     }
 
     shift() {
+        this.before = this.value
         this.value.shift()
         this.change()
-        this.before = this.value
     }
 
     unshift(...given) {
+        this.before = this.value
         this.value.unshift(...given)
         this.change()
-        this.before = this.value
     }
 
     sort(given) {
+        this.before = this.value
         this.value.sort(given)
         this.change()
-        this.before = this.value
     }
 
     splice(...given) {
+        this.before = this.value
         this.value.splice(...given)
         this.change()
-        this.before = this.value
     }
 
 
     // --- OBJECT ---
     set(key, value) {
+        this.before = this.value
         this.value[key] = value
         this.change()
-        this.before = this.value
         return this.value[key]
     }
 

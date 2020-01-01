@@ -23,11 +23,11 @@ self.module = undefined
 amdRequire(['vs/editor/editor.main'], () => {
     
     // Register a new language
-    monaco.languages.register({ id: 'C++' })
-    monaco.languages.setMonarchTokensProvider('C++', CPP_LANGUAGE)
+    monaco.languages.register({ id: '$cpp' })
+    monaco.languages.setMonarchTokensProvider('$cpp', CPP_LANGUAGE)
     
     // Register a completion item provider for the new language
-    monaco.languages.registerCompletionItemProvider('C++', {
+    monaco.languages.registerCompletionItemProvider('$cpp', {
         provideCompletionItems: () => {
             let suggestions = [{
                 label: 'string',
@@ -60,24 +60,22 @@ amdRequire(['vs/editor/editor.main'], () => {
         base: 'vs-dark', // can also be vs-dark or hc-black
         inherit: true, // can also be false to completely replace the builtin rules
         rules: [
-            { token: 'comment', foreground: '555555', fontStyle: 'italic' },
+            { token: 'comment', foreground: '888888', fontStyle: 'italic' },
             { token: 'keyword', foreground: 'CA00B9' },
             { token: 'number', foreground: 'FF7700' },
             { token: 'string', foreground: '7CC471' },
             { token: 'type', foreground: '30B8C3' },
             { token: 'function', foreground: '5DA3F2' },
             { token: 'identifier', foreground: 'EF575A' },
-            { background : '000000'}
+            { token: 'delimiter', foreground: '888888' },
+            { token: 'special', foreground: 'E09C4F' },
+            { background : '111111'}
         ]
     })
 
-    editor = monaco.editor.create(document.getElementById('editor'), {
-        value: [
-            'int main() {',
-            '\treturn 0;',
-            '}',
-        ].join('\n'),
-        language: 'C++',
+    window.editor = monaco.editor.create(document.getElementById('editor'), {
+        value: '',
+        language: '$cpp',
         theme: 'blaze',
         contextmenu: false,
         automaticLayout: true,

@@ -4,12 +4,37 @@ let fileSystem = $('#file-system')
 let fsCont = $('#file-system #container')
 let changeDir = $('#change-dir')
 
+// Selecting files
 OPENED.trigger((element, lastElement) => {
-    element.children[0].classList.add('selected')
-    
-    if (lastElement !== null && lastElement !== element) {
-        lastElement.children[0].classList.remove('selected')
+    // Deselect
+    if (element === lastElement) {
+        element.children[0].classList.remove('selected')
+        OPENED.quiet = null
     }
+
+    // Select
+    else {
+        element.children[0].classList.add('selected')
+        
+        if (lastElement != null)
+            lastElement.children[0].classList.remove('selected')
+    }
+})
+
+// Opening Files
+OPENED.trigger(element => {
+    // Open Welcome
+    if (element == null) {
+        view.open(null, null)
+    }
+
+    // Open File
+    else {
+        let extension = element.getAttribute('extension')
+        let fullpath = element.getAttribute('fullpath')
+        view.open(extension, fullpath)
+    }
+
 })
 
 // Menu "Change Directory" (button click)
@@ -17,13 +42,15 @@ changeDir.addEventListener('click', async e => {
     menu.on({
         title: 'Change root directory',
         subtitle: 'You can only write absolute path.',
-        placeholder: '/home/'
+        placeholder: '/home/',
+        wide: true
     })
 
+    menu.uploadHints(ROOTS.val)
     let inputDir = await menu.get()
-    fsCont.innerHTML = ''
     
     if (inputDir === null) return false
+    fsCont.innerHTML = ''
     changeDirectory(inputDir)
 })
 
@@ -33,13 +60,15 @@ window.addEventListener('keydown', async e => {
         menu.on({
             title: 'Change root directory',
             subtitle: 'You can only write absolute path.',
-            placeholder: '/home/'
+            placeholder: '/home/',
+            wide: true
         })
-    
+        
+        menu.uploadHints(ROOTS.val)
         let inputDir = await menu.get()
-        fsCont.innerHTML = ''
         
         if (inputDir === null) return false
+        fsCont.innerHTML = ''
         changeDirectory(inputDir)
     }
 })
@@ -95,9 +124,14 @@ async function changeDirectory(inputDir) {
             generateTree(fsCont, files, inputDir)
             
             ROOT.val = inputDir
-            ROOTS.push(inputDir)
+            ROOTS.unshift(inputDir)
 
             ROOTS.val = [...new Set(ROOTS.val)]
+
+            let historyLength = 20
+            if (ROOTS.val.length > historyLength) {
+                ROOTS.val = ROOTS.val.slice(0, historyLength)
+            }
             
             // Automate em
             storage.set('ROOT', ROOT.val)
@@ -165,7 +199,6 @@ class Directory {
 // - Contains HTML representation
 class File {
     constructor(path, name) {
-
         // Setup full path
         if (path[path.length - 1] === '/')
             this.fullpath = path + name
@@ -179,21 +212,23 @@ class File {
         this.element.setAttribute('path', path)
         this.element.setAttribute('name', name)
         this.element.setAttribute('fullpath', this.fullpath)
-
+        
         let format = new RegExp('\\.(.*)').exec(name)
-        let formatTag = ''
+        this.extension = ''
         
         if (format != null) {
-            if (FORMATS.val.includes(format[1])) {
-                formatTag = format[1]
+            let tempExt = format[1].toLowerCase()
+            if (FORMATS.val.includes(tempExt)) {
+                this.extension = tempExt
             }
         }
-
-
+        
+        
         let short = (name.length > 17) ? name.slice(0, 17) + '...' : name
-
+        
+        this.element.setAttribute('extension', this.extension)
         this.element.innerHTML = `
-            <span class="file ${formatTag}" file-name="${name}"> ${short} </span>
+            <span class="file ${this.extension}" file-name="${name}"> ${short} </span>
         `
         this.element.addEventListener('click', this.click.bind(this), false)
     }

@@ -25,22 +25,31 @@ html(lang="en")
         #file-system
             #change-dir(data-tippy-content="ALT + D")
             #container
-        #editor
+        #view
+            #welcome
+                div
+                    img(src="../../art/logo.png")
+                    h1 Illiade
+                    i ALPHA
+            #editor
+            #image
+                #image-container
         #menu
             #container
                 #title This is a title
                 #subtitle This is a subtitle
-                #options
-                    #option /home
-                    #option /home/phoenix
-                    #option /some/path
+                #option
+                #option.near
                 input#input(placeholder="This is a placeholder")
+                #option.near
+                #option
         #error Error: Oopsie
 
         script(src="../render/global.js")
         script(src="../render/main.js")
         script(src="../render/error.js")
         script(src="../render/menu.js")
+        script(src="../render/view.js")
         script(src="../render/monaco.js")
         script(src="../render/file-system.js")
         script(src="../render/window-controls.js")

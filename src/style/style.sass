@@ -1,3 +1,4 @@
+@import 'view.sass'
 @import 'monaco.sass'
 @import 'file-system.sass'
 @import 'menu.sass'
@@ -9,8 +10,9 @@ html
 
 body
     margin: 0px
-    background-color: #000
+    background-color: #111
     overflow: hidden
+    color: white !important
 
 #bg
     width: 100vw
@@ -18,10 +20,7 @@ body
     position: absolute
     top: 0
     opacity: 0.5
-    filter: grayscale(100%)
-
-    // filter: hue-rotate(135deg)
-    // animation: bg-hue 360s infinite
+    filter: grayscale(100%) contrast(0.9) brightness(1.3)
 
 @keyframes bg-hue
     0%
@@ -60,3 +59,7 @@ header
 @font-face
     font-family: Lato
     src: url('../../art/lato.ttf')
+
+@font-face
+    font-family: Baloo
+    src: url('../../art/baloo.ttf')
