@@ -19,6 +19,9 @@ class Variable {
     // Triger all observations
     change() {
         for (const [key, callback] of this.callbacks.entries()) {
+            if (this.indexes[key].mustChange) {
+                if (this.value === this.before) continue
+            }
             callback(this.value, this.before)
             if (this.indexes[key].once) {
                 this.indexes.splice(key, 1)
@@ -63,12 +66,13 @@ class Variable {
         this.value = revert
     }
 
-    // Observe the Variable till it changes once
+    // Observe the Variable till it's being set with a value once
     triggerOnce(given) {
         let callback = (_value, _before) => {}
         let index = {
             once: true,
-            value: null
+            value: null,
+            mustChange: false
         }
 
         if (typeof given === 'function') {
@@ -84,7 +88,8 @@ class Variable {
         let callback = (_value, _before) => {}
         let index = {
             once: false,
-            value: null
+            value: null,
+            mustChange: false
         }
 
         if (typeof given === 'function') {
@@ -99,6 +104,49 @@ class Variable {
             callback = optional
         }
         else throw triggerWarn
+
+        this.indexes.push(index)
+        this.callbacks.push(callback)
+    }
+
+    // Observe the change of variable
+    diverses(given, optional) {
+        let callback = (_value, _before) => {}
+        let index = {
+            once: false,
+            value: null,
+            mustChange: true
+        }
+
+        if (typeof given === 'function') {
+            callback = given
+        }
+        else if (typeof given === 'object') {
+            index.value = given.id
+            callback = given.fun
+        }
+        else if (typeof given === 'string' && typeof optional === 'function') {
+            index.value = given
+            callback = optional
+        }
+        else throw triggerWarn
+
+        this.indexes.push(index)
+        this.callbacks.push(callback)
+    }
+
+       // Observe the Variable till it changes once
+       diversesOnce(given) {
+        let callback = (_value, _before) => {}
+        let index = {
+            once: true,
+            value: null,
+            mustChange: true
+        }
+
+        if (typeof given === 'function') {
+            callback = given
+        } else throw triggerWarn
 
         this.indexes.push(index)
         this.callbacks.push(callback)

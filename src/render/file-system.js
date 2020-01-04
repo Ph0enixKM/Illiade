@@ -26,19 +26,19 @@ new Resizer({
 })
 
 // Selecting files
-OPENED.trigger((element, lastElement) => {
-    if (element == null || element.isBackup) return
+OPENED.trigger((element, lastElement) => {    
+    if (element == null || element.isVirtual) return
     
     // Deselect
     if (element === lastElement) {
-        element.children[0].classList.remove('selected')
         OPENED.quiet = null
+        element.children[0].classList.remove('selected')
     }
 
     // Select
     else {
         element.children[0].classList.add('selected')
-        if (lastElement != null && !lastElement.isBackup)
+        if (lastElement != null && !lastElement.isVirtual)
             lastElement.children[0].classList.remove('selected')
     }
 })
@@ -46,15 +46,20 @@ OPENED.trigger((element, lastElement) => {
 
 // Opening Files
 OPENED.trigger(element => {
-    
     // Open Welcome
     if (element == null) {
         view.open(null, null)
         return
     }
     
-    if (element.isBackup)
-        return EDITOR_LOAD.trigger(_ => view.open(element.extension, element.fullpath)) 
+    if (element.isVirtual) {
+        if (EDITOR_LOAD.val) {
+            view.open(element.extension, element.fullpath)
+        }
+        else {
+            EDITOR_LOAD.trigger(_ => view.open(element.extension, element.fullpath)) 
+        }
+    }
 
     // Open File
     else {
@@ -281,7 +286,7 @@ class File {
         let backup = {
             extension: this.extension,
             fullpath: this.fullpath,
-            isBackup: true
+            isVirtual: true
         }
         
         storage.set('OPENED', backup)

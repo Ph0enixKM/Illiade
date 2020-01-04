@@ -1,13 +1,16 @@
+$selection: #df708f
+    
 #terminal
     visibility: hidden
-    padding: 10px
+    padding: 20px
     position: absolute
+    margin: 10px
     top: 0
     left: 0
     z-index: 5
     width: 500px
     height: 200px
-    backdrop-filter: blur(10px)
+    backdrop-filter: blur(10px) brightness(0.5)
     background-color: rgba(100, 100, 100, 0.1)
     border-radius: 20px
     z-index: 2
@@ -22,15 +25,33 @@
     &::-webkit-scrollbar-track
         background-color: transparent
     &::-webkit-scrollbar-thumb
-        background-color: #2a2a2a
-        border-radius: 10px
+        background-color: rgba(50, 50, 50, 0.1)
+        border-radius: 20px
+    &::-webkit-scrollbar-corner
+        background-color: transparent
+
+    .item
+        display: inline-block
+        background-color: rgba(50, 50, 50, 0.3)
+        border-radius: 5px
+        margin: 2px
+        padding: 2px
+        cursor: pointer
+        &:hover
+            background-color: rgba(100, 100, 100, 0.3)
+        &::selection
+                background-color: $selection
     .input-line
         display: flex
+        &.free
+            display: block
+        &::selection
+                background-color: $selection
         .path
             display: inline-block
             vertical-align: middle
             &::selection
-                background-color: #df708f
+                background-color: $selection
             background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
             -webkit-background-clip: text
             -webkit-text-fill-color: transparent
@@ -38,14 +59,17 @@
             display: inline-block
             vertical-align: middle
             &::selection
-                background-color: #df708f
+                background-color: $selection
             font-style: bold
             color: #CA00B9
+        .text
+            vertical-align: bottom
         textarea
+            overflow-y: hidden
             display: inline-block
-            vertical-align: middle
+            vertical-align: bottom
             &::selection
-                background-color: #df708f
+                background-color: $selection
             flex: 1
             height: 17px
             color: #aaa
