@@ -2,10 +2,33 @@ import fs from 'fs'
 
 let fileSystem = $('#file-system')
 let fsCont = $('#file-system #container')
-let changeDir = $('#change-dir')
+
+let panel = $('#panel')
+let changeDir = $('#panel #change-dir')
+
+function viewResize () {
+    let view = $('#view')
+    let max = document.body.getBoundingClientRect()
+    let fsWidth = fileSystem.getBoundingClientRect().width
+
+    view.style.width = `calc(100vw - ${fsWidth}px)`
+    window.editor.layout({width: max.width - fsWidth, height: max.height})
+    updateResizer()
+}
+
+window.addEventListener('resize', viewResize)
+new Resizer({
+    element: fileSystem,
+    resizer: $('#file-system #resizer'),
+    x: true,
+    y: false,
+    on: viewResize
+})
 
 // Selecting files
 OPENED.trigger((element, lastElement) => {
+    if (element == null || element.isBackup) return
+    
     // Deselect
     if (element === lastElement) {
         element.children[0].classList.remove('selected')
@@ -15,21 +38,27 @@ OPENED.trigger((element, lastElement) => {
     // Select
     else {
         element.children[0].classList.add('selected')
-        
-        if (lastElement != null)
+        if (lastElement != null && !lastElement.isBackup)
             lastElement.children[0].classList.remove('selected')
     }
 })
 
+
 // Opening Files
 OPENED.trigger(element => {
+    
     // Open Welcome
     if (element == null) {
         view.open(null, null)
+        return
     }
+    
+    if (element.isBackup)
+        return EDITOR_LOAD.trigger(_ => view.open(element.extension, element.fullpath)) 
 
     // Open File
     else {
+
         let extension = element.getAttribute('extension')
         let fullpath = element.getAttribute('fullpath')
         view.open(extension, fullpath)
@@ -77,6 +106,20 @@ window.addEventListener('keydown', async e => {
 window.onload = () => {
     if (ROOT.val != null && ROOT.val.length !== 0)
         changeDirectory(ROOT.val)
+    OPENED.tick(OPENED.val)
+}
+
+// Reshape Resizer to match height of tree
+function updateResizer() {
+    let resizer = $('#file-system #resizer')
+    let minHeight = fileSystem.getBoundingClientRect().height
+    let treeHeight = fsCont.getBoundingClientRect().height
+    let panelHeight = panel.getBoundingClientRect().height
+    let safe = 10
+    resizer.style.height = `${treeHeight + panelHeight + safe}px`
+    if (minHeight > treeHeight) {
+        resizer.style.height = `${minHeight + safe}px`
+    }
 }
 
 // This function generates file system tree
@@ -111,6 +154,8 @@ async function generateTree(container, files, directory) {
             container.appendChild(file.getElement())
         }
     })
+
+    updateResizer()
 }
 
 // Main function to change current ROOT directory
@@ -148,7 +193,7 @@ class Directory {
         this.tree = false
 
         // Setup full path
-        if (path[path.length - 1] === '/')
+        if (path.last() === '/')
             this.fullpath = path + name
         else
             this.fullpath = path + '/' + name
@@ -200,7 +245,7 @@ class Directory {
 class File {
     constructor(path, name) {
         // Setup full path
-        if (path[path.length - 1] === '/')
+        if (path.last() === '/')
             this.fullpath = path + name
         else
             this.fullpath = path + '/' + name
@@ -223,18 +268,23 @@ class File {
             }
         }
         
-        
-        let short = (name.length > 17) ? name.slice(0, 17) + '...' : name
-        
         this.element.setAttribute('extension', this.extension)
         this.element.innerHTML = `
-            <span class="file ${this.extension}" file-name="${name}"> ${short} </span>
+            <span class="file ${this.extension}" file-name="${name}"> ${name} </span>
         `
         this.element.addEventListener('click', this.click.bind(this), false)
     }
 
     click(event) {
         OPENED.val = this.element
+
+        let backup = {
+            extension: this.extension,
+            fullpath: this.fullpath,
+            isBackup: true
+        }
+        
+        storage.set('OPENED', backup)
     }
 
     getElement() {

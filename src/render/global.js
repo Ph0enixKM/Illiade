@@ -34,7 +34,10 @@ class Global {
 new Global('always', 'ROOT', '', 'Current root diretory')
 new Global('always', 'ROOTS', [], 'Used root directories')
 new Global('always', 'FORMATS', ['cpp', 'mg', 'png', 'jpg', 'svg'], 'All file formats supported')
-new Global('brief', 'OPENED', null, 'Opened file - holds HTML Element')
+new Global('always', 'OPENED', null, 'Opened file - holds HTML Element')
+
+new Global('brief', 'EDITOR_LOAD', false, 'Editor Loaded')
+new Global('brief', 'TERMINAL_OPEN', false, 'If terminal is opened')
 
 
 

@@ -113,7 +113,7 @@ class Menu{
         setTimeout(() => {
             this.element.style.opacity = '1'
             this.ui.container.style.top = '50vh'
-            this.element.style.backdropFilter = 'blur(10px) brightness(0.2)'
+            this.element.style.backdropFilter = 'blur(10px) brightness(0.6)'
             this.ui.container.style.opacity = '1'
             this.ready = true
             this.tries = 0

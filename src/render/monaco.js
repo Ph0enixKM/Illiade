@@ -69,7 +69,7 @@ amdRequire(['vs/editor/editor.main'], () => {
             { token: 'identifier', foreground: 'EF575A' },
             { token: 'delimiter', foreground: '888888' },
             { token: 'special', foreground: 'E09C4F' },
-            { background : '111111'}
+            { background : '222222'}
         ]
     })
 
@@ -78,12 +78,12 @@ amdRequire(['vs/editor/editor.main'], () => {
         language: '$cpp',
         theme: 'blaze',
         contextmenu: false,
-        automaticLayout: true,
+        // automaticLayout: true,
         scrollbar: {
             useShadows: false,
             verticalHasArrows: false,
             horizontalHasArrows: false,
-            vertical: 'hidden',
+            vertical: 'visible',
             horizontal: 'hidden',
             verticalScrollbarSize: 15,
             horizontalScrollbarSize: 15
@@ -93,6 +93,7 @@ amdRequire(['vs/editor/editor.main'], () => {
     setTimeout(() => {
         let style = $('.monaco-list style')
         style.remove()
+        EDITOR_LOAD.val = true
     }, 1000)
 
 

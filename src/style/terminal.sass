@@ -1,0 +1,63 @@
+#terminal
+    visibility: hidden
+    padding: 10px
+    position: absolute
+    top: 0
+    left: 0
+    z-index: 5
+    width: 500px
+    height: 200px
+    backdrop-filter: blur(10px)
+    background-color: rgba(100, 100, 100, 0.1)
+    border-radius: 20px
+    z-index: 2
+    border: 5px solid #0a0a0a0a
+    font-family: Lato
+    touch-action: none
+    box-sizing: border-box 
+    overflow-y: scroll
+    transform: scale(0)
+    &::-webkit-scrollbar
+        background-color: transparent
+    &::-webkit-scrollbar-track
+        background-color: transparent
+    &::-webkit-scrollbar-thumb
+        background-color: #2a2a2a
+        border-radius: 10px
+    .input-line
+        display: flex
+        .path
+            display: inline-block
+            vertical-align: middle
+            &::selection
+                background-color: #df708f
+            background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+        .dollar
+            display: inline-block
+            vertical-align: middle
+            &::selection
+                background-color: #df708f
+            font-style: bold
+            color: #CA00B9
+        textarea
+            display: inline-block
+            vertical-align: middle
+            &::selection
+                background-color: #df708f
+            flex: 1
+            height: 17px
+            color: #aaa
+            background: transparent
+            border: none
+            outline: none
+            resize: none
+            overflow-x: auto
+            white-space: nowrap
+            &::-webkit-scrollbar
+                background-color: transparent
+            &::-webkit-scrollbar-track
+                background-color: transparent
+            &::-webkit-scrollbar-thumb
+                background-color: #2a2a2a

@@ -9,7 +9,8 @@
     "babel": "babel --watch src/ --out-dir dist/",
     "sass": "sass src/style/style.sass dist/style/style.css --watch",
     "pug": "pug src/view/view.pug -o dist/view --watch",
-    "build": "concurrently -c \"yellow,magenta,red\" -n \"JavaScript,Sass,Pug\" \"npm run babel\" \"npm run sass\" \"npm run pug\""
+    "build": "concurrently -c \"yellow,magenta,red\" -n \"JavaScript,Sass,Pug\" \"npm run babel\" \"npm run sass\" \"npm run pug\"",
+    "rebuild": "electron-rebuild"
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,9 @@
     "electron": "^7.1.7",
     "electron-packager": "^14.1.1",
     "electron-pug": "^2.0.0",
+    "electron-rebuild": "^1.8.8",
     "flowchart-core": "^1.1.4",
+    "interactjs": "^1.7.3",
     "monaco-editor": "^0.18.1",
     "monaco-editor-textmate": "^2.2.1",
     "monaco-textmate": "^3.0.1",

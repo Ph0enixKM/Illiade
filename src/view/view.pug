@@ -10,6 +10,7 @@ html(lang="en")
         script(src="../../lang/cpp.js")
         script(src="../lib/observe/observe.js")
         script(src="../lib/storage/storage.js")
+        script(src="../lib/resizer/resizer.js")
         script.
             let exports = {"__esModule": true}
             function $(query) { return document.querySelector(query) }
@@ -23,12 +24,19 @@ html(lang="en")
             .btn#max
         #quick-files
         #file-system
-            #change-dir(data-tippy-content="ALT + D")
+            #panel
+                .col
+                    .btn#terminal-button(data-tippy-content="ALT + T")
+                    .btn#soon 
+                        span soon
+                .col
+                    .btn#change-dir(data-tippy-content="ALT + D")
+            #resizer
             #container
         #view
             #welcome
                 div
-                    img(src="../../art/logo.png")
+                    .img
                     h1 Illiade
                     i ALPHA
             #editor
@@ -43,6 +51,7 @@ html(lang="en")
                 input#input(placeholder="This is a placeholder")
                 #option.near
                 #option
+        #terminal
         #error Error: Oopsie
 
         script(src="../render/global.js")
@@ -51,5 +60,6 @@ html(lang="en")
         script(src="../render/menu.js")
         script(src="../render/view.js")
         script(src="../render/monaco.js")
+        script(src="../render/terminal.js")
         script(src="../render/file-system.js")
         script(src="../render/window-controls.js")
