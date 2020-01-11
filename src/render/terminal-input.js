@@ -1,4 +1,5 @@
 import path from 'path'
+import tippy from 'tippy.js'
 
 // Terminal Input processing commands
 const terminalInput = {
@@ -23,7 +24,6 @@ const terminalInput = {
             terminal.innerHTML = ''
             return true
         }
-        return false
     },
 
     // Simulate List Command
@@ -70,7 +70,6 @@ const terminalInput = {
 
             return true
         }
-        return false
     },
 
     cd: (command, thepath, callback) => {        
@@ -85,17 +84,16 @@ const terminalInput = {
             
             return true
         }
-        return false
     },
 
-    exit(command, hideTerminal, terminal, inputReady) {
+    exit(command, hideTerminal, terminal, clear, inputReady) {
         if (command === 'exit') {            
             hideTerminal()
+            clear()
             terminal.innerHTML = ''
             inputReady()
             return true
         }
-        return false
     }
 }
 
@@ -104,5 +102,46 @@ function ifProbablyCMD(given, base) {
     if (given.slice(0, base.length) == base && 
         [undefined, ' '].includes(given[base.length])
     ) return true
-    return false
+}
+
+// --- SKILLS ---
+
+class Skills {
+    constructor(options) {
+        if (options != null){
+            this.import = options
+        }
+
+        this.skills = []
+    }
+
+    update() {
+        for (const skill of this.skills) {
+            skill()
+        }
+    }
+
+    portal(command, callback, callbackOnce) {
+        if (command.trim() === 'portal') {
+            this.import.write(`<div class="item-special portal" path="${this.import.path}"></div>`, 'free')
+            this.import.inputReady()
+            const portal = [...document.querySelectorAll('.input-line.free .portal')].last()
+            const hint = tippy(portal, {
+                content: this.import.path,
+                boundary: 'viewport',
+                placement: 'left-end',
+                // trigger: 'over',
+                interactive: true,
+                appendTo: document.body
+            })
+            
+            callbackOnce(hint)
+            portal.addEventListener('click', e => {                
+                const path = e.target.getAttribute('path')
+                callback(e, path)
+            })
+            return true
+        }
+    }
+
 }

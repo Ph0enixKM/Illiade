@@ -3,11 +3,14 @@ tippy('[data-tippy-content]', {
     arrow: false
 })
 
-window.onload = () => {
+window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         $('.inputarea').focus()
     }, 500)
-}
+
+    let version = document.querySelector('#version')
+    version.innerHTML = VERSION_LEVEL.val
+})
 
 // Polyfill - return last element
 Array.prototype.last = function () {

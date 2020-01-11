@@ -10,6 +10,7 @@ html(lang="en")
         script(src="../../lang/cpp.js")
         script(src="../lib/observe/observe.js")
         script(src="../lib/storage/storage.js")
+        script(src="../lib/tiny-menu/tiny-menu.js")
         script(src="../lib/resizer/resizer.js")
         script.
             let exports = {"__esModule": true}
@@ -22,6 +23,8 @@ html(lang="en")
             .btn#exit
             .btn#min
             .btn#max
+            #title-cont
+                #title
         #quick-files
         #file-system
             #panel
@@ -38,7 +41,7 @@ html(lang="en")
                 div
                     .img
                     h1 Illiade
-                    i ALPHA
+                    i#version Version
             #editor
             #image
                 #image-container
@@ -62,5 +65,6 @@ html(lang="en")
         script(src="../render/monaco.js")
         script(src="../render/terminal-input.js")
         script(src="../render/terminal.js")
+        script(src="../render/file-system-ops.js")
         script(src="../render/file-system.js")
         script(src="../render/window-controls.js")

@@ -41,7 +41,7 @@ const CPP_LANGUAGE = {
 
         // Directives
         [/(#include)(\s+)(\S+)/, ['keyword', 'default', 'string']],
-        [/#\S+/, 'keyword'],
+        [/^\s*#\S+/, 'keyword'],
         
         // Types
         [/([A-Za-z_][0-9A-Za-z_:<>]*)(\s+)(?=[A-Za-z_])/, ['type', 'default']],
@@ -53,7 +53,7 @@ const CPP_LANGUAGE = {
         // [/([A-Za-z][0-9A-Za-z_]*)(\s*<[^\(\s]+>\s*)(\()/, ['function', 'type', 'default']],
         
         [/\b(NULL|nullptr)\b/, 'number' ],
-        [/\b([0-9A-Z_]+)\b/, 'number' ],
+        [/\b([A-Z_$]+[0-9A-Z_$]*)\b/, 'special' ],
         
         // whitespace
         { include: '@whitespace' },
@@ -74,8 +74,8 @@ const CPP_LANGUAGE = {
         [/[;,.:]/, 'delimiter'],
         
         // identifiers
-        [/([A-Za-z_$]+)(\<\S*\>)/, ['identifier', 'type']],
-        [/\b[A-Za-z_$]+\b/, 'identifier'],
+        [/([A-Za-z_$][A-Za-z0-9_$]*)(\<\S*\>)/, ['identifier', 'type']],
+        [/\b[A-Za-z_$][A-Za-z0-9_$]*\b/, 'identifier'],
         
         // strings
         [/"/,  { token: 'string.quote', bracket: '@open', next: '@string' } ],

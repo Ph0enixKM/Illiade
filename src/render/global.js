@@ -38,7 +38,8 @@ new Global('always', 'OPENED', null, 'Opened file - holds HTML Element')
 
 new Global('brief', 'EDITOR_LOAD', false, 'Editor Loaded')
 new Global('brief', 'TERMINAL_OPEN', false, 'If terminal is opened')
-
+new Global('brief', 'VERSION', [1, 0], 'Illiade version')
+new Global('brief', 'VERSION_LEVEL', 'ALPHA', 'Illiade version')
 
 
 

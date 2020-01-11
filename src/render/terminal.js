@@ -250,6 +250,13 @@ class Terminal {
         this.input = null
         this.stdin = null
         this.busy = false
+        this.hints = []
+        this.skills = new Skills({
+            path: this.path,
+            terminal,
+            write: this.write.bind(this),
+            inputReady: this.inputReady.bind(this)
+        })
 
         ROOT.diverses((val, prev) => {
             this.path = val
@@ -280,9 +287,11 @@ class Terminal {
     newStdin(parent) {
         this.deleteStdin()
 
+        
+        
         let el = document.createElement('textarea')
         el.className = 'input-line'
-
+        
         el.addEventListener('keydown', e => {
             // Get rid of new line
             if (e.target.value.length && !e.target.value.trim().length) {
@@ -298,14 +307,14 @@ class Terminal {
                 e, 
                 this.cmd, 
                 this.inputReady.bind(this)
-            )
-        })
-
-        parent.appendChild(el)
-        this.stdin = el
-        el.focus()
-    }
-    
+                )
+            })
+            
+            parent.appendChild(el)
+            this.stdin = el
+            el.focus()
+        }
+        
     // Old stdin removal
     deleteStdin() {
         if (this.stdin != null) {            
@@ -350,7 +359,8 @@ class Terminal {
     }
 
     error(content) {
-        this.wrapHTML(`<span style="color:red">${content}</span>`, terminal)
+        const inputLine = this.wrapHTML(`<span style="color:red">${content}</span>`, terminal)
+        this.newStdin(inputLine)
     }
 
     isDir(directory) {
@@ -360,6 +370,17 @@ class Terminal {
                 return res(stats.isDirectory())
             })
         })
+    }
+
+    clear() {
+        for (const hint of this.hints) {
+            hint.destroy()
+        }
+        this.hints = []
+    }
+
+    addHint(hint) {
+        this.hints.push(hint)
     }
     
 
@@ -386,14 +407,15 @@ class Terminal {
         inputLine.appendChild(input)
         terminal.appendChild(inputLine)
         this.input = input
-        tippy(inputLine.children[0], {
+        const hint = tippy(inputLine.children[0], {
             boundary: 'viewport',
             placement: 'bottom',
             trigger: 'click',
             interactive: true,
             appendTo: document.body
         })
-
+        
+        this.addHint(hint)
         this.theInputFunctionSeed = this.theInputFunction.bind(this)
 
         input.focus()
@@ -407,7 +429,7 @@ class Terminal {
             e.target.value = e.target.value.trim()
         }
 
-        if (e.key == 'Enter') {
+        if (e.key == 'Enter') {            
             let command = e.target.value
 
             // Block input
@@ -419,6 +441,14 @@ class Terminal {
                 this.inputReady(this.path)
                 return
             }
+
+            // Portal
+            if (this.skills.portal(command, (_e, path) => {
+                this.path = path
+                this.inputReady()
+            }, hint => {
+                this.addHint(hint)
+            })) return 
 
             // Handle CD
             if (terminalInput.cd(command, this.path, async val => {
@@ -435,7 +465,13 @@ class Terminal {
             })) return
 
             // Handle Exit Terminal
-            if (terminalInput.exit(command, hideTerminal, terminal, this.inputReady.bind(this))) return
+            if (terminalInput.exit(
+                command, 
+                hideTerminal, 
+                terminal, 
+                this.clear.bind(this), 
+                this.inputReady.bind(this)
+            )) return
 
             
             this.write('')
@@ -478,6 +514,7 @@ class Terminal {
 
             // Listen for the terminal
             this.cmd.on('close', (code) => {
+                this.clear()
                 fsCont.innerHTML = ''
                 changeDirectory(ROOT.val)
                 OPENED.tick(OPENED.val)

@@ -14,6 +14,7 @@ class Variable {
         this.callbacks = []
         this.value = initValue
         this.before = null
+        this._observable = true
     }
 
     // Triger all observations

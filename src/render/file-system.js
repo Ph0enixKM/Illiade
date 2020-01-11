@@ -1,10 +1,21 @@
 import fs from 'fs'
+import tippy from 'tippy.js'
+import { setupMaster } from 'cluster'
 
 let fileSystem = $('#file-system')
 let fsCont = $('#file-system #container')
-
 let panel = $('#panel')
 let changeDir = $('#panel #change-dir')
+let title = $('header #title')
+
+const titleTip = tippy(title, {
+    content: 'Illiade',
+    boundary: 'viewport',
+    placement: 'bottom',
+    trigger: 'click',
+    interactive: true,
+    appendTo: document.body
+})
 
 function viewResize () {
     let view = $('#view')
@@ -25,8 +36,28 @@ new Resizer({
     on: viewResize
 })
 
+// Title bar update
+OPENED.trigger((val, last) => {
+    if (val == null || val == last) {
+        title.innerHTML = 'Illiade'
+        titleTip.setContent(`Illiade ${VERSION.val} ${VERSION_LEVEL.val}`)
+        return
+    }
+    
+    const fullpath = (val.isVirtual) 
+        ? val.fullpath
+        : val.getAttribute('fullpath')
+
+    let filename = /\/([^/]*$)/.exec(fullpath)[1]
+    title.innerHTML = filename
+    titleTip.setContent(fullpath)
+
+    
+
+})
+
 // Selecting files
-OPENED.trigger((element, lastElement) => {    
+OPENED.trigger((element, lastElement) => {        
     if (element == null || element.isVirtual) return
     
     // Deselect
@@ -63,7 +94,6 @@ OPENED.trigger(element => {
 
     // Open File
     else {
-
         let extension = element.getAttribute('extension')
         let fullpath = element.getAttribute('fullpath')
         view.open(extension, fullpath)
@@ -193,8 +223,10 @@ async function changeDirectory(inputDir) {
 
 // Directory Object Class
 // - Contains HTML representation
-class Directory {
+class Directory extends FileCore {
     constructor(path, name) {
+        super(document.createElement('div'))
+
         this.tree = false
 
         // Setup full path
@@ -204,7 +236,7 @@ class Directory {
             this.fullpath = path + '/' + name
 
         // Element
-        this.element = document.createElement('div')
+        // this.element = document.createElement('div')
         this.element.className = 'item'        
 
         this.element.setAttribute('path', path)
@@ -247,8 +279,10 @@ class Directory {
 
 // File Object Class
 // - Contains HTML representation
-class File {
+class File extends FileCore {
     constructor(path, name) {
+        super(document.createElement('div'))
+
         // Setup full path
         if (path.last() === '/')
             this.fullpath = path + name
@@ -256,7 +290,7 @@ class File {
             this.fullpath = path + '/' + name
 
         // Element
-        this.element = document.createElement('div')
+        // this.element = document.createElement('div')
         this.element.className = 'item'
 
         this.element.setAttribute('path', path)

@@ -17,6 +17,7 @@ body
     color: white !important
 
 #bg
+    object-fit: cover
     width: 100vw
     height: 100vh
     position: absolute
@@ -36,10 +37,27 @@ body
     backdrop-filter: blur(10px)
 
 header
+    display: flex
     padding: 5px 5px 5px 5px
     -webkit-app-region: drag
     backdrop-filter: blur(20px)
     background-color: rgba(100, 100, 100, 0.1)
+    #title-cont
+        flex: 1
+        display: inline-block
+        text-align: left
+        #title
+            margin: 0 20px
+            color: white
+            font-family: Lato
+            display: inline-block
+            color: #888
+            -webkit-app-region: no-drag
+            transition: 200ms color
+            user-select: none
+            cursor: pointer
+            &:hover
+                color: #fff
     .btn
         -webkit-app-region: no-drag
         vertical-align: middle

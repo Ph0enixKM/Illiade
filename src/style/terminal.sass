@@ -30,6 +30,39 @@ $selection: #df708f
     &::-webkit-scrollbar-corner
         background-color: transparent
 
+    .portal
+        position: relative
+        color: transparent
+        opacity: 0.6
+        width: 50px
+        height: 50px
+        transition: opacity 300ms
+        margin-left: 10px
+        &.out
+            // opacity: 0.2
+            &:hover
+                opacity: 1
+            &::after
+                animation: portal 5s infinite linear
+        &:hover
+            opacity: 1
+        &:after
+            cursor: pointer
+            display: inline-block
+            content: ""
+            position: absolute
+            top: 0
+            left: 0
+            background-image: url('../../art/portal2.png')
+            background-position: left
+            background-size: contain
+            background-repeat: no-repeat
+            width: 50px
+            height: 50px
+            animation: portal 5s infinite linear
+            // filter: hue-rotate(150deg)
+            z-index: 4
+
     .item
         display: inline-block
         background-color: rgba(50, 50, 50, 0.3)
@@ -80,8 +113,19 @@ $selection: #df708f
             overflow-x: auto
             white-space: nowrap
             &::-webkit-scrollbar
+                height: 5px
                 background-color: transparent
             &::-webkit-scrollbar-track
+                height: 5px
                 background-color: transparent
             &::-webkit-scrollbar-thumb
-                background-color: #2a2a2a
+                height: 5px
+                background-color: #888
+                border-radius: 5px
+
+
+@keyframes portal
+    0%
+        transform: rotate(0deg)
+    100%
+        transform: rotate(360deg)
