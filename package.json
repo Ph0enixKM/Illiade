@@ -36,6 +36,7 @@
     "electron-pug": "^2.0.0",
     "electron-rebuild": "^1.8.8",
     "flowchart-core": "^1.1.4",
+    "fs-extra": "^8.1.0",
     "interactjs": "^1.7.3",
     "monaco-editor": "^0.18.1",
     "monaco-editor-textmate": "^2.2.1",

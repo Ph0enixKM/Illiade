@@ -24,11 +24,14 @@ const TinyMenu = (() => {
             top: 0;
             left: 0;
             z-index: 5;
-            background-color: rgba(30, 30, 30, 0.3);
+            background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(5px);
-            border-radius: 10px;
+            border-radius: 5px;
             box-shadow: 0 0 10px #111;
             visibility: hidden;
+            min-width: 100px;
+            color: #333;
+            font-weight: 600;
         }
         .tiny-menu-icon {
             display: inline-block;
@@ -43,15 +46,15 @@ const TinyMenu = (() => {
             display: inline-block;
             vertical-align: middle;
             font-family: Lato, Verdana, sans-serif;
-            padding: 5px;
+            padding: 3px;
         }
         .tiny-menu-item {
             border-radius: inherit;
             cursor: pointer;
-            padding: 3px;
+            padding: 2px 5px;
         }
         .tiny-menu-item:hover {
-            background-color: rgba(50, 50, 50, 0.5);
+            background-color: rgba(30, 30, 30, 0.5);
         }
     `
     document.head.appendChild(style)
@@ -85,6 +88,10 @@ const TinyMenu = (() => {
             this.element.addEventListener('contextmenu', this.asm)
             document.documentElement.addEventListener('click', () => {
                 this.entity.style.visibility = 'hidden'
+            })
+            window.addEventListener('keydown', e => {
+                if (e.key === 'Escape')
+                    this.entity.style.visibility = 'hidden'
             })
         }
 

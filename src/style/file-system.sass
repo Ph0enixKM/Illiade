@@ -1,7 +1,7 @@
 #file-system
     width: 200px
     height: 100vh
-    background-color: rgba(100, 100, 100, 0.05)
+    background-color: rgba(150, 150, 150, 0.05)
     backdrop-filter: blur(10px)
     z-index: 2
     position: relative
@@ -52,6 +52,7 @@
     .file
         vertical-align: top
         &::before
+            margin-right: 5px
             vertical-align: middle
             content: ""
             display: inline-block
@@ -76,6 +77,7 @@
         background-image: url('../../art/svg-icon.svg')
     .dir
         &::before
+            margin-right: 5px
             vertical-align: middle
             content: ""
             display: inline-block

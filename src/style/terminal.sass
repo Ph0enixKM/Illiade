@@ -2,7 +2,7 @@ $selection: #df708f
     
 #terminal
     visibility: hidden
-    padding: 20px
+    padding: 10px
     position: absolute
     margin: 10px
     top: 0
@@ -10,16 +10,16 @@ $selection: #df708f
     z-index: 5
     width: 500px
     height: 200px
-    backdrop-filter: blur(10px) brightness(0.5)
+    backdrop-filter: blur(30px) brightness(0.5)
     background-color: rgba(100, 100, 100, 0.1)
-    border-radius: 20px
+    border-radius: 10px
     z-index: 2
-    border: 5px solid #0a0a0a0a
     font-family: Lato
     touch-action: none
     box-sizing: border-box 
     overflow-y: scroll
     transform: scale(0)
+    border: 1px solid #111
     &::-webkit-scrollbar
         background-color: transparent
     &::-webkit-scrollbar-track
@@ -88,6 +88,7 @@ $selection: #df708f
             background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
             -webkit-background-clip: text
             -webkit-text-fill-color: transparent
+            filter: saturate(0.7)
         .dollar
             display: inline-block
             vertical-align: middle
@@ -95,6 +96,7 @@ $selection: #df708f
                 background-color: $selection
             font-style: bold
             color: #CA00B9
+            filter: saturate(0.7)
         .text
             vertical-align: bottom
         textarea

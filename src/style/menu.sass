@@ -6,14 +6,15 @@
     backdrop-filter: blur(0px)
     z-index: 3
     visibility: hidden
-    transition: 300ms
+    transition: transform 300ms, opacity 300ms
     #container
         will-change: transform, bacdrop-filter
         position: absolute
-        top: -50vh
+        top: 50vh
         left: 50vw
-        transform: translate(-50%, -50%)
-        transition: 300ms
+        transform: translate(-50%, -50vh)
+        opacity: 0
+        transition: transform 300ms, opacity 300ms
         transition-timing-function: cubic-bezier(0, .97, .51, .99)
         user-select: none
         #title

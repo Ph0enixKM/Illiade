@@ -172,25 +172,25 @@ class Variable {
 
     // --- ARRAY ---
     push(...given) {
-        this.before = this.value
+        this.before = [...this.value]
         this.value.push(...given)
         this.change()
     }
 
     pop() {
-        this.before = this.value
+        this.before = [...this.value]
         this.value.pop()
         this.change()
     }
 
     shift() {
-        this.before = this.value
+        this.before = [...this.value]
         this.value.shift()
         this.change()
     }
 
     unshift(...given) {
-        this.before = this.value
+        this.before = [...this.value]
         this.value.unshift(...given)
         this.change()
     }
@@ -202,7 +202,7 @@ class Variable {
     }
 
     splice(...given) {
-        this.before = this.value
+        this.before = [...this.value]
         this.value.splice(...given)
         this.change()
     }

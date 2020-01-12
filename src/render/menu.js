@@ -112,7 +112,7 @@ class Menu{
         
         setTimeout(() => {
             this.element.style.opacity = '1'
-            this.ui.container.style.top = '50vh'
+            this.ui.container.style.transform = 'translate(-50%, -50%)'
             this.element.style.backdropFilter = 'blur(10px) brightness(0.6)'
             this.ui.container.style.opacity = '1'
             this.ready = true
@@ -160,7 +160,7 @@ class Menu{
 
         this.element.style.backdropFilter = 'blur(0px) brightness(1)'
         this.element.style.opacity = '0'
-        this.ui.container.style.top = '-50vh'
+        this.ui.container.style.transform = 'translate(-50%, -50vh)'
         this.ui.container.style.transitionTimingFunction = 'cubic-bezier(.84, 0, 0.96, .42)'
         this.ui.container.style.opacity = '0'
         this.ui.container.style.transitionDuration = '200ms'

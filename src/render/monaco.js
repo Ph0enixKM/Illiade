@@ -66,7 +66,7 @@ amdRequire(['vs/editor/editor.main'], () => {
             { token: 'string', foreground: '7CC471' },
             { token: 'type', foreground: '30B8C3' },
             { token: 'function', foreground: '5DA3F2' },
-            { token: 'identifier', foreground: 'EF575A' },
+            { token: 'identifier', foreground: 'ec5a5d' },
             { token: 'delimiter', foreground: '888888' },
             { token: 'special', foreground: 'E09C4F' },
             { background : '222222'}
