@@ -48,22 +48,19 @@ async function changeDirectory(inputDir) {
 // Directory Object Class
 // - Contains HTML representation
 class Directory extends FileCore {
-    constructor(path, name, isExpanded = false) {
-        super(document.createElement('div'), path, name)
+    constructor(thepath, name, isExpanded = false) {
+        super(document.createElement('div'), thepath, name)
 
         this.tree = isExpanded
 
         // Setup full path
-        if (path.last() === '/')
-            this.fullpath = path + name
-        else
-            this.fullpath = path + '/' + name
+        this.fullpath = path.join(thepath, name)
 
         // Element
         // this.element = document.createElement('div')
         this.element.className = 'item'        
 
-        this.element.setAttribute('path', path)
+        this.element.setAttribute('path', thepath)
         this.element.setAttribute('dir-name', name)
         this.element.setAttribute('fullpath', this.fullpath)
 
@@ -71,8 +68,24 @@ class Directory extends FileCore {
             <span class="dir"> ${name} </span>
             <div class="files">  </div>
         `
-
         this.element.addEventListener('click', this.click.bind(this), false)
+
+        // Move file to the dir
+        this.element.addEventListener('click', e => {
+            if (FS_MOVE.val) {
+                console.log(FS_MOVE.val)
+                let src = path.join(FS_MOVE.val.path, FS_MOVE.val.name)
+                let dest = path.join(this.fullpath, FS_MOVE.val.name)
+                fs.move(src, dest, err => {
+                    if (err) throw err
+                    FS_MOVE.val = null
+                    fsMove.off()
+                    updateTree()
+                })
+            }
+            
+        })
+
 
         // Expend by default if needed
         if (isExpanded) {
@@ -84,19 +97,20 @@ class Directory extends FileCore {
     
 
     click(event) {
+        if (FS_MOVE.val) return
+
         // Prevent from children capturing event
         if (![this.element, this.element.children[0]].includes(event.target)) return false
 
         this.tree = !this.tree
         this.element.children[0].classList.toggle('expanded')
-
+                
         // Expand
         if (this.tree) {
             let insides = fs.readdirSync(this.fullpath)
             generateTree(this.element.children[1], insides, this.fullpath)
         }
 
-        // Hide
         else {
             this.element.children[1].innerHTML = ''
         }
@@ -115,20 +129,17 @@ class Directory extends FileCore {
 // File Object Class
 // - Contains HTML representation
 class File extends FileCore {
-    constructor(path, name) {
-        super(document.createElement('div'), path, name)
+    constructor(thepath, name) {
+        super(document.createElement('div'), thepath, name)
 
         // Setup full path
-        if (path.last() === '/')
-            this.fullpath = path + name
-        else
-            this.fullpath = path + '/' + name
+        this.fullpath = path.join(thepath, name)
 
         // Element
         // this.element = document.createElement('div')
         this.element.className = 'item'
 
-        this.element.setAttribute('path', path)
+        this.element.setAttribute('path', thepath)
         this.element.setAttribute('name', name)
         this.element.setAttribute('fullpath', this.fullpath)
         

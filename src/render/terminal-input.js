@@ -130,7 +130,6 @@ class Skills {
                 content: this.import.path,
                 boundary: 'viewport',
                 placement: 'left-end',
-                // trigger: 'over',
                 interactive: true,
                 appendTo: document.body
             })

@@ -106,8 +106,9 @@ window.addEventListener('keydown', async e => {
 })
 
 // Menu "Change Directory" (init load)
-window.onload = () => {
-    if (ROOT.val != null && ROOT.val.length !== 0)
-        changeDirectory(ROOT.val)
+window.onload = async () => {
+    if (ROOT.val != null && ROOT.val.length !== 0) {
+        updateTree()
+    }
     OPENED.tick(OPENED.val)
 }

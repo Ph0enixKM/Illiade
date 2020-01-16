@@ -23,7 +23,7 @@ const TinyMenu = (() => {
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 5;
+            z-index: 999;
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(5px);
             border-radius: 5px;
@@ -99,9 +99,25 @@ const TinyMenu = (() => {
         assemble(e) {
             e.stopPropagation()
             
-            // Get Position
+            // Get Position and size
             let x = e.clientX
             let y = e.clientY
+            let {width, height} = this.entity.getBoundingClientRect()
+
+            // Global padding value (from window)
+            let padding = 10
+
+
+            // Flip if away from window on Y axis
+            if (window.innerHeight < y + height + padding) {
+                y -= height
+            }
+
+            // Flip if away from window on X axis
+            if (window.innerWidth < x + width + padding) {
+                x -= width
+            }
+            
 
             // Set Position and enable
             this.entity.innerHTML = ''

@@ -41,6 +41,7 @@ new Global('brief', 'EDITOR_LOAD', false, 'Editor Loaded')
 new Global('brief', 'TERMINAL_OPEN', false, 'If terminal is opened')
 new Global('brief', 'VERSION', [1, 0], 'Illiade version')
 new Global('brief', 'VERSION_LEVEL', 'ALPHA', 'Illiade version')
+new Global('brief', 'FS_MOVE', null, 'Current Moving File')
 
 
 

@@ -4,6 +4,22 @@ TREE_MAP.diverses(val => {
     storage.set('TREE_MAP', TREE_MAP.val)
 })
 
+function updateTree() {
+    const fullpath = (OPENED.val.isVirtual) 
+        ? OPENED.val.fullpath
+        : OPENED.val.getAttribute('fullpath')
+
+    let filename = /\/([^/]*$)/.exec(fullpath)[1]
+    let exists = fs.existsSync(fullpath)
+    if (!exists) {
+        titleTip.setContent(`${fullpath} (deleted)`)
+        title.innerHTML = `<span class="deleted">${filename}</span>`
+    }
+
+    fsCont.innerHTML = ''    
+    changeDirectory(ROOT.val)
+}
+
 // This function generates file system tree
 async function generateTree(container, files, directory) {
     let isDirs = []

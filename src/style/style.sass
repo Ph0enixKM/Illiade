@@ -4,6 +4,7 @@
 @import 'menu.sass'
 @import 'panel.sass'
 @import 'terminal.sass'
+@import 'decision.sass'
 @import 'error.sass'
 
 
@@ -34,6 +35,7 @@ body
     font-family: Lato
     background-color: rgba(100, 100, 100, 0.2) !important
     backdrop-filter: blur(10px)
+    text-align: center
 
 header
     display: flex
@@ -55,6 +57,9 @@ header
             transition: 200ms color
             user-select: none
             cursor: pointer
+            .deleted
+                text-decoration: line-through
+                color: #555
             &:hover
                 color: #fff
     .btn

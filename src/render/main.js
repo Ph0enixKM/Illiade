@@ -1,6 +1,9 @@
 tippy('[data-tippy-content]', {
     theme: 'dark',
-    arrow: false
+    arrow: false,
+    boundary: 'viewport',
+    appendTo: document.body,
+    placement: 'bottom'
 })
 
 window.addEventListener('DOMContentLoaded', () => {

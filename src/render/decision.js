@@ -1,6 +1,6 @@
-class Error {
+class Decision {
     constructor() {
-        this.element = $('#error')
+        this.element = $('#decision')
         this.countdefine = 15
         this.countdown = 0
         this.queue = []

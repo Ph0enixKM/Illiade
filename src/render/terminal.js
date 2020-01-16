@@ -1,51 +1,31 @@
 import { spawn } from 'child_process'
 import path from 'path'
-
-// -- TEST --
-
-// const ps = spawn('ps', ['ax']);
-// const grep = spawn('grep', ['ssh']);
-
-// ps.stdout.on('data', (data) => {
-//   grep.stdin.write(data);
-// });
-
-// ps.stderr.on('data', (data) => {
-//   console.error(`ps stderr: ${data}`);
-// });
-
-// ps.on('close', (code) => {
-//   if (code !== 0) {
-//     console.log(`ps process exited with code ${code}`);
-//   }
-//   grep.stdin.end();
-// });
-
-// grep.stdout.on('data', (data) => {
-//   console.log("out:", data.toString());
-// });
-
-// grep.stderr.on('data', (data) => {
-//   console.error(`grep stderr: ${data}`);
-// });
-
-// grep.on('close', (code) => {
-//     console.log(`grep process exited with code ${code}`);
-//   if (code !== 0) {
-//     console.log(`grep process exited with code ${code}`);
-//   }
-// });
-// -- TEST --
-
-
 import interact from 'interactjs'
 import tippy from 'tippy.js'
+import { INITIAL } from 'monaco-textmate'
 
 // Function that is responsible for:
 // - "Drag 'n Drop" functionality
 // - "Resize" functionality
 // All the mapping and customization must be done
 // In the outer scope via global variables [1]
+
+// Struct of terminal init values
+class InitTerm {
+    constructor(obj) {
+        this.width = obj.width
+        this.height = obj.height
+        this.x = window.innerWidth * (obj.x) - this.width
+        this.y = window.innerHeight * (obj.y) - this.height
+    }
+}
+
+const initTerm = new InitTerm({
+    width: 500,
+    height: 200,
+    x: 0.9,
+    y: 0.9
+})
 
 function setupTerminal(options) {
 
@@ -263,6 +243,21 @@ class Terminal {
             terminal.innerHTML = ''
             this.inputReady()            
         })
+        
+        
+        // Position of the terminal
+        terminal.style.webkitTransform = 
+            terminal.style.transform = 
+                'translate(' + initTerm.x + 'px, ' + initTerm.y + 'px) scale(0)'
+
+        // Save position
+        terminal.setAttribute('data-x', initTerm.x)
+        terminal.setAttribute('data-y', initTerm.y)
+        
+        // Size of the terminal
+        terminal.style.width = `${initTerm.width}px`
+        terminal.style.height = `${initTerm.height}px`
+        
 
         TERMINAL_OPEN.trigger(val => {
             if (val) {
@@ -515,8 +510,7 @@ class Terminal {
             // Listen for the terminal
             this.cmd.on('close', (code) => {
                 this.clear()
-                fsCont.innerHTML = ''
-                changeDirectory(ROOT.val)
+                updateTree()
                 OPENED.tick(OPENED.val)
 
                 console.log(`child process exited with code ${code}`);
