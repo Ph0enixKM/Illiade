@@ -166,7 +166,14 @@ class File extends FileCore {
         let backup = {
             extension: this.extension,
             fullpath: this.fullpath,
-            isVirtual: true
+            isVirtual: true,
+            getAttribute: (attr) => {
+                if (attr === 'fullpath') this.fullpath
+                if (attr === 'extension') this.extension
+                else {
+                    throw `This attribute (${attr}) does not exist`
+                }
+            }
         }
         
         storage.set('OPENED', backup)
@@ -175,6 +182,41 @@ class File extends FileCore {
     getElement() {
         return this.element
     }
-    
+}
 
+// Get / Set attributes in OPENED Global file
+// 'filepath'
+// 'path'
+// 'name'
+// 'extension'
+class OpenedAPI {
+    constructor() {}
+   
+    static get(attr) {
+        if (attr === 'fullpath') {
+            return (OPENED.val.isVirtual) 
+            ? OPENED.val.fullpath
+            : OPENED.val.getAttribute('fullpath')
+        }
+
+        else if (attr === 'name') {
+            return (OPENED.val.isVirtual)
+            ? OPENED.val.name
+            : OPENED.val.getAttribute('name')
+        }
+
+        else if (attr === 'path') {
+            return (OPENED.val.isVirtual)
+            ? OPENED.val.path
+            : OPENED.val.getAttribute('path')
+        }
+
+        else if (attr === 'extension') {
+            return (OPENED.val.isVirtual)
+            ? OPENED.val.extension
+            : OPENED.val.getAttribute('extension')
+        }
+
+        else throw `Attr named ${attr} does not exist`
+    }
 }

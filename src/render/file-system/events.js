@@ -1,3 +1,5 @@
+import { pathExists } from "fs-extra"
+
 // ---
 // All the File-System Related events
 // ---
@@ -9,17 +11,12 @@ OPENED.trigger((val, last) => {
         titleTip.setContent(`Illiade ${VERSION.val} ${VERSION_LEVEL.val}`)
         return
     }
-    
-    const fullpath = (val.isVirtual) 
-        ? val.fullpath
-        : val.getAttribute('fullpath')
+
+    const fullpath = OpenedAPI.get('fullpath')
 
     let filename = /\/([^/]*$)/.exec(fullpath)[1]
     title.innerHTML = filename
     titleTip.setContent(fullpath)
-
-    
-
 })
 
 // Selecting files
@@ -67,6 +64,28 @@ OPENED.trigger(element => {
 
 })
 
+// Check if file content changed
+$('#editor').addEventListener('keyup', async e => {
+    const savedIcon = document.querySelector('#title-cont #saved')
+    const fullpath = OpenedAPI.get('fullpath')
+    const unsaved = editor.getValue()
+
+    if (!await pathExists(fullpath)) return
+    fs.readFile(fullpath, 'utf-8', (err, saved) => {
+        if (err) throw err
+        
+        if (saved != unsaved) {
+            savedIcon.style.visibility = 'visible'
+        }
+
+        else {
+            savedIcon.style.visibility = 'hidden'
+        }
+    })
+})
+
+
+
 // Menu "Change Directory" (button click)
 changeDir.addEventListener('click', async e => {
     menu.on({
@@ -112,3 +131,25 @@ window.onload = async () => {
     }
     OPENED.tick(OPENED.val)
 }
+
+// Save File (button)
+$('#title-cont #saved').addEventListener('click', e => {
+    const fullpath = OpenedAPI.get('fullpath')
+
+    fs.writeFileSync(fullpath, editor.getValue())
+    e.target.style.visibility = 'hidden'
+
+    updateTree()
+})
+
+// Save File (keyboard shortcut)
+window.addEventListener('keydown', async e => {
+    if (e.key.toLowerCase() == 's' && e.ctrlKey) {
+        const fullpath = OpenedAPI.get('fullpath')
+
+        fs.writeFileSync(fullpath, editor.getValue())
+        $('#title-cont #saved').style.visibility = 'hidden'
+
+        updateTree()
+    }
+})

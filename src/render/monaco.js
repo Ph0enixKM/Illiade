@@ -61,7 +61,7 @@ amdRequire(['vs/editor/editor.main'], () => {
         inherit: true, // can also be false to completely replace the builtin rules
         rules: [
             { token: 'comment', foreground: '888888', fontStyle: 'italic' },
-            { token: 'keyword', foreground: 'CA00B9' },
+            { token: 'keyword', foreground: 'C526B8' },
             { token: 'number', foreground: 'FF7700' },
             { token: 'string', foreground: '7CC471' },
             { token: 'type', foreground: '30B8C3' },
@@ -69,7 +69,7 @@ amdRequire(['vs/editor/editor.main'], () => {
             { token: 'identifier', foreground: 'ec5a5d' },
             { token: 'delimiter', foreground: '888888' },
             { token: 'special', foreground: 'E09C4F' },
-            { background : '222222'}
+            { background : '2a2522'}
         ]
     })
 
