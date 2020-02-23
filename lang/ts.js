@@ -67,7 +67,7 @@ const TS_LANGUAGE = {
       root: [
         // Structure declarations
         [/\b(class|enum|struct|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
-        [/\b(new)(\s+)([A-Za-z0-9_$]+)(<[^(]>)/, ['keyword', 'default', 'special', 'type'] ],
+        [/\b(new)(\s+)([A-Za-z0-9_$]+)(<[^(]*>)/, ['keyword', 'default', 'special', 'type'] ],
         [/\b(new)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special'] ],
         [/\b(this)/, 'special' ],
         [/\b(super)(\s*\()/, ['special', 'default'] ],
@@ -82,8 +82,8 @@ const TS_LANGUAGE = {
         
         // Types
         [/(\)\s*:\s*)([A-Za-z_][0-9A-Za-z_:<>]*)/, ['default', 'type']],
-        [/(\S+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]]+)(<[^=]*>)/, ['identifier', 'default', 'type', 'type']],
-        [/(\S+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]]+)/, ['identifier', 'default', 'type']],
+        [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]]+)(<[^=]*>)/, ['identifier', 'default', 'type', 'type']],
+        [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]]+)/, ['identifier', 'default', 'type']],
         
         
         // Directives
