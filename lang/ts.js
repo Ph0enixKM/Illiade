@@ -67,7 +67,7 @@ const TS_LANGUAGE = {
       root: [
         // Structure declarations
         [/\b(class|enum|struct|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
-        [/\b(new)(\s+)([A-Za-z0-9_$]+)(<.*>)/, ['keyword', 'default', 'special', 'type'] ],
+        [/\b(new)(\s+)([A-Za-z0-9_$]+)(<[^(]>)/, ['keyword', 'default', 'special', 'type'] ],
         [/\b(new)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special'] ],
         [/\b(this)/, 'special' ],
         [/\b(super)(\s*\()/, ['special', 'default'] ],
