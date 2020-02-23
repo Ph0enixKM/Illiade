@@ -1,4 +1,4 @@
-class Error {
+class $Error {
     constructor() {
         this.element = $('#error')
         this.countdefine = 15
@@ -47,4 +47,4 @@ class Error {
     }
 }
 
-window.err = new Error()
+window.$err = new $Error()

@@ -8,6 +8,10 @@ html(lang="en")
         script(src="../../node_modules/popper.js/dist/umd/popper.min.js")
         script(src="../../node_modules/tippy.js/dist/tippy-bundle.iife.js")
         script(src="../../lang/cpp.js")
+        script(src="../../lang/js.js")
+        script(src="../../lang/sass.js")
+        script(src="../../lang/json.js")
+        script(src="../../lang/ts.js")
         script(src="../lib/observe/observe.js")
         script(src="../lib/storage/storage.js")
         script(src="../lib/tiny-menu/tiny-menu.js")
@@ -31,10 +35,9 @@ html(lang="en")
             #panel
                 .col
                     .btn#terminal-button(data-tippy-content="ALT + T")
-                    .btn#soon 
-                        span soon
+                    .btn#dna-button(data-tippy-content="ALT + D")
                 .col
-                    .btn#change-dir(data-tippy-content="ALT + D")
+                    .btn#change-dir(data-tippy-content="ALT + R")
             #resizer
             #container
         #fs-move
@@ -44,10 +47,26 @@ html(lang="en")
                 div
                     .img
                     h1 Illiade
+                    i C++ Editor
                     i#version Version
             #editor
             #image
                 #image-container
+        #dna
+            video#dna-bg(muted)
+                source(src="../../art/dna.mp4" type="video/mp4")
+            #container
+                .main-title Edit Illiade's DNA
+                .back
+                #langs
+                    .title Manage Supported Languages
+                    .row
+                        .capsule
+                            .item C++
+                            .item JS
+                        .item.click#add-lang +
+
+
         #menu
             #container
                 #title This is a title
@@ -79,4 +98,6 @@ html(lang="en")
         script(src="../render/file-system/resizer.js")
         script(src="../render/file-system/tree.js")
         script(src="../render/file-system/events.js")
+        script(src="../render/dna/events.js")
+        script(src="../render/dna/main.js")
         script(src="../render/window-controls.js")

@@ -20,7 +20,7 @@ OPENED.trigger((val, last) => {
 })
 
 // Selecting files
-OPENED.trigger((element, lastElement) => {        
+OPENED.trigger((element, lastElement) => {
     if (element == null || element.isVirtual) return
     
     // Deselect
@@ -57,15 +57,19 @@ OPENED.trigger(element => {
 
     // Open File
     else {
+        
         let extension = element.getAttribute('extension')
         let fullpath = element.getAttribute('fullpath')
         view.open(extension, fullpath)
+        updateChanges()
     }
 
 })
 
 // Check if file content changed
-$('#editor').addEventListener('keyup', async e => {
+$('#editor').addEventListener('keyup', async e => updateChanges())
+
+async function updateChanges() {
     const savedIcon = document.querySelector('#title-cont #saved')
     const fullpath = OpenedAPI.get('fullpath')
     const unsaved = editor.getValue()
@@ -82,7 +86,7 @@ $('#editor').addEventListener('keyup', async e => {
             savedIcon.style.visibility = 'hidden'
         }
     })
-})
+}
 
 
 
@@ -106,7 +110,7 @@ changeDir.addEventListener('click', async e => {
 
 // Menu "Change Directory" (keyboard shortcut)
 window.addEventListener('keydown', async e => {
-    if (e.key.toLowerCase() == 'd' && e.altKey) {
+    if (e.key.toLowerCase() == 'r' && e.altKey) {
         menu.on({
             title: 'Change root directory',
             subtitle: 'You can only write absolute path.',

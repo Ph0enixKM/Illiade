@@ -33,7 +33,13 @@ class Global {
 
 new Global('always', 'ROOT', '', 'Current root diretory')
 new Global('always', 'ROOTS', [], 'Used root directories')
-new Global('always', 'FORMATS', ['cpp', 'mg', 'png', 'jpg', 'svg'], 'All file formats supported')
+
+new Global('always', 'FORMATS', [
+    'cpp', 'mg', 'png', 'jpg', 'svg', 
+    'js', 'ts', 'html', 'css', 'sass', 
+    'pug', 'py', 'java', 'json'
+], 'All file formats supported')
+
 new Global('always', 'OPENED', null, 'Opened file - holds HTML Element')
 new Global('always', 'TREE_MAP', [], 'Holds expanded tree map')
 

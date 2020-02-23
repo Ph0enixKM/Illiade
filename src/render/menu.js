@@ -26,6 +26,12 @@ class Menu{
 
         this.closeEvent = new Variable(false)
 
+        this.element.addEventListener('click', e => {
+            if(e.target == this.element) {
+                menu.off('ABORT')
+            }
+        })
+
         this.ui.input.addEventListener('keyup', async e => {
             let change = false
             let value = 20
@@ -201,4 +207,5 @@ window.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
         menu.off('ABORT')
     }
+    e.stopPropagation()
 })

@@ -21,7 +21,7 @@ const titleTip = tippy(title, {
 async function changeDirectory(inputDir) {
     fs.readdir(inputDir, (error, files) => {
         if (error) {
-            err.spawn(`Such directory like '${inputDir}' does not exist`)
+            $err.spawn(`Such directory like '${inputDir}' does not exist`)
         }
 
         else {
@@ -58,7 +58,7 @@ class Directory extends FileCore {
 
         // Element
         // this.element = document.createElement('div')
-        this.element.className = 'item'        
+        this.element.className = 'item'
 
         this.element.setAttribute('path', thepath)
         this.element.setAttribute('dir-name', name)
@@ -144,14 +144,7 @@ class File extends FileCore {
         this.element.setAttribute('fullpath', this.fullpath)
         
         let format = new RegExp('\\.(.*)').exec(name)
-        this.extension = ''
-        
-        if (format != null) {
-            let tempExt = format[1].toLowerCase()
-            if (FORMATS.val.includes(tempExt)) {
-                this.extension = tempExt
-            }
-        }
+        this.extension = format[1].toLowerCase()
         
         this.element.setAttribute('extension', this.extension)
         this.element.innerHTML = `

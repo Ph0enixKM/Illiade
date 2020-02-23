@@ -1,0 +1,104 @@
+#dna
+    visibility: hidden
+    position: absolute
+    top: 28px
+    height: calc(100vh - 28px)
+    backdrop-filter: blur(5px)
+    width: 100vw
+    z-index: 3
+    background-color: rgba(0, 0, 0, 0.3)
+    opacity: 0
+    transition: opacity 200ms
+    #dna-bg
+        object-fit: cover
+        width: 100vw
+        height: 100vh
+        position: absolute
+        top: 0
+        animation: dna 3s forwards
+    #container
+        position: relative
+        transition: 200ms
+        text-align: center
+        z-index: 3
+        opacity: 0
+        overflow-x: hidden
+        overflow-y: scroll
+        height: calc(100vh - 28px)
+        &::-webkit-scrollbar
+            background-color: transparent
+        &::-webkit-scrollbar-track
+            background-color: transparent
+        &::-webkit-scrollbar-thumb
+            background-color: rgba(30, 25, 22, 0.3)
+            border-radius: 10px
+    .main-title
+        margin: 20px 0 10px 0
+        font-size: 40px
+        font-family: Lato
+        color: #aaa
+        text-align: center
+    .title
+        margin: 10px 40px 5px 40px
+        font-size: 30px
+        font-family: Lato
+        color: #aaa
+        text-align: left
+    .back
+        position: absolute
+        top: 20px
+        right: 10px
+        height: 30px
+        width: 30px
+        border-radius: 10px
+        background-image: url('../../art/cross-button.svg')
+        background-position: center
+        background-size: cover
+        opacity: 0.5
+        transition: opacity 200ms, transform 200ms
+        cursor: pointer
+        will-change: transform
+        transform: scale(1)
+        &:hover
+            opacity: 1
+        &:active
+            transform: scale(0.9)
+    .row
+        // display: inline-block
+        overflow-x: scroll
+        background-color: rgba(20, 15, 12, 0.5)
+        padding: 10px
+        margin: 20px
+        border-radius: 10px
+        &::-webkit-scrollbar
+            background-color: transparent
+        &::-webkit-scrollbar-track
+            background-color: transparent
+        &::-webkit-scrollbar-thumb
+            background-color: rgba(30, 25, 22, 0.3)
+            border-radius: 10px
+        .capsule
+            display: inline-block
+        .item
+            border-radius: 10px
+            height: auto
+            display: inline-block
+            margin: 10px
+            padding: 10px
+            background-color: #2f2a28
+            color: #aaa
+            font-family: Lato
+            &.click
+                cursor: pointer
+                transition: transform 200ms
+                &:hover
+                    transform: scale(0.95)
+                &:active
+                    transform: scale(0.9)
+
+
+@keyframes dna
+    0%
+        filter: grayscale(0.3) blur(0px) contrast(1) brightness(1)
+    100%
+        filter: grayscale(0.7) blur(5px) contrast(0.8) brightness(1.2)

@@ -1,4 +1,33 @@
 
+const CPP_CONFIG = {
+  comments: {
+    lineComment: '//',
+    blockComment: ['/*', '*/'],
+  },
+  brackets: [
+      ['{', '}'],
+      ['[', ']'],
+      ['(', ')']
+  ],
+  autoClosingPairs: [
+      { open: '[', close: ']' },
+      { open: '{', close: '}' },
+      { open: '(', close: ')' },
+      { open: '\'', close: '\'', notIn: ['string', 'comment'] },
+      { open: '"', close: '"', notIn: ['string'] },
+  ],
+  surroundingPairs: [
+      { open: '{', close: '}' },
+      { open: '[', close: ']' },
+      { open: '(', close: ')' },
+      { open: '"', close: '"' },
+      { open: '\'', close: '\'' },
+  ],
+  folding: {
+      offSide: true
+  }
+}
+
 const CPP_LANGUAGE = {
     // Set defaultToken to invalid to see what you do not tokenize yet
     // defaultToken: 'invalid',
@@ -49,7 +78,7 @@ const CPP_LANGUAGE = {
         [/([A-Za-z_][0-9A-Za-z_:<>]*)([*&]+)(\s+)(?=[A-Za-z_])/, ['type', 'keyword', 'default']],
         
         // Functions
-        [/([A-Za-z][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
+        [/([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
         // [/([A-Za-z][0-9A-Za-z_]*)(\s*<[^\(\s]+>\s*)(\()/, ['function', 'type', 'default']],
         
         [/\b(NULL|nullptr)\b/, 'number' ],
@@ -106,5 +135,5 @@ const CPP_LANGUAGE = {
         [/\/\/.*$/,    'comment'],
       ],
     },
-  };
+}
   

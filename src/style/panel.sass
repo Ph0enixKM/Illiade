@@ -28,6 +28,14 @@
         &:hover
             opacity: 1
             background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
+#dna-button
+    margin-left: 5px !important
+    &::after
+        width: 50px !important
+        background-image: url('../../art/dna-button-dark.svg')
+    &:hover::after
+        background-image: url('../../art/dna-button.svg')
+
 #change-dir
     &::after
         background-image: url('../../art/home-button-dark.svg')
@@ -35,6 +43,7 @@
         background-image: url('../../art/home-button.svg')
         
 #terminal-button
+    margin-right: 5px !important
     &::after
         background-image: url('../../art/terminal-button-dark.svg')
     &:hover::after

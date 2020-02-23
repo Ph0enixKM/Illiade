@@ -10,6 +10,7 @@ Menu.setApplicationMenu(null)
 
 // Main Ready Call
 app.on('ready', () => { 
+    
     win = new BrowserWindow ({
         width: 1280,
         height: 720,
@@ -18,7 +19,7 @@ app.on('ready', () => {
         webPreferences : {
             nodeIntegration: true
         },
-        icon: 'logo/logo.png'
+        icon: path.join(__dirname, '../../logo/logo.png')
     })
     win.loadFile(path.join(__dirname, '../view/view.html'))
 })
