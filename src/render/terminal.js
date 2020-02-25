@@ -3,6 +3,7 @@ import path from 'path'
 import interact from 'interactjs'
 import tippy from 'tippy.js'
 import { INITIAL } from 'monaco-textmate'
+import { SIGABRT, SIGINT } from 'constants'
 
 // Function that is responsible for:
 // - "Drag 'n Drop" functionality
@@ -225,6 +226,7 @@ function onMove(event, x, y) {
 
 class Terminal {
     constructor() {
+        this.paralels = $('#paralels')
         this.path = ROOT.val
         this.cmd = null
         this.input = null
@@ -243,6 +245,23 @@ class Terminal {
             terminal.innerHTML = ''
             this.inputReady()            
         })
+        
+        new TinyMenu(terminal, [
+            {
+                name: 'run in background',
+                action: () => {
+                    if (this.paralels.children.length >= 5) {
+                        $err.spawn('Too many background terminals. Remove one to be able to add more.')
+                        return
+                    }
+                    const el = document.createElement('div')
+                    el.className = 'paralel'
+                    new Paralel(el, this.input.value, this.path)
+                    this.paralels.appendChild(el)
+                    this.inputReady(this.path)
+                }
+            }
+        ])
         
         
         // Position of the terminal
@@ -530,6 +549,61 @@ class Terminal {
     }
 
 
+}
+
+class Paralel {
+    constructor(element, command, path) {
+        this.element = element
+        this.cont = document.createElement('div')
+        this.cont.className = 'content'
+        this.cont.innerHTML = `<div style="color: purple">${command}</div>`
+        
+        this.element.appendChild(this.cont)
+        this.cmd = spawn(command, [], {
+            shell: true,
+            cwd: path,
+            detached: true
+        })
+        
+        new TinyMenu(this.element, [
+            {
+                name: 'kill',
+                action: () => {
+                    this.cmd.kill(SIGINT)
+                    this.close()
+                }
+            }
+        ])
+        
+        // Listen for the output
+        this.cmd.stdout.on('data', (data) => {
+            const div = document.createElement('div')
+            div.innerHTML = data
+            this.cont.appendChild(div)
+            this.cont.scrollTop = this.cont.scrollHeight
+        })
+        
+        // Listen for the error
+        this.cmd.stderr.on('data', (data) => {
+            $err.spawn(data)
+        })
+        
+        // Listen for the terminal
+        this.cmd.on('close', (code) => {
+            this.close()
+        })
+        
+    }
+    
+    close() {
+        this.element.style.height = '0'
+        this.element.style.width = '0'
+        setTimeout(() => {
+            this.element.remove()
+        }, 300)
+    }
+    
+    
 }
 
 window.term = new Terminal()

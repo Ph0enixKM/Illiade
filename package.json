@@ -4,7 +4,7 @@
   "description": "The Ultimate App Visual Builder",
   "main": "dist/main/main.js",
   "scripts": {
-    "package": "electron-packager . Illiade --platform=linux --arch=x64",
+    "package": "electron-packager . Illiade --platform=linux --arch=x64 --overwrite",
     "start": "electron .",
     "babel": "babel --watch src/ --out-dir dist/",
     "sass": "sass src/style/style.sass dist/style/style.css --watch",
@@ -31,7 +31,7 @@
     "babel-preset-es2016": "^6.24.1",
     "coffeescript": "^2.4.1",
     "concurrently": "^5.0.0",
-    "electron": "^7.1.7",
+    "electron": "^8.0.1",
     "electron-packager": "^14.1.1",
     "electron-pug": "^2.0.0",
     "electron-rebuild": "^1.8.8",

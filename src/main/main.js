@@ -14,8 +14,8 @@ app.on('ready', () => {
     win = new BrowserWindow ({
         width: 1280,
         height: 720,
-        backgroundColor: '#222',
         frame: false,
+        backgroundColor: '#2a2522',
         webPreferences : {
             nodeIntegration: true
         },

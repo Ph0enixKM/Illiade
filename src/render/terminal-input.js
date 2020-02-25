@@ -48,16 +48,12 @@ const terminalInput = {
                         let format = new RegExp('\\.(.*)').exec(e.target.innerHTML)
                         let extension = ''
                         
-                        if (format != null) {
-                            let tempExt = format[1].toLowerCase()
-                            if (FORMATS.val.includes(tempExt)) {
-                                extension = tempExt
-                            }
-                        }
+                        if (format != null) extension = format[1].toLowerCase()
 
                         let backup = {
                             extension: extension,
                             fullpath: dir,
+                            name: format,
                             isVirtual: true
                         }
                         

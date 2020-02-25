@@ -124,7 +124,81 @@ $selection: #df708f
                 height: 5px
                 background-color: #888
                 border-radius: 5px
-
+                
+#paralels
+    position: absolute
+    bottom: 0
+    right: 15px
+.paralel
+    vertical-align: bottom
+    display: inline-block
+    background-color: rgba(0, 0, 0, 0.3)
+    backdrop-filter: blur(10px)
+    width: 40px
+    height: 40px
+    border-radius: 10px
+    z-index: 3
+    margin: 10px
+    transition: 300ms
+    animation: paralel 500ms
+    .content
+        height: 20px
+        padding: 10px
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 0
+        transition: opacity 300ms
+        font-size: 12px
+        word-break: break-all
+        font-family: Lato
+        overflow-y: scroll
+        overflow-x: hidden
+        &::-webkit-scrollbar
+            width: 5px
+            background-color: transparent
+        &::-webkit-scrollbar-track
+            width: 5px
+            background-color: transparent
+        &::-webkit-scrollbar-thumb
+            width: 5px
+            background-color: #888
+            border-radius: 5px
+    &:hover
+        width: 200px
+        height: 100px
+        z-index: 4
+    &:hover::after
+        opacity: 0
+    &:hover .content
+        opacity: 1
+        height: 80px
+    &::after
+        transition: opacity 300ms
+        opacity: 1
+        display: inline-block
+        position: absolute
+        top: 0
+        left: 0
+        content: ""
+        width: 40px
+        height: 40px
+        background-image: url('../../art/terminal-button-dark.svg')
+        background-position: center
+        background-size: cover
+        
+@keyframes paralel
+    0%
+        width: 0
+        height: 0
+        transform: scale(0)
+    30%
+        width: 40px
+        height: 40px
+        transform: scale(1.2)
+    100%
+        transform: scale(1)
+        
 
 @keyframes portal
     0%

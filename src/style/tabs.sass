@@ -1,0 +1,49 @@
+#tabs
+    position: absolute
+    top: 28px
+    height: calc(100vh - 28px)
+    width: 100vw
+    z-index: 5
+    visibility: hidden
+    transition: transform 100ms, opacity 100ms
+    #container
+        position: relative
+        background-color: rgba(0, 0, 0, 0.3)
+        backdrop-filter: blur(5px)
+        width: inherit
+        height: inherit
+        display: inline-block
+        align-items: center
+        padding-left: 35vw
+        #items
+            display: inline-block
+            position: absolute
+            width: 20 * 30vw
+            top: 50vh
+            transform: translate(0, -50%)
+            transition: transform 100ms 
+            .item
+                position: relative
+                display: inline-block
+                background-color: rgba(0, 0, 0, 0.1)
+                backdrop-filter: blur(10px)
+                border-radius: 30px
+                width: 20vw
+                height: 20vw
+                margin: 5vw
+                will-change: tranform
+                transition: transform 100ms 
+                .title
+                    height: 5vw
+                    font-family: Lato
+                    vertical-align: middle
+                    line-height: 5vw
+                    text-align: center
+                    overflow: hidden
+                    font-size: 2vw
+                .image
+                    background-size: 10vw 10vw
+                    background-position: center
+                    background-repeat: no-repeat
+                    height: 15vw
+                    background-image: url('../../art/icons/file-icon.svg')

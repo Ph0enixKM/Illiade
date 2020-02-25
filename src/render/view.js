@@ -45,78 +45,71 @@ class View {
         // If it's a text
         else {
             this._switchTo('text')
-            this.textConstruct(extension, fullpath)
-            return
+            return this.textConstruct(extension, fullpath)
         }
     }
 
     // --- Text Editor ---
 
     textConstruct(extension, path) {
-        let file = fs.readFileSync(path, 'utf-8')
-        window.editor.setValue(file)
+        
+        
+        let language = 'plaintext'
         
         if (['cpp', 'c', 'h', 'hpp'].includes(extension)) {
-            console.log('cpp');
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], '$cpp')
+            language = '$cpp'
         }
         
         else if (['js', 'mjs', 'jsx'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], '$js')
+            language = '$js'
         }
         
         else if (['ts', 'tsx'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], '$ts')
+            language = '$ts'
         }
         
         else if (['sass'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], '$sass')
+            language = '$sass'
         }
         
         else if (['cs'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], 'csharp')
+            language = 'csharp'
         }
         
         else if (['json'].includes(extension)) {
-            console.log('json');
-            
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], '$json')
+            language = '$json'
         }
         
         else if (['shell', 'bash', 'sh'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], 'csharp')
+            language = 'shell'
         }   
         
         else if (['py', 'python', 'pyx'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], 'python')
+            language = 'python'
         }
         
         else if (['kt', 'kotlin'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], 'kotlin')
+            language = 'kotlin'
         }
         
         else if (['html', 'ejs'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], 'html')
+            language = 'html'
         }
         
         
         else if (['css', 'less'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], 'css')
+            language = 'css'
         }
         
         else if (['pug', 'scss', 'java', 'coffee', 'less', 'kotlin', 'markdown', 'rust', 'sql', 'xml'].includes(extension)) {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], extension)
+            language = extension
         }
         
-        else {
-            window.monaco.editor.setModelLanguage(window.monaco.editor.getModels()[0], 'plaintext')
-        }
+        return language
     }
-
-    textDestruct() {
-        window.editor.setValue('')
-    }
-
+    
+    textDestruct() {}
+    
     
     // --- Image Editor ---
     

@@ -75,7 +75,7 @@ const SASS_LANGUAGE = {
         [/\b\d*\.\d+([eE][\-+]?\d+)?\b/, 'number.float'],
         [/\b0[xX][0-9a-fA-F]+\b/, 'number.hex'],
         [/\b\d+\b/, 'number'],
-        [/\b(\d+)(em|ex|ch|rem|vmin|vmax|vw|vh|vm|cm|mm|in|px|pt|pc|deg|grad|rad|turn|s|ms|Hz|kHz|%)\b/, ['number', 'keyword']],
+        [/\b(\d+)(em|ex|ch|rem|vmin|vmax|vw|vh|vm|cm|mm|in|px|pt|pc|deg|grad|rad|turn|s|ms|Hz|kHz|\%)\b/, ['number', 'keyword']],
         
         // Key - Val
         [/\b([A-Za-z0-9_\$\-]+)(\s*:\s*)([^#\d\(]+$)/, ['default', 'default', 'identifier']],

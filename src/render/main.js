@@ -1,3 +1,6 @@
+import fs from 'fs-extra'
+import path from 'path'
+
 tippy('[data-tippy-content]', {
     theme: 'dark',
     arrow: false,
@@ -13,6 +16,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let version = document.querySelector('#version')
     version.innerHTML = VERSION_LEVEL.val
+})
+
+// Update All icons
+fs.readdir(path.join(__dirname, '../../art/icons'), (err, files) => {
+    files.forEach(file => {
+        ICONS.push(file)
+    })
 })
 
 // Polyfill - return last element

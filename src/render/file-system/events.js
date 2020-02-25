@@ -39,7 +39,7 @@ OPENED.trigger((element, lastElement) => {
 
 
 // Opening Files
-OPENED.trigger(element => {
+OPENED.trigger((element, lastElement) => {
     // Open Welcome
     if (element == null) {
         view.open(null, null)
@@ -48,11 +48,22 @@ OPENED.trigger(element => {
     
     if (element.isVirtual) {
         if (EDITOR_LOAD.val) {
-            view.open(element.extension, element.fullpath)
+            updateOpenedFiles({
+                extension: element.extension,
+                fullpath: element.fullpath,
+                name: element.name
+            }, OpenedAPI.get('fullpath', lastElement))
         }
         else {
-            EDITOR_LOAD.trigger(_ => view.open(element.extension, element.fullpath)) 
+            EDITOR_LOAD.trigger(_ => {
+                updateOpenedFiles({  
+                    extension: element.extension,
+                    fullpath: element.fullpath,
+                    name: element.name
+                }, OpenedAPI.get('fullpath', lastElement))
+            }) 
         }
+        
     }
 
     // Open File
@@ -60,11 +71,101 @@ OPENED.trigger(element => {
         
         let extension = element.getAttribute('extension')
         let fullpath = element.getAttribute('fullpath')
-        view.open(extension, fullpath)
+        
+        updateOpenedFiles({
+            extension,
+            fullpath,
+            name: element.getAttribute('name'),
+        }, OpenedAPI.get('fullpath', lastElement))
+        
         updateChanges()
     }
 
 })
+
+// Save State View
+setInterval(() => {
+    saveViewState(OPENED.val.fullpath)
+}, 3000)
+
+function saveViewState(fullpath) {
+    let found = false
+    // Save Last element's view state
+    for (const [index, obj] of VIEWS_LAST.val.entries()) {        
+        if (obj.fullpath == fullpath) {
+            VIEWS_LAST.val[index].viewState = editor.saveViewState()
+            storage.set('VIEWS_LAST', VIEWS_LAST.val)
+            found = true
+            break
+        }
+    }
+    
+    if(!found) {
+        VIEWS_LAST.push({
+            fullpath,
+            viewState: editor.saveViewState()
+        })
+        storage.set('VIEWS_LAST', VIEWS_LAST.val)
+    }
+}
+
+function restoreViewState(fullpath) {
+    // Save Last element's view state
+    for (const obj of VIEWS_LAST.val) {        
+        if (obj.fullpath == fullpath) {
+            editor.restoreViewState(obj.viewState)
+            break
+        }
+    }
+}
+
+function updateOpenedFiles(element, lastElPath) {
+    let model = null
+    
+    if (element.fullpath != lastElPath)
+        saveViewState(lastElPath)
+    
+    // Choose the opened file
+    for (const [index, obj] of OPENED_LAST.val.entries()) {        
+        if (obj.fullpath == element.fullpath) {
+            model = obj
+            OPENED_LAST.val.splice(index, 1)
+            break
+        }
+    }
+    
+    
+    if (model) {
+        editor.setModel(model.model)
+        restoreViewState(model.fullpath)
+    }
+    
+    else {
+        let file = fs.readFileSync(element.fullpath, 'utf-8')
+        
+        model = {
+            extension: element.extension,
+            fullpath: element.fullpath,
+            name: element.name,
+            isVirtual: true
+        }
+        
+        model.language = view.open(model.extension, model.fullpath)
+        model.model = monaco.editor.createModel(file, model.language)
+        editor.setModel(model.model)
+        console.log(model.fullpath);
+        
+        restoreViewState(model.fullpath)
+        saveViewState(model.fullpath)
+    }
+    
+    
+    OPENED_LAST.unshift(model)
+    
+    if (OPENED_LAST.val.length > 15) {
+        OPENED_LAST.val = OPENED_LAST.val.slice(0, 15)
+    }
+}
 
 // Check if file content changed
 $('#editor').addEventListener('keyup', async e => updateChanges())

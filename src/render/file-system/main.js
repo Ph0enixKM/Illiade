@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+
 import tippy from 'tippy.js'
 
 let fileSystem = $('#file-system')
@@ -131,24 +131,35 @@ class Directory extends FileCore {
 class File extends FileCore {
     constructor(thepath, name) {
         super(document.createElement('div'), thepath, name)
-
+        
         // Setup full path
         this.fullpath = path.join(thepath, name)
+        this.name = name
 
         // Element
         // this.element = document.createElement('div')
         this.element.className = 'item'
 
         this.element.setAttribute('path', thepath)
-        this.element.setAttribute('name', name)
+        this.element.setAttribute('name', this.name)
         this.element.setAttribute('fullpath', this.fullpath)
         
-        let format = new RegExp('\\.(.*)').exec(name)
-        this.extension = format[1].toLowerCase()
-        
+        let format = new RegExp('\\.(.*)').exec(this.name)
+        this.extension = (format) ? format[1].toLowerCase() : ""
         this.element.setAttribute('extension', this.extension)
-        this.element.innerHTML = `
-            <span class="file ${this.extension}" file-name="${name}"> ${name} </span>
+        
+        
+        let ext = document.createElement('span')
+        ext.className = 'icon'
+        this.element.appendChild(ext)
+        
+        // Add icon if exists
+        if (ICONS.val.includes(`${this.extension}-icon.svg`)) {
+            ext.style.backgroundImage = `url('../../art/icons/${this.extension}-icon.svg')`
+        }   
+        
+        this.element.innerHTML += `
+            <span class="file ${this.extension}" file-name="${this.name}"> ${this.name} </span>
         `
         this.element.addEventListener('click', this.click.bind(this), false)
     }
@@ -159,6 +170,7 @@ class File extends FileCore {
         let backup = {
             extension: this.extension,
             fullpath: this.fullpath,
+            name: this.name,
             isVirtual: true,
             getAttribute: (attr) => {
                 if (attr === 'fullpath') this.fullpath
@@ -185,29 +197,31 @@ class File extends FileCore {
 class OpenedAPI {
     constructor() {}
    
-    static get(attr) {
+    static get(attr, element = null) {
+        element = (element == null) ? OPENED.val : element
+        
         if (attr === 'fullpath') {
-            return (OPENED.val.isVirtual) 
-            ? OPENED.val.fullpath
-            : OPENED.val.getAttribute('fullpath')
+            return (element.isVirtual) 
+            ? element.fullpath
+            : element.getAttribute('fullpath')
         }
 
         else if (attr === 'name') {
-            return (OPENED.val.isVirtual)
-            ? OPENED.val.name
-            : OPENED.val.getAttribute('name')
+            return (element.isVirtual)
+            ? element.name
+            : element.getAttribute('name')
         }
 
         else if (attr === 'path') {
-            return (OPENED.val.isVirtual)
-            ? OPENED.val.path
-            : OPENED.val.getAttribute('path')
+            return (element.isVirtual)
+            ? element.path
+            : element.getAttribute('path')
         }
 
         else if (attr === 'extension') {
-            return (OPENED.val.isVirtual)
-            ? OPENED.val.extension
-            : OPENED.val.getAttribute('extension')
+            return (element.isVirtual)
+            ? element.extension
+            : element.getAttribute('extension')
         }
 
         else throw `Attr named ${attr} does not exist`
