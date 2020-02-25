@@ -88,6 +88,7 @@ const terminalInput = {
             clear()
             terminal.innerHTML = ''
             inputReady()
+            setTimeout(() => $('.inputarea').focus(), 500)
             return true
         }
     }
