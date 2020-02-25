@@ -71,6 +71,10 @@ class View {
         else if (['sass'].includes(extension)) {
             language = '$sass'
         }
+
+        else if (['md'].includes(extension)) {
+            language = 'markdown'
+        }
         
         else if (['cs'].includes(extension)) {
             language = 'csharp'
