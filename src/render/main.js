@@ -9,11 +9,16 @@ tippy('[data-tippy-content]', {
     placement: 'bottom'
 })
 
-window.addEventListener('DOMContentLoaded', () => {
+// Set focus on editor
+EDITOR_LOAD.trigger(() => {
     setTimeout(() => {
-        $('.inputarea').focus()
+        if (!EXT_UNSAVABLE.val.includes(OpenedAPI.get('extension'))) {
+            $('.inputarea').focus()
+        }
     }, 500)
+})
 
+window.addEventListener('DOMContentLoaded', () => {
     let version = document.querySelector('#version')
     version.innerHTML = VERSION_LEVEL.val
 })

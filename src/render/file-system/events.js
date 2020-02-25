@@ -120,9 +120,10 @@ function restoreViewState(fullpath) {
 }
 
 function updateOpenedFiles(element, lastElPath) {
+    let isNonText = EXT_UNSAVABLE.val.includes(element.extension)
     let model = null
     
-    if (element.fullpath != lastElPath)
+    if (element.fullpath != lastElPath && !isNonText)
         saveViewState(lastElPath)
     
     // Choose the opened file
@@ -136,8 +137,14 @@ function updateOpenedFiles(element, lastElPath) {
     
     
     if (model) {
-        editor.setModel(model.model)
-        restoreViewState(model.fullpath)
+        if (model.image) {
+            view.open(model.extension, model.fullpath)
+        }
+        else {
+            view.open(model.extension, model.fullpath)
+            editor.setModel(model.model)
+            restoreViewState(model.fullpath)
+        }
     }
     
     else {
@@ -147,16 +154,21 @@ function updateOpenedFiles(element, lastElPath) {
             extension: element.extension,
             fullpath: element.fullpath,
             name: element.name,
-            isVirtual: true
+            isVirtual: true,
+            image: isNonText
         }
         
-        model.language = view.open(model.extension, model.fullpath)
-        model.model = monaco.editor.createModel(file, model.language)
-        editor.setModel(model.model)
-        console.log(model.fullpath);
-        
-        restoreViewState(model.fullpath)
-        saveViewState(model.fullpath)
+        if (model.image) {
+            view.open(model.extension, model.fullpath)
+        }
+        else {
+            model.language = view.open(model.extension, model.fullpath)
+            model.model = monaco.editor.createModel(file, model.language)
+            editor.setModel(model.model)
+            
+            restoreViewState(model.fullpath)
+            saveViewState(model.fullpath)
+        }
     }
     
     
@@ -171,9 +183,16 @@ function updateOpenedFiles(element, lastElPath) {
 $('#editor').addEventListener('keyup', async e => updateChanges())
 
 async function updateChanges() {
+    const extension = OpenedAPI.get('extension')
     const savedIcon = document.querySelector('#title-cont #saved')
     const fullpath = OpenedAPI.get('fullpath')
     const unsaved = editor.getValue()
+    
+    // Avoid unsavable extensions
+    if (EXT_UNSAVABLE.val.includes(extension)) {
+        savedIcon.style.visibility = 'hidden'
+        return
+    }
 
     if (!await pathExists(fullpath)) return
     fs.readFile(fullpath, 'utf-8', (err, saved) => {

@@ -99,7 +99,7 @@ class Tabs {
     enter() {
         this.tabs.style.visibility = 'hidden'
         this.busy = false
-        this.items.innerHTML = ''    
+        this.items.innerHTML = ''
 
         OPENED.val = OPENED_LAST.val[this.index]
 

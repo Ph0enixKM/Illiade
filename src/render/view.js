@@ -29,7 +29,7 @@ class View {
     }
 
     open(extension, fullpath) {
-        if (extension == null) {
+        if (extension == null || extension == 'welcome') {
             this._switchTo('welcome')
             this.welcomeConstruct()
             return

@@ -5,15 +5,13 @@ TREE_MAP.diverses(val => {
 })
 
 function updateTree() {
-    const fullpath = (OPENED.val.isVirtual) 
-        ? OPENED.val.fullpath
-        : OPENED.val.getAttribute('fullpath')
+    const fullpath = OpenedAPI.get('fullpath')
+    const name = OpenedAPI.get('name')
 
-    let filename = /\/([^/]*$)/.exec(fullpath)[1]
     let exists = fs.existsSync(fullpath)
     if (!exists) {
         titleTip.setContent(`${fullpath} (deleted)`)
-        title.innerHTML = `<span class="deleted">${filename}</span>`
+        title.innerHTML = `<span class="deleted">${name}</span>`
     }
 
     fsCont.innerHTML = ''    

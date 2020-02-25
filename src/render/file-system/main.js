@@ -182,6 +182,7 @@ class File extends FileCore {
         }
         
         storage.set('OPENED', backup)
+        $('.inputarea').focus()
     }
 
     getElement() {

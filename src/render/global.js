@@ -1,3 +1,5 @@
+import path from 'path'
+
 // Global Class
 class Global {
     constructor(kind, name, value, _description) {
@@ -34,7 +36,14 @@ class Global {
 new Global('always', 'ROOT', '', 'Current root diretory')
 new Global('always', 'ROOTS', [], 'Used root directories')
 
-new Global('always', 'OPENED', null, 'Opened file - holds HTML Element')
+new Global('always', 'OPENED', {
+    name: 'welcome', 
+    fullpath: path.join(__dirname, '../../illiade.welcome'), 
+    extension: 'welcome', 
+    welcome: true,
+    isVirtual: true
+}, 'Opened file - holds HTML/Object Element')
+
 new Global('always', 'TREE_MAP', [], 'Holds expanded tree map')
 new Global('always', 'VIEWS_LAST', [], 'Holds last used views')
 
@@ -45,6 +54,7 @@ new Global('brief', 'VERSION', [1, 0], 'Illiade version')
 new Global('brief', 'VERSION_LEVEL', 'ALPHA', 'Illiade version')
 new Global('brief', 'FS_MOVE', null, 'Current Moving File')
 new Global('brief', 'ICONS', [], 'Icons Array')
+new Global('brief', 'EXT_UNSAVABLE', ['png', 'jpg', 'svg', 'welcome'], 'Non-savable extensions')
 
 
 
