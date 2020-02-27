@@ -53,18 +53,11 @@ html(lang="en")
             #image
                 #image-container
         #dna
-            video#dna-bg(muted)
-                source(src="../../art/dna.mp4" type="video/mp4")
-            #container
+            #dna-bg
                 .main-title Edit Illiade's DNA
                 .back
-                #langs
-                    .title Manage Supported Languages
-                    .row
-                        .capsule
-                            .item C++
-                            .item JS
-                        .item.click#add-lang +
+                .container
+                    
 
         #menu
             #container
@@ -81,12 +74,13 @@ html(lang="en")
         #terminal
         #paralels
         #error Error: Oopsie
-        #decision 
+        #decision
             .content Should I remove the file?
             .container
                 .btn.y(data-tippy-content="ALT + Y") Yes
                 .btn.n(data-tippy-content="ALT + N") No
-
+        audio(autoplay loop)
+            source(src="../../art/underwater.mp3" type="audio/mpeg")
         script(src="../render/global.js")
         script(src="../render/main.js")
         script(src="../render/error.js")
@@ -94,6 +88,7 @@ html(lang="en")
         script(src="../render/menu.js")
         script(src="../render/view.js")
         script(src="../render/monaco.js")
+        script(src="../render/audio.js")
         script(src="../render/terminal-input.js")
         script(src="../render/terminal.js")
         script(src="../render/file-system/ops.js")

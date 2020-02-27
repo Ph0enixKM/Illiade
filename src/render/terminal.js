@@ -258,7 +258,7 @@ class Terminal {
                     el.className = 'paralel'
                     new Paralel(el, this.input.value, this.path)
                     this.paralels.appendChild(el)
-                    this.inputReady(this.path)
+                    this.inputReady()
                 }
             }
         ])
@@ -487,6 +487,12 @@ class Terminal {
                 this.inputReady.bind(this)
             )) return
 
+            // Handle Clear
+            if (terminalInput.clear(
+                command, 
+                terminal,
+                this.inputReady.bind(this)
+            )) return
             
             this.write('')
             // Spawn command
@@ -501,9 +507,7 @@ class Terminal {
             // Listen for the output
             this.cmd.stdout.on('data', (data) => {
                 // If there is defined way of output
-                if (
-                    terminalInput.clear(command, terminal) ||
-                    terminalInput.ls(
+                if (terminalInput.ls(
                         command, 
                         this.write.bind(this), 
                         data, 

@@ -46,6 +46,7 @@ new Global('always', 'OPENED', {
 
 new Global('always', 'TREE_MAP', [], 'Holds expanded tree map')
 new Global('always', 'VIEWS_LAST', [], 'Holds last used views')
+new Global('always', 'AMBIENT_SOUND', false, 'Turn on/off ambient sound')
 
 new Global('brief', 'OPENED_LAST', [], 'Opened file - holds Objects')
 new Global('brief', 'EDITOR_LOAD', false, 'Editor Loaded')

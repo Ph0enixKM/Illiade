@@ -1,5 +1,4 @@
 #dna
-    display: none
     visibility: hidden
     position: absolute
     top: 28px
@@ -11,13 +10,6 @@
     opacity: 0
     transition: opacity 200ms
     #dna-bg
-        object-fit: cover
-        width: 100vw
-        height: 100vh
-        position: absolute
-        top: 0
-        animation: dna 3s forwards
-    #container
         position: relative
         transition: 200ms
         text-align: center
@@ -34,14 +26,14 @@
             background-color: rgba(30, 25, 22, 0.3)
             border-radius: 10px
     .main-title
-        margin: 20px 0 10px 0
-        font-size: 40px
+        margin: 20px 0 10px 50px
+        font-size: 4vw
         font-family: Lato
-        color: #aaa
+        color: #fca
         text-align: center
     .title
         margin: 10px 40px 5px 40px
-        font-size: 30px
+        font-size: 3vw
         font-family: Lato
         color: #aaa
         text-align: left
@@ -65,41 +57,34 @@
         &:active
             transform: scale(0.9)
     .row
-        // display: inline-block
-        overflow-x: scroll
-        background-color: rgba(20, 15, 12, 0.5)
         padding: 10px
         margin: 20px
-        border-radius: 10px
-        &::-webkit-scrollbar
-            background-color: transparent
-        &::-webkit-scrollbar-track
-            background-color: transparent
-        &::-webkit-scrollbar-thumb
-            background-color: rgba(30, 25, 22, 0.3)
-            border-radius: 10px
-        .capsule
+        .name
             display: inline-block
-        .item
-            border-radius: 10px
-            height: auto
-            display: inline-block
-            margin: 10px
-            padding: 10px
-            background-color: #2f2a28
-            color: #aaa
+            font-size: 2vw
+            text-align: right
+            padding-right: 20px
+            width: calc(50vw - 60px)
             font-family: Lato
-            &.click
+            color: #999
+            vertical-align: middle
+        .setting
+            text-align: left
+            display: inline-block
+            width: calc(50vw - 40px)
+            vertical-align: middle
+
+            .switch
+                display: inline-block
+                margin-left: 10px
+                width: 2vw
+                height: 2vw
+                border-radius: 50%
                 cursor: pointer
-                transition: transform 200ms
-                &:hover
-                    transform: scale(0.95)
-                &:active
-                    transform: scale(0.9)
-
-
-@keyframes dna
-    0%
-        filter: grayscale(0.3) blur(0px) contrast(1) brightness(1)
-    100%
-        filter: grayscale(0.7) blur(5px) contrast(0.8) brightness(1.2)
+                background-color: #333
+                transform: scale(1)
+                will-change: transform
+                transition: transform 300ms 
+                &.on
+                    transform: scale(1.5)
+                    background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)

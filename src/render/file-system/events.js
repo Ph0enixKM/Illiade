@@ -88,6 +88,11 @@ setInterval(() => {
     saveViewState(OPENED.val.fullpath)
 }, 3000)
 
+// Save before quitting
+require('electron').remote.app.once('before-quit', () => {
+    saveViewState(OPENED.val.fullpath)
+})
+
 function saveViewState(fullpath) {
     let found = false
     // Save Last element's view state

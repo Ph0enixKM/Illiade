@@ -19,9 +19,10 @@ const terminalInput = {
     },
 
     // Simulate Clear Command
-    clear: (command, terminal) => {
+    clear: (command, terminal, inputReady) => {
         if (command === 'clear') {
             terminal.innerHTML = ''
+            inputReady()
             return true
         }
     },

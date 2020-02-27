@@ -49,7 +49,9 @@ header
         flex: 1
         display: inline-block
         text-align: left
+        vertical-align: middle
         #title
+            vertical-align: middle
             margin: 0 20px
             color: white
             font-family: Lato
@@ -59,6 +61,8 @@ header
             transition: 200ms color
             user-select: none
             cursor: pointer
+            font-size: 15px
+            line-height: 15px
             .deleted
                 text-decoration: line-through
                 color: #555
@@ -83,7 +87,7 @@ header
         height: 15px
         background-size: cover
         transition: 100ms
-        margin: 0 3px
+        margin: 1px 3px 0 3px
         &:hover
             opacity: 0.5
     #exit

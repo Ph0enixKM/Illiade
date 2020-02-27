@@ -22,4 +22,7 @@ app.on('ready', () => {
         icon: path.join(__dirname, '../../logo/logo.png')
     })
     win.loadFile(path.join(__dirname, '../view/view.html'))
+    
 })
+
+app.once('window-all-closed', app.quit)

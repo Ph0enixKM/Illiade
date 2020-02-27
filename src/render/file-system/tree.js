@@ -14,8 +14,17 @@ function updateTree() {
         title.innerHTML = `<span class="deleted">${name}</span>`
     }
 
-    fsCont.innerHTML = ''    
-    changeDirectory(ROOT.val)
+    // Reload file system
+    fsCont.style.opacity = 0
+    setTimeout(async () => {
+
+        fsCont.innerHTML = ''
+        await changeDirectory(ROOT.val)
+
+        setTimeout(() => {
+            fsCont.style.opacity = 1
+        }, 100)
+    }, 100)
 }
 
 // This function generates file system tree

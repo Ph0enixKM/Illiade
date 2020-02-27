@@ -18,14 +18,14 @@ const titleTip = tippy(title, {
 })
 
 // Main function to change current ROOT directory
-async function changeDirectory(inputDir) {
+async function changeDirectory(inputDir, container = fsCont) {
     fs.readdir(inputDir, (error, files) => {
         if (error) {
             $err.spawn(`Such directory like '${inputDir}' does not exist`)
         }
 
         else {
-            generateTree(fsCont, files, inputDir)
+            generateTree(container, files, inputDir)
             
             ROOT.val = inputDir
             ROOTS.unshift(inputDir)
