@@ -6,7 +6,7 @@ import { pathExists } from "fs-extra"
 
 
 // Save State View
-setInterval(saveCurrentViewState, 3000)
+setInterval(() => saveCurrentViewState(), 3000)
 // Save before quitting
 require('electron').remote.app.once('before-quit', () => {
     updateProjectConfig()
@@ -109,6 +109,7 @@ function saveViewState(fullpath) {
     for (const [index, obj] of VIEWS_LAST.val.entries()) {        
         if (obj.fullpath == fullpath) {
             VIEWS_LAST.val[index].viewState = editor.saveViewState()
+            VIEWS_LAST.val[index].time = new Date().getTime()
             storage.set('VIEWS_LAST', VIEWS_LAST.val)
             found = true
             break
@@ -118,7 +119,8 @@ function saveViewState(fullpath) {
     if(!found) {
         VIEWS_LAST.push({
             fullpath,
-            viewState: editor.saveViewState()
+            viewState: editor.saveViewState(),
+            time: new Date().getTime()
         })
         storage.set('VIEWS_LAST', VIEWS_LAST.val)
     }
@@ -126,12 +128,23 @@ function saveViewState(fullpath) {
 
 function restoreViewState(fullpath) {
     // Save Last element's view state
-    for (const obj of VIEWS_LAST.val) {        
+    for (const [index, obj] of VIEWS_LAST.val.entries()) {
         if (obj.fullpath == fullpath) {
             editor.restoreViewState(obj.viewState)
             break
         }
     }
+
+    // Remove views that are too old
+    VIEWS_LAST.quiet = VIEWS_LAST.val.filter(item => {
+        // 3 days
+        let timeSpan = 1000 * 60 * 60 * 24 * 3
+
+        // If it's not so old keep it
+        if (new Date().getTime() - item.time < timeSpan) {
+            return true
+        }
+    })
 }
 
 function updateOpenedFiles(element, lastElPath) {
