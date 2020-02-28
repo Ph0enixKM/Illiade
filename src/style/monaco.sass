@@ -8,38 +8,38 @@ $monaco-color: rgba(0, 0, 0, 0.2)
     vertical-align: top
     overflow-y: hidden
     width: calc(100vw - 200px)
-    height: 100vh
+    height: calc(100vh - 30px)
     transition: opacity 300ms
     opacity: 0
     filter: saturate(0.9)
-    & .current-line
+    .current-line
         border: none
         background-color: #3333
-    & .cslr.selected-text
+    .cslr.selected-text
         background-color: #333
 
     // base color
-    & span.mtk1
+    span.mtk1
         color: #aaa
-    & .slider
+    
+    .slider
         border-radius: 15px
         background-color: #3a3533
-    & .fields
+    .fields
         background-color: red !important
-    & .cursor
-        transition: 100ms
+    .cursor
         visibility: inherit !important
         animation: blink 2s infinite
-    & .tree
+    .tree
         transition: 300ms   
         background-color: transparent !important
         background: rgba(0, 0, 0, 0.3) !important
         border: none
         backdrop-filter: blur(2px)
         border-radius: 10px
-    & .minimap-shadow-visible
+    .minimap-shadow-visible
         box-shadow: #111 -6px 0 6px -6px inset
-    & .scroll-decoration
+    .scroll-decoration
         box-shadow: #2a2522 0 6px 6px -6px inset
 
 @keyframes blink

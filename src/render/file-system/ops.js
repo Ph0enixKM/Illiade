@@ -1,4 +1,4 @@
-import { removeSync } from "fs-extra"
+import fs from 'fs-extra'
 
 // Core of Directory and File
 class FileCore {
@@ -45,9 +45,8 @@ class FileCore {
             {
                 name: 'delete',
                 action: () => {
-
                     // Ask some verification before
-                    removeSync(this.element.getAttribute('fullpath'))
+                    fs.removeSync(this.element.getAttribute('fullpath'))
                     updateTree()
                 }
             }

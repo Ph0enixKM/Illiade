@@ -96,20 +96,23 @@ amdRequire(['vs/editor/editor.main'], () => {
         ]
     })
 
-    window.editor = monaco.editor.create(document.getElementById('editor'), {
+    window.editor = monaco.editor.create($('#editor'), {
         value: '',
         language: '$cpp',
         theme: 'blaze',
         contextmenu: false,
-        // automaticLayout: true,
+        renderIndentGuides: false,
+        accessibilitySupport: 'auto',
+        smoothScrolling: true,
+        cursorSmoothCaretAnimation: true,
         scrollbar: {
             useShadows: false,
             verticalHasArrows: false,
             horizontalHasArrows: false,
-            vertical: 'visible',
-            horizontal: 'hidden',
-            verticalScrollbarSize: 15,
-            horizontalScrollbarSize: 15
+            vertical: 'auto',
+            horizontal: 'auto',
+            verticalScrollbarSize: 5,
+            horizontalScrollbarSize: 5
         }
     })
 

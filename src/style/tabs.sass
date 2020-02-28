@@ -33,6 +33,20 @@
                 margin: 5vw
                 will-change: tranform
                 transition: transform 100ms 
+                .unsaved
+                    visibility: hidden
+                    display: inline-block
+                    width: 2vw
+                    height: 2vw
+                    bottom: -2vw
+                    left: 9vw
+                    position: relative
+                    border-radius: 50%
+                    &.on
+                        visibility: visible
+                        background-color: purple
+                        
+                    
                 .title
                     height: 5vw
                     font-family: Lato

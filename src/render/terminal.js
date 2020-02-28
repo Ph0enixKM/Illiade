@@ -246,6 +246,7 @@ class Terminal {
             this.inputReady()            
         })
         
+        // Context menu
         new TinyMenu(terminal, [
             {
                 name: 'run in background',
@@ -258,11 +259,31 @@ class Terminal {
                     el.className = 'paralel'
                     new Paralel(el, this.input.value, this.path)
                     this.paralels.appendChild(el)
-                    this.inputReady()
+                    this.inputReady()   
                 }
             }
         ])
         
+        const quickCommand = (e, number) => {
+            if (e.key == number && e.altKey) {
+                if (!window[`COMMAND${number}`].val.length)
+                    return $err.spawn(`Command ${number} is empty`)
+    
+                // Interrupt existing
+                if (this.cmd) process.kill(-this.cmd.pid)
+                    
+                this.input.value = window[`COMMAND${number}`].val
+                this.theInputFunction({
+                    target: this.input,
+                    key: 'Enter'
+                })
+            }
+        }
+        
+        // Quick Commands
+        window.addEventListener('keydown', e => quickCommand(e, '1'))
+        window.addEventListener('keydown', e => quickCommand(e, '2'))
+        window.addEventListener('keydown', e => quickCommand(e, '3'))
         
         // Position of the terminal
         terminal.style.webkitTransform = 
@@ -484,6 +505,14 @@ class Terminal {
                 hideTerminal, 
                 terminal, 
                 this.clear.bind(this), 
+                this.inputReady.bind(this)
+            )) return
+            
+            // Handle Background Command
+            if (terminalInput.bg(
+                command, 
+                this.paralels, 
+                this.path,
                 this.inputReady.bind(this)
             )) return
 

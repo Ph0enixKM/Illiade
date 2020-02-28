@@ -5,7 +5,7 @@ function viewResize () {
     let fsWidth = fileSystem.getBoundingClientRect().width
 
     view.style.width = `calc(100vw - ${fsWidth}px)`
-    window.editor.layout({width: max.width - fsWidth, height: max.height})
+    window.editor.layout({width: max.width - fsWidth, height: max.height - 58})
     updateResizer()
 }
 

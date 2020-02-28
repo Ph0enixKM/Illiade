@@ -16,7 +16,7 @@ class Tabs {
         
         // Release
         window.addEventListener('keyup', e => {
-            if (e.key === 'q') {
+            if (e.key === 'q' && this.busy) {
                 this.enter()
             }
         })
@@ -55,6 +55,14 @@ class Tabs {
         })
     }
     
+    static indexOfOpened(fullpath = OpenedAPI.get('fullpath')) {
+        for (let i = 0; i < OPENED_LAST.val.length; i++) {
+            if (OPENED_LAST.val[i].fullpath == fullpath) {
+               return i 
+            }
+        }
+    }
+    
     // Initialize the menu
     init () {
         this.tabs.style.visibility = 'visible'
@@ -65,10 +73,17 @@ class Tabs {
             const el = document.createElement('div')
             const title = document.createElement('div')
             const img = document.createElement('div')
+            const unsaved = document.createElement('div')
+            
             el.className = 'item'
             title.className = 'title'
             title.innerHTML = obj.name
             img.className = 'image'
+            unsaved.className = 'unsaved'
+            
+            if (obj.unsaved) {
+                unsaved.classList.add('on')
+            }
             
             // Add icon if exists
             if (ICONS.val.includes(`${obj.extension}-icon.svg`)) {
@@ -78,6 +93,7 @@ class Tabs {
             
             el.appendChild(title)
             el.appendChild(img)
+            el.appendChild(unsaved)
             this.items.appendChild(el)
         }
         this.items.style.transition = 'transform 300ms'

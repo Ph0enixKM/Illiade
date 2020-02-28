@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, dialog } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 import path from 'path'
 
 
@@ -9,7 +9,7 @@ let win
 Menu.setApplicationMenu(null)
 
 // Main Ready Call
-app.on('ready', () => { 
+app.on('ready', () => {
     
     win = new BrowserWindow ({
         width: 1280,

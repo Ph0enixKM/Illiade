@@ -92,6 +92,21 @@ const terminalInput = {
             setTimeout(() => $('.inputarea').focus(), 500)
             return true
         }
+    },
+    
+    bg(command, paralels, path, inputReady) {
+        if (ifProbablyCMD(command, 'bg')) {            
+            if (paralels.children.length >= 5) {
+                $err.spawn('Too many background terminals. Remove one to be able to add more.')
+                return
+            }
+            const el = document.createElement('div')
+            el.className = 'paralel'
+            new Paralel(el, command.slice(2).trim(), path)
+            paralels.appendChild(el)
+            inputReady()
+            return true
+        }
     }
 }
 

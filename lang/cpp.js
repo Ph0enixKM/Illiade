@@ -65,7 +65,7 @@ const CPP_LANGUAGE = {
         [/\b(class|struct|union|enum|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
 
         // Keywords
-        [/\b(using|typedef|namespace|abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop)\b/, "keyword"],
+        [/\b(template|typename|using|typedef|namespace|abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // Directives

@@ -1,3 +1,5 @@
+import fs from 'fs-extra'
+
 class DNA {
     constructor() {
         this.element = $('#dna')
@@ -39,7 +41,6 @@ class DNA {
                     AMBIENT_SOUND.val = !AMBIENT_SOUND.val
                 },
                 update() {
-                    console.log(AMBIENT_SOUND.val, audioController.audio.volume)
                     if (AMBIENT_SOUND.val) {
                         audioController.audio.volume = 
                             audioController.level * 0.0005
@@ -49,6 +50,55 @@ class DNA {
                         audioController.audio.volume = 0
                     }
                 }
+            },
+
+            'Quick Commands',
+
+            {
+                id: 'cmd-1',
+                name: '(ALT + 1)',
+                type: 'text',
+                placeholder: 'compile src.code -o here.out',
+                attach: 'COMMAND1',
+                trigger(val) {
+                    COMMAND1.val = val
+                },
+                update() {}
+            },
+            {
+                id: 'cmd-2',
+                name: '(ALT + 2)',
+                type: 'text',
+                placeholder: 'package-manager run build',
+                attach: 'COMMAND2',
+                trigger(val) {
+                    COMMAND2.val = val
+                },
+                update() {}
+            },
+            {
+                id: 'cmd-3',
+                name: '(ALT + 3)',
+                type: 'text',
+                placeholder: 'git pull origin master',
+                attach: 'COMMAND3',
+                trigger(val) {
+                    COMMAND3.val = val
+                },
+                update() {}
+            },
+            
+            'Project File',
+            
+            {
+                id: 'save-project-config',
+                name: 'Save config of this project to a file',
+                type: 'switch',
+                attach: 'SAVE_PROJECT_CONFIG',
+                trigger() {
+                    SAVE_PROJECT_CONFIG.val = !SAVE_PROJECT_CONFIG.val
+                },
+                update: updateProjectConfig
             }
         ]
     }
@@ -86,15 +136,34 @@ class DNA {
                     control.appendChild(setting)
 
                     window[item.attach].trigger(value => {
-                        setting.classList.toggle('on', value)
+                            setting.classList.toggle('on', value)
                         storage.set(item.attach, value)
                     })
 
                     window[item.attach].trigger(item.update)
                     window[item.attach].tick(window[item.attach].val)
                     item.update()
+                }
 
+                else if (item.type === 'text') {
+                    let setting = document.createElement('input')
+                    setting.id = item.id
+                    setting.className = 'text'
+                    setting.placeholder = item.placeholder
+                    setting.addEventListener('change', e => {
+                        // console.log(e.target.value)
+                        item.trigger(e.target.value)
+                    })
+                    control.appendChild(setting)
+                    
+                    window[item.attach].trigger(value => {
+                        setting.value = value
+                        storage.set(item.attach, value)
+                    })
 
+                    window[item.attach].trigger(item.update)
+                    window[item.attach].tick(window[item.attach].val)
+                    item.update()
                 }
             }
         }

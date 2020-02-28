@@ -4,6 +4,16 @@ import { pathExists } from "fs-extra"
 // All the File-System Related events
 // ---
 
+
+// Save State View
+setInterval(saveCurrentViewState, 3000)
+// Save before quitting
+require('electron').remote.app.once('before-quit', () => {
+    updateProjectConfig()
+    saveCurrentViewState()
+})
+
+
 // Title bar update
 OPENED.trigger((val, last) => {
     if (val == null || val == last) {
@@ -36,7 +46,6 @@ OPENED.trigger((element, lastElement) => {
             lastElement.children[0].classList.remove('selected')
     }
 })
-
 
 // Opening Files
 OPENED.trigger((element, lastElement) => {
@@ -83,15 +92,16 @@ OPENED.trigger((element, lastElement) => {
 
 })
 
-// Save State View
-setInterval(() => {
-    saveViewState(OPENED.val.fullpath)
-}, 3000)
+function saveCurrentViewState() {
+    let ext = OpenedAPI.get('extension')
 
-// Save before quitting
-require('electron').remote.app.once('before-quit', () => {
-    saveViewState(OPENED.val.fullpath)
-})
+    // Check if it's an image or so null value
+    if (EXT_UNSAVABLE.val.includes(ext)) return
+    if (OPENED.val == null) return
+
+    // Run the view Saver
+    saveViewState(OpenedAPI.get('fullpath'))
+}
 
 function saveViewState(fullpath) {
     let found = false
@@ -126,7 +136,7 @@ function restoreViewState(fullpath) {
 
 function updateOpenedFiles(element, lastElPath) {
     let isNonText = EXT_UNSAVABLE.val.includes(element.extension)
-    let model = null
+    let model = {exists: false}
     
     if (element.fullpath != lastElPath && !isNonText)
         saveViewState(lastElPath)
@@ -141,7 +151,7 @@ function updateOpenedFiles(element, lastElPath) {
     }
     
     
-    if (model) {
+    if (model.exists) {
         if (model.image) {
             view.open(model.extension, model.fullpath)
         }
@@ -160,7 +170,8 @@ function updateOpenedFiles(element, lastElPath) {
             fullpath: element.fullpath,
             name: element.name,
             isVirtual: true,
-            image: isNonText
+            image: isNonText,
+            exists: true
         }
         
         if (model.image) {
@@ -202,12 +213,15 @@ async function updateChanges() {
     if (!await pathExists(fullpath)) return
     fs.readFile(fullpath, 'utf-8', (err, saved) => {
         if (err) throw err
+        const position = Tabs.indexOfOpened()
         
         if (saved != unsaved) {
+            OPENED_LAST.val[position].unsaved = true
             savedIcon.style.visibility = 'visible'
         }
 
         else {
+            OPENED_LAST.val[position].unsaved = false
             savedIcon.style.visibility = 'hidden'
         }
     })

@@ -14,6 +14,7 @@ $('#min').addEventListener('click', () => {
 })
 
 
+// Maximize Window
 $('#max').addEventListener('click', () => {
     if (win.isMaximized())
         win.unmaximize()
