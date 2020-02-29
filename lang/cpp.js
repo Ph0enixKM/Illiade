@@ -62,10 +62,12 @@ const CPP_LANGUAGE = {
     tokenizer: {
       root: [
         // Structure declarations
+        [/\b(typedef)(\s+)(struct)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'keyword', 'default', 'special']],
+        [/\b(enum)(\s+)(class)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'keyword', 'default', 'special']],
         [/\b(class|struct|union|enum|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
 
         // Keywords
-        [/\b(template|typename|using|typedef|namespace|abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop)\b/, "keyword"],
+        [/\b(long|template|typename|using|typedef|namespace|abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // Directives
@@ -82,7 +84,7 @@ const CPP_LANGUAGE = {
         // [/([A-Za-z][0-9A-Za-z_]*)(\s*<[^\(\s]+>\s*)(\()/, ['function', 'type', 'default']],
         
         [/\b(NULL|nullptr)\b/, 'number' ],
-        [/\b([A-Z_$]+[0-9A-Z_$]*)\b/, 'special' ],
+        [/\b([A-Z_$]+[0-9A-Za-z_$]*)\b/, 'special' ],
         
         // whitespace
         { include: '@whitespace' },

@@ -1,5 +1,6 @@
 
 import tippy from 'tippy.js'
+import fs from 'fs-extra'
 
 let fileSystem = $('#file-system')
 let fsCont = $('#file-system #container')

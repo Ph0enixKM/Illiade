@@ -458,7 +458,7 @@ class Terminal {
 
     }
 
-    theInputFunction (e) {
+    async theInputFunction (e) {
         // Get rid of new line
         if (e.target.value.length && !e.target.value.trim().length) {
             e.target.value = e.target.value.trim()
@@ -505,7 +505,7 @@ class Terminal {
                 hideTerminal, 
                 terminal, 
                 this.clear.bind(this), 
-                this.inputReady.bind(this)
+                this.inputReady.bind(this),
             )) return
             
             // Handle Background Command
@@ -515,7 +515,17 @@ class Terminal {
                 this.path,
                 this.inputReady.bind(this)
             )) return
+            
+            // Handle File Open Command
+            if (await terminalInput.open(
+                command, 
+                this.path,
+                this.isDir.bind(this),
+                this.error.bind(this),
+                this.inputReady.bind(this)
+            )) return
 
+            
             // Handle Clear
             if (terminalInput.clear(
                 command, 

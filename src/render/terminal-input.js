@@ -1,5 +1,6 @@
 import path from 'path'
 import tippy from 'tippy.js'
+import fs from 'fs-extra'
 
 // Terminal Input processing commands
 const terminalInput = {
@@ -54,7 +55,7 @@ const terminalInput = {
                         let backup = {
                             extension: extension,
                             fullpath: dir,
-                            name: format,
+                            name: e.target.innerHTML,
                             isVirtual: true
                         }
                         
@@ -68,10 +69,50 @@ const terminalInput = {
             return true
         }
     },
+    
+    // Open file in editorop
+    open: async (command, thePath, isDir, error, inputReady) => {
+        if (ifProbablyCMD(command, 'open')) {
+            const filePath = command.slice(4).trim()
+            const fullpath = path.join(thePath, filePath)
+            const name = path.basename(fullpath)
+            
+            // If path does not exist
+            if (!fs.pathExistsSync(fullpath)) {
+                error(`Cannot open "${filePath}" - path doesn't exist`)
+                inputReady()
+                return true    
+            }
+            
+            // If it's a directory
+            if (await isDir(fullpath)) {                
+                error(`Cannot open "${filePath}" - it's a directory`)
+                inputReady()
+                return true
+            }
+                
+            // Extension
+            const format = new RegExp('\\.(.*)').exec(name)
+            let extension = ''
+            if (format != null) extension = format[1].toLowerCase()
+            
+            let backup = {
+                extension,
+                fullpath,
+                name,
+                isVirtual: true
+            }
+            
+            OPENED.val = backup
+            storage.set('OPENED', backup)
+            inputReady()
+            return true
+        }
+    },
 
     cd: (command, thepath, callback) => {        
         if (ifProbablyCMD(command, 'cd')) {
-            const dir = command.slice(2, command.length).trim()
+            const dir = command.slice(2).trim()
             if (dir[0] === '/') {
                 callback(dir)
             }
