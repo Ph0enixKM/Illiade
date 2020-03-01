@@ -72,6 +72,7 @@ const CPP_LANGUAGE = {
 
         // Directives
         [/(^\s*)(#include)(\s+)(\S+)/, ['default', 'keyword', 'default', 'string']],
+        [/(^\s*)(#pragma)(\s+)(once)/, ['default', 'keyword', 'default', 'number']],
         [/^\s*#\S+/, 'keyword'],
         
         // Types

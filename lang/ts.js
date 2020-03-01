@@ -73,6 +73,9 @@ const TS_LANGUAGE = {
         [/\b(super)(\s*\()/, ['special', 'default'] ],
         [/(\.)([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['default', 'function', 'default']],
 
+        // Functions get and set shall not be highlighted
+        [/(get|set)(\s*\()/, ['function', 'default']],
+        [/(get|set)(\s*[=:]\s*\()/, ['function', 'default']],
         
         // Keywords
         [/\b(interface|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
@@ -80,6 +83,7 @@ const TS_LANGUAGE = {
         
         // Functions
         [/([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
+        [/([A-Za-z_$][0-9A-Za-z_]*)(\s*[=:]\s*\()/, ['function', 'default']],
         
         // Types
         [/(\)\s*:\s*)([A-Za-z_][0-9A-Za-z_:<>]*)/, ['default', 'type']],

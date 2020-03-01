@@ -42,6 +42,7 @@
     "monaco-editor-textmate": "^2.2.1",
     "monaco-textmate": "^3.0.1",
     "monaco-themes": "^0.3.3",
+    "mxgraph": "^4.1.0",
     "onigasm": "^2.2.4",
     "pug-cli": "^1.0.0-alpha6",
     "sass": "^1.23.3",

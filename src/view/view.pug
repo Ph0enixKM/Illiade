@@ -16,6 +16,9 @@ html(lang="en")
         script(src="../lib/storage/storage.js")
         script(src="../lib/tiny-menu/tiny-menu.js")
         script(src="../lib/resizer/resizer.js")
+        //- script.
+        //-     mxBasePath = '../../node_modules/mxgraph/javascript/src'
+        //- script(src="../../node_modules/mxgraph/javascript/src/js/mxClient.js")
         script.
             let exports = {"__esModule": true}
             function $(query) { return document.querySelector(query) }
@@ -74,6 +77,9 @@ html(lang="en")
         #terminal
         #paralels
         #error Error: Oopsie
+
+        #test(style="width:100vw; height:100vw; position:absolute; top:0; left:0; z-index: 100")
+
         #decision
             .content Should I remove the file?
             .container
@@ -88,6 +94,7 @@ html(lang="en")
         script(src="../render/menu.js")
         script(src="../render/view.js")
         script(src="../render/monaco.js")
+        script(src="../render/graph.js")
         script(src="../render/audio.js")
         script(src="../render/terminal-input.js")
         script(src="../render/terminal.js")
