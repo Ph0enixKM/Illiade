@@ -3,4 +3,6 @@
 </div>
 
 # Illiade
-The Ultimate App Visual Builder
+My Version of Code Editor. 
+
+> For now it's Linux-only
