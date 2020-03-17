@@ -43,3 +43,4 @@ _🤞 - In progress | 👍 - Done and ready_
 - Add animation on file drop \[🤞]
 - Edit saving terminal position based on *%* not on *px* \[🤞]
 - Terminal update position *(in %)* when window resized \[🤞]
+- Terminal update terminal path when project *ROOT* changed \[🤞]
