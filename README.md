@@ -20,7 +20,9 @@ you can easily run it with `illiade` or shortname `illie`
 > Related to node-pty error
 
 ##### Prerequisities:
-1. Install Node Package Manager `sudo apt install npm`
+1. Install Node Package Manager
+    - Linux: `sudo apt install npm`
+    - Windows: download nodejs installer and run it from [this website](https://nodejs.org/)
 2. Install electron-rebuild npm package globally `npm i electron-rebuild -g`
 3. (Windows) install build tools in CMD run as Administrator `npm install --global --production windows-build-tools`
 
