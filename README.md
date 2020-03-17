@@ -37,4 +37,4 @@ you can easily run it with `illiade` or shortname `illie`
 ## Upcomming changes
 - Hide terminal when *"Alt-tabbing"*
 - Fix common terminal issues
-- Fix bug with resizing and zooming in terminal
+- Fix bug with resizing and zooming in terminal 👍
