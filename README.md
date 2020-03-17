@@ -39,3 +39,4 @@ _🤞 - In progress | 👍 - Done and ready_
 - Hide terminal when *"Alt-tabbing"* \[👍]
 - Fix common terminal issues \[🤞]
 - Fix bug with resizing and zooming in terminal \[👍]
+- Add new tab in terminal \[🤞]
