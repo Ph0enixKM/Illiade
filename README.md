@@ -35,7 +35,7 @@ you can easily run it with `illiade` or shortname `illie`
 4. Done 🎉
 
 ## Upcomming changes
-** 🤞 - In progress | 👍 - Done and ready
+_🤞 - In progress | 👍 - Done and ready_
 - Hide terminal when *"Alt-tabbing"* \[🤞]
 - Fix common terminal issues \[🤞]
 - Fix bug with resizing and zooming in terminal \[👍]
