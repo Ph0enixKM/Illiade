@@ -40,3 +40,4 @@ _🤞 - In progress | 👍 - Done and ready_
 - Fix common terminal issues \[🤞]
 - Fix bug with resizing and zooming in terminal \[👍]
 - Add new tab in terminal \[🤞]
+- Add animation on file drop \[🤞]
