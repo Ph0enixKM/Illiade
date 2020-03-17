@@ -4,13 +4,15 @@
   "description": "The Ultimate App Visual Builder",
   "main": "dist/main/main.js",
   "scripts": {
-    "package": "electron-packager . Illiade --platform=linux --arch=x64 --overwrite",
-    "start": "electron .",
+    "package": "electron-packager . Illiade --platform=linux --arch=x64 --overwrite --icon=logo/logo.png",
+    "package-win": "electron-packager . Illiade --platform=win32 --arch=x64 --overwrite --icon=logo/logo.ico",
+    "app": "electron .",
     "babel": "babel --watch src/ --out-dir dist/",
     "sass": "sass src/style/style.sass dist/style/style.css --watch",
     "pug": "pug src/view/view.pug -o dist/view --watch",
     "build": "concurrently -c \"yellow,magenta,red\" -n \"JavaScript,Sass,Pug\" \"npm run babel\" \"npm run sass\" \"npm run pug\"",
-    "rebuild": "electron-rebuild"
+    "rebuild-pty": "electron-rebuild -f -w node-pty -v 8.1.1",
+    "start": "concurrently -n Runtime,Compiler \"npm run app\" \"npm run build\""
   },
   "repository": {
     "type": "git",
@@ -31,10 +33,10 @@
     "babel-preset-es2016": "^6.24.1",
     "coffeescript": "^2.4.1",
     "concurrently": "^5.0.0",
-    "electron": "^8.0.1",
+    "electron": "^8.1.1",
     "electron-packager": "^14.1.1",
     "electron-pug": "^2.0.0",
-    "electron-rebuild": "^1.8.8",
+    "electron-rebuild": "^1.10.1",
     "flowchart-core": "^1.1.4",
     "fs-extra": "^8.1.0",
     "interactjs": "^1.7.3",
@@ -42,13 +44,14 @@
     "monaco-editor-textmate": "^2.2.1",
     "monaco-textmate": "^3.0.1",
     "monaco-themes": "^0.3.3",
-    "mxgraph": "^4.1.0",
+    "node-pty": "^0.9.0",
     "onigasm": "^2.2.4",
     "pug-cli": "^1.0.0-alpha6",
     "sass": "^1.23.3",
     "three": "^0.110.0",
     "tippy.js": "^5.1.2",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "xterm": "^4.4.0"
   },
   "devDependencies": {}
 }

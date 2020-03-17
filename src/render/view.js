@@ -53,7 +53,15 @@ class View {
         
         
         let language = 'plaintext'
+
+        if (['mg'].includes(extension)) {
+            $err.spawn('Magma Syntax will be supported in 2.0.0 version')
+        }
         
+        if (['jac'].includes(extension)) {
+            $err.spawn('Jacuzzi Syntax will be supported in 1.5.0 version')
+        }
+
         if (['cpp', 'c', 'h', 'hpp'].includes(extension)) {
             language = '$cpp'
         }

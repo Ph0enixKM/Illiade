@@ -1,0 +1,23 @@
+#terminal
+    position: absolute   
+    right: 100px
+    bottom: 100px
+    width: auto !important
+    height: auto !important
+    z-index: 5
+    overflow: hidden
+    padding: 30px
+    backdrop-filter: blur(30px) 
+    background-color: rgba(130, 120, 100, 0.1)
+    border-radius: 10px
+    cursor: grab
+    border: 1px #222 solid
+    transform: scale(1)
+    will-change: transform
+    visibility: hidden
+    transition: transform 200ms
+    &:active
+        cursor: grabbing
+    .xterm-viewport
+        overflow: hidden
+    

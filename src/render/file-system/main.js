@@ -26,7 +26,13 @@ async function changeDirectory(inputDir, container = fsCont) {
         }
 
         else {
-            generateTree(container, files, inputDir)
+            // generateTree(container, files, inputDir)
+            let dir = new Directory(
+                path.join(inputDir, '../'), 
+                OpenedAPI.extract(inputDir).name, 
+                true
+            )
+            container.appendChild(dir.getElement())
             
             ROOT.val = inputDir
             ROOTS.unshift(inputDir)
@@ -168,20 +174,7 @@ class File extends FileCore {
     click(event) {
         OPENED.val = this.element
 
-        let backup = {
-            extension: this.extension,
-            fullpath: this.fullpath,
-            name: this.name,
-            isVirtual: true,
-            getAttribute: (attr) => {
-                if (attr === 'fullpath') this.fullpath
-                if (attr === 'extension') this.extension
-                else {
-                    throw `This attribute (${attr}) does not exist`
-                }
-            }
-        }
-        
+        const backup = OpenedAPI.extract(this.fullpath)
         storage.set('OPENED', backup)
         $('.inputarea').focus()
     }
@@ -227,5 +220,17 @@ class OpenedAPI {
         }
 
         else throw `Attr named ${attr} does not exist`
+    }
+    
+    static extract(fullpath) {
+        let name = path.basename(fullpath)
+        let ext = path.extname(fullpath)
+        let extension = ext.slice(1)
+        return {
+            fullpath,
+            extension,
+            name,
+            isVirtual: true
+        }
     }
 }

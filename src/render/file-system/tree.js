@@ -28,8 +28,10 @@ function updateTree() {
 }
 
 // This function generates file system tree
-async function generateTree(container, files, directory) {
-    let isDirs = []
+async function generateTree(container, givenFiles, directory) {
+    // let isDirs = []
+    const dirs = []
+    const files = []
 
     // Avoid this way stack overflow
     async function checkFileStats(directory, file) {
@@ -41,29 +43,47 @@ async function generateTree(container, files, directory) {
         })
     }
     
+    for (const file of givenFiles) {
+        let isdir = await checkFileStats(directory, file)
+        
+        if (isdir) 
+            dirs.push(file)
+        else 
+            files.push(file)
+    }
+
+    for (const dir of dirs) {
+        let isExpanded = false
+        if (TREE_MAP.val.includes(path.join(directory, dir)))
+            isExpanded = true
+            
+        let d = new Directory(directory, dir, isExpanded)
+        container.appendChild(d.getElement())
+    }
+
     for (const file of files) {
-        let boolValue = await checkFileStats(directory, file)
-        isDirs.push(boolValue)
+        let f = new File(directory, file)
+        container.appendChild(f.getElement())
     }
     
-    files.forEach((value, index) => {
-        if (isDirs[index] === null) return
+    // files.forEach((value, index) => {
+    //     if (isDirs[index] === null) return
 
-        if (isDirs[index]) {
-            let isExpanded = false
+    //     if (isDirs[index]) {
+    //         let isExpanded = false
             
-            if (TREE_MAP.val.includes(path.join(directory, value)))
-                isExpanded = true
+    //         if (TREE_MAP.val.includes(path.join(directory, value)))
+    //             isExpanded = true
                 
-            let dir = new Directory(directory, value, isExpanded)
-            container.appendChild(dir.getElement())
-        }
+    //         let dir = new Directory(directory, value, isExpanded)
+    //         container.appendChild(dir.getElement())
+    //     }
 
-        else {
-            let file = new File(directory, value)
-            container.appendChild(file.getElement())
-        }
-    })
+    //     else {
+    //         let file = new File(directory, value)
+    //         container.appendChild(file.getElement())
+    //     }
+    // })
 
     updateResizer()
 }

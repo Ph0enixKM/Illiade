@@ -5,6 +5,7 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="../style/style.css")
         link(rel="stylesheet", href="../../node_modules/tippy.js/themes/light.css")
+        link(rel="stylesheet", href="../../node_modules/xterm/css/xterm.css")
         script(src="../../node_modules/popper.js/dist/umd/popper.min.js")
         script(src="../../node_modules/tippy.js/dist/tippy-bundle.iife.js")
         script(src="../../lang/cpp.js")
@@ -16,9 +17,6 @@ html(lang="en")
         script(src="../lib/storage/storage.js")
         script(src="../lib/tiny-menu/tiny-menu.js")
         script(src="../lib/resizer/resizer.js")
-        //- script.
-        //-     mxBasePath = '../../node_modules/mxgraph/javascript/src'
-        //- script(src="../../node_modules/mxgraph/javascript/src/js/mxClient.js")
         script.
             let exports = {"__esModule": true}
             function $(query) { return document.querySelector(query) }
@@ -50,7 +48,6 @@ html(lang="en")
                 div
                     .img
                     h1 Illiade
-                    i C++ Editor
                     i#version Version
             #editor
             #image
@@ -75,10 +72,10 @@ html(lang="en")
             #container
                 #items
         #terminal
+            #xterm
         #paralels
         #error Error: Oopsie
-
-        #test(style="width:100vw; height:100vw; position:absolute; top:0; left:0; z-index: 100")
+        #drop
 
         #decision
             .content Should I remove the file?
@@ -87,6 +84,7 @@ html(lang="en")
                 .btn.n(data-tippy-content="ALT + N") No
         audio(autoplay loop)
             source(src="../../art/underwater.mp3" type="audio/mpeg")
+        script(src="../lib/draggable/draggable.js")
         script(src="../render/global.js")
         script(src="../render/main.js")
         script(src="../render/error.js")
@@ -94,16 +92,16 @@ html(lang="en")
         script(src="../render/menu.js")
         script(src="../render/view.js")
         script(src="../render/monaco.js")
-        script(src="../render/graph.js")
         script(src="../render/audio.js")
-        script(src="../render/terminal-input.js")
-        script(src="../render/terminal.js")
+        script(src="../render/term.js")
         script(src="../render/file-system/ops.js")
         script(src="../render/file-system/main.js")
         script(src="../render/file-system/resizer.js")
         script(src="../render/file-system/tree.js")
         script(src="../render/file-system/events.js")
         script(src="../render/file-system/tabs.js")
+        script(src="../render/cli.js")
+        script(src="../render/drop.js")
         script(src="../render/dna/events.js")
         script(src="../render/dna/main.js")
         script(src="../render/window-controls.js")
