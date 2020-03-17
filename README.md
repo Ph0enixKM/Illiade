@@ -33,3 +33,8 @@ you can easily run it with `illiade` or shortname `illie`
 2. Go to the app directory by running `cd resources/app/`
 3. Run the following command: `npm run rebuild-pty`
 4. Done 🎉
+
+## Upcomming changes
+- Hide terminal when *"Alt-tabbing"*
+- Fix common terminal issues
+- Fix bug with resizing and zooming in terminal
