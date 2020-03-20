@@ -41,6 +41,6 @@ _🤞 - In progress | 👍 - Done and ready_
 - Fix bug with resizing and zooming in terminal \[👍]
 - Add new tab in terminal \[🤞]
 - Add animation on file drop \[🤞]
-- Edit saving terminal position based on *%* not on *px* \[🤞]
-- Terminal update position *(in %)* when window resized \[🤞]
+- Edit saving terminal position based on *%* not on *px* \[👍]
+- Terminal update position *(in %)* when window resized \[👍]
 - Terminal update terminal path when project *ROOT* changed \[🤞]
