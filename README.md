@@ -35,6 +35,13 @@ you can easily run it with `illiade` or shortname `illie`
 4. Done 🎉
 
 ## Upcomming changes
-- Hide terminal when *"Alt-tabbing"*
-- Fix common terminal issues
-- Fix bug with resizing and zooming in terminal
+_🤞 - In progress | 👍 - Done and ready_
+- Hide terminal when *"Alt-tabbing"* \[👍]
+- Fix common terminal issues \[🤞]
+- Fix bug with resizing and zooming in terminal \[👍]
+- Add new tab in terminal \[👍]
+- Add animation on file drop \[🤞]
+- Edit saving terminal position based on *%* not on *px* \[👍]
+- Terminal update position *(in %)* when window resized \[👍]
+- Terminal update terminal path when project *ROOT* changed \[👍]
+- Terminal change dimensions with (ALT + Arrow instead CTRL + Arrow) \[👍]
