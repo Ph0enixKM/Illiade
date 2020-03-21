@@ -115,7 +115,7 @@ amdRequire(['vs/editor/editor.main'], () => {
             horizontalScrollbarSize: 5
         }
     })
-
+    
     setTimeout(() => {
         let style = $('.monaco-list style')
         style.remove()

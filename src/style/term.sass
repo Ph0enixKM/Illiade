@@ -16,6 +16,45 @@
     will-change: transform
     visibility: hidden
     transition: transform 200ms
+    #term-tabs
+        position: absolute
+        top: 10px
+        left: 30px
+        width: calc(100% - 60px)
+        height: 10px
+        z-index: 5
+        border-radius: 10px
+        display: flex
+        align-items: center
+        justify-content: center
+        align-content: space-between
+        .term-tab
+            position: relative
+            display: inline-block
+            width: 25px
+            height: 5px
+            margin: 5px
+            background: #1114
+            border-radius: 10px
+            &::after
+               content: "" 
+               display: inline-block
+               position: absolute
+               top: 0
+               left: 0
+               transition: 300ms
+               transition-timing-function: cubic-bezier(.04,.39,.78,1.46)
+               width: inherit
+               height: inherit
+               border-radius: inherit
+               background: linear-gradient( 45deg, #DD0039, #CA00B9)
+               opacity: 0
+               transform: scale(0, 1)
+            &.on::after
+                opacity: 1
+                transform: scale(1, 1)
+
+
     &:active
         cursor: grabbing
     .xterm-viewport

@@ -12,7 +12,7 @@
     "pug": "pug src/view/view.pug -o dist/view --watch",
     "build": "concurrently -c \"yellow,magenta,red\" -n \"JavaScript,Sass,Pug\" \"npm run babel\" \"npm run sass\" \"npm run pug\"",
     "rebuild-pty": "electron-rebuild -f -w node-pty -v 8.1.1",
-    "start": "concurrently -n Runtime,Compiler \"npm run app\" \"npm run build\""
+    "start": "concurrently -n Runtime,Compiler \"sleep 3; npm run app\" \"npm run build\""
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
     "monaco-editor-textmate": "^2.2.1",
     "monaco-textmate": "^3.0.1",
     "monaco-themes": "^0.3.3",
+    "monaco-vim": "^0.1.7",
     "node-pty": "^0.9.0",
     "onigasm": "^2.2.4",
     "pug-cli": "^1.0.0-alpha6",
