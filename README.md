@@ -15,21 +15,25 @@ you can easily run it with `illiade` or shortname `illie`
 - Open custom directory `illie ./my-cool-project`
 - Open custom file `illie /home/user/file.md`
 
-## Troubleshooting
-### Terminal is not working
-> Related to node-pty error
+## Compiling (MacOS/Windows)
+It is adviced to use Linux operating system for development on Illiade IDE.
+If you want to get Illiade working on MacOS then below I have written what must be done after finished downloading.
 
 ##### Prerequisities:
-1. Install Node Package Manager
-    - Linux: `sudo apt install npm`
+1. (MacOS) Install Homebrew using the command: `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+2. (MacOS) Install XCode which you can find in the [App Store](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
+3. Install Node Package Manager (and Node.js)
+    - MacOS: `brew install node`
     - Windows: download nodejs installer and run it from [this website](https://nodejs.org/)
-2. Install electron-rebuild npm package globally `npm i electron-rebuild -g`
-3. (Windows) install build tools in CMD run as Administrator `npm install --global --production windows-build-tools`
+4. (MacOS) Install Python if you don't have one `brew install python3`
+5. (MacOS) Install XCode Command Line Tools `xcode-select --install`
+4. (Windows) Install build tools in CMD run as Administrator `npm install --global --production windows-build-tools`
+5. Install electron-rebuild npm package globally `npm i electron-rebuild -g`
 
 ##### Recipe
 1. Go to the path where Illiade is installed
-    - Linux: `cd /opt/Illiade/`
-    - Windows: (go to the downloaded directory containing `Illiade.exe` file)
+    - Windows: go to the downloaded directory containing `Illiade.exe` file
+    - MacOS: go to the directory containing named `Illiade.app/Contents`
 2. Go to the app directory by running `cd resources/app/`
 3. Run the following command: `npm run rebuild-pty`
 4. Done 🎉
