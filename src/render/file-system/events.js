@@ -24,7 +24,7 @@ OPENED.trigger((val, last) => {
 
     const fullpath = OpenedAPI.get('fullpath')
 
-    let filename = /\/([^/]*$)/.exec(fullpath)[1]
+    let filename = /[\/\\]([^/\\]*$)/.exec(fullpath)[1]
     title.innerHTML = filename
     titleTip.setContent(fullpath)
 })
