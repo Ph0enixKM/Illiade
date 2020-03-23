@@ -77,7 +77,7 @@ amdRequire(['vs/editor/editor.main'], () => {
         base: 'vs-dark', // can also be vs-dark or hc-black
         inherit: true, // can also be false to completely replace the builtin rules
         rules: [
-            { token: 'comment', foreground: '888888', fontStyle: 'italic' },
+            { token: 'comment', foreground: '555555', fontStyle: 'italic' },
             { token: 'keyword', foreground: 'cc6bc4' },
             { token: 'number', foreground: 'ff851a' },
             { token: 'string', foreground: '79c534' },

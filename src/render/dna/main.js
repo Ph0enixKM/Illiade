@@ -1,5 +1,9 @@
 import fs from 'fs-extra'
 
+/**
+ * DNA Class that is responsible
+ * for dna editor regarding the UI
+ */
 class DNA {
     constructor() {
         this.element = $('#dna')
@@ -27,7 +31,9 @@ class DNA {
         }, 200)
     }
 
-
+    // Function that returns
+    // Settings config for
+    // Illiade's dna panel
     menu() {
         return [
             'Sound',

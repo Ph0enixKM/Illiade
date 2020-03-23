@@ -24,9 +24,9 @@ $('#max').addEventListener('click', () => {
 
 
 if (DEBUG === true)
-    window.addEventListener('keydown', (e) =>  {
-        if (e.key === 'F6')
-            win.toggleDevTools()
-        else if (e.key === 'F5')
-            win.reload()
-    })
+window.addEventListener('keydown', (e) =>  {
+    if (e.key === 'F6')
+        win.toggleDevTools()
+    else if (e.key === 'F5')
+        win.reload()
+})

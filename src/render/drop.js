@@ -4,22 +4,25 @@ const dropElem = $('#drop')
 document.addEventListener('drop', e => {
     e.preventDefault()
     e.stopPropagation()
-    dropElem.style.visibility = 'visible'
 
-    console.log(e.dataTransfer.files);
+    // Make visible if it disappeared
+    dropElem.style.visibility = 'visible'
     
+    // You can't drag more than one file
     if (e.dataTransfer.files.length > 1) {
         $err.spawn('You can drag only one file or directory at once')
         dropElem.style.visibility = 'hidden'
         return null
     }
-
+    
+    // Check whether the file really exists
     const fullpath = e.dataTransfer.files[0].path
     if (!fs.existsSync(fullpath)) {
         $err.spawn(`Requested file or directory '${fullpath}' does not exist`)
         dropElem.style.visibility = 'hidden'
     }
     
+    // Local data
     const data = fs.statSync(fullpath)
     const isFile = data.isFile()
     const obj = OpenedAPI.extract(fullpath)
@@ -56,6 +59,8 @@ document.addEventListener('drop', e => {
         icon.style.backgroundImage = 'url(../../art/icons/directory-icon.svg)'
     }
 
+    // Hide drop field 
+    // Atfter a second
     setTimeout(() => {
         dropElem.style.visibility = 'hidden'
         icon.classList.add('no-file')
@@ -69,9 +74,8 @@ document.addEventListener('dragover', e => {
     e.stopPropagation()
 })
 
-// document.addEventListener('dragexit', dragExit)
+// Drag Enter / Leave behavior
 document.addEventListener('dragleave', dragExit)
-// document.addEventListener('dragstart', dragStart)
 document.addEventListener('dragenter', dragStart)
 
 function dragStart() {
