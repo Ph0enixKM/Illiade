@@ -21,7 +21,7 @@ And that's it. The terminal will install Illiade for you!
 
 <br>
 <div align="center">
-    <img src="logo/screenshot.jpg">
+    <img src="logo/little-screenshot.jpg">
 </div>
 <br>
 
@@ -61,3 +61,4 @@ _🤞 - In progress | 👍 - Done and ready_
 - Refactor code for better maintaining \[🤞]
 - Windows - File Open error \[🤞]
 - Create File and Create Directory \[🤞]
+- Add Troubleshooting page (curl, wget...) \[🤞]
