@@ -21,7 +21,7 @@ And that's it. The terminal will install Illiade for you!
 
 <br>
 <div align="center">
-    <img src="logo/screenshot.jpg">
+    <img src="logo/little-screenshot.jpg">
 </div>
 <br>
 
