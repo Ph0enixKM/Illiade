@@ -60,6 +60,20 @@ else
 fi
 
 
+# Install dependencies
+wget --version &> /dev/null
+if [[ $? -ne '0' ]]; then
+    printf $cmderr
+    echo Error: install wget
+    printf $cmddim
+    echo It seems that wget tool is not installed
+    echo You should be able to install it using
+    echo any package manager.
+    printf $cmdcls
+    exit 1
+fi
+
+
 echo -e ${cmddim}This may take some time... meanwhile you can get some coffee${cmdcls}
 echo -n 'Downloading'
 spinner &
@@ -76,7 +90,7 @@ fi
 sleep 0.5
 
 # Kill spinner
-kill "$!"
+kill "$!" &> /dev/null
 
 # Download Done
 printf $cmdok
@@ -99,7 +113,7 @@ fi
 sleep 0.5
 
 # Kill spinner
-kill "$!"
+kill "$!" &> /dev/null
 
 # Installation Done
 printf $cmdok
@@ -110,19 +124,18 @@ echo
 echo -n 'Cleaning Up'
 spinner &
 
-# Installing Script
-
-
-if [[ os_type -eq "debian" ]]; then
-    echo -n ''
-    sudo rm ~/illiade.deb &> /dev/null
-fi
+# Cleaning Up Script
+echo -n ''
+sudo rm ~/illiade.deb &> /dev/null
+cd /opt/Illiade/
+sudo chown root chrome-sandbox
+sudo chmod 4755 chrome-sandbox
 
 # -- TMP --
 sleep 0.5
 
 # Kill spinner
-kill "$!"
+kill "$!" &> /dev/null
 
 # Installation Done
 printf $cmdok
