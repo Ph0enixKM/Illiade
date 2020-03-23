@@ -10,7 +10,39 @@
     background-size: 250px
     background-repeat: no-repeat
     background-position: center
-    background-image: url('../../art/drop.svg')
     transition: opacity 200ms
     opacity: 0
-    
+    #drop-icon
+        position: relative
+        top: 50%
+        left: 50%
+        width: 300px
+        height: 300px
+        background-color: rgba(0, 0, 0, 0.1)
+        backdrop-filter: blur(100px)
+        border-radius: 30px
+        background-size: 250px 250px
+        background-repeat: no-repeat
+        background-position: center
+        transform: translate(-50%, -50%)
+        z-index: 6
+        animation: file-drop 1s
+        &.no-file
+            background-image: url('../../art/drop.svg') !important
+            background-color: rgba(0, 0, 0, 0) !important
+            animation: none
+
+
+@keyframes file-drop
+    0%
+        transform: translate(-50%, -50%) scale(0)
+        opacity: 0.5
+    10%
+        transform: translate(-50%, -50%) scale(1.1)
+        opacity: 1
+    70%
+        transform: translate(-50%, -50%) scale(1)
+        opacity: 1
+    100%
+        transform: translate(-50%, -50%) scale(1)
+        opacity: 0

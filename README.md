@@ -3,7 +3,7 @@
 </div>
 
 # Illiade
-> Current stable version: Illiade Risen
+> Current stable version: Illiade Drizzle
 
 The official Phoenix Arts IDE.
 Download newest release [here](https://github.com/Ph0enixKM/Illiade/releases/latest)

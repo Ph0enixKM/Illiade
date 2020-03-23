@@ -1,9 +1,7 @@
-# This Script must be run with sudo command
+# This Script installs you a new Illiade version
 
 # Global variables
-debian_download=https://github.com/Ph0enixKM/Illiade/releases/download/1.1.0b/illiade_1.1.0_64.deb
-
-
+debian_download=https://github.com/Ph0enixKM/Illiade/releases/download/1.2.0b/illiade_1.2.0_64.deb
 
 cmddim="\e[2m"
 cmdbold="\e[1m"
@@ -13,7 +11,7 @@ cmdok="\e[32m"
 os_type=''
 
 echo
-echo -e $cmdbold 'Installing your Illiade' $cmdcls
+echo -e $cmdbold 'Installing your Illiade (Drizzle)' $cmdcls
 echo -e $cmddim 'Let us start!' $cmdcls
 echo
 echo

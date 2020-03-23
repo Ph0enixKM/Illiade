@@ -22,10 +22,11 @@ document.addEventListener('drop', e => {
     
     const data = fs.statSync(fullpath)
     const isFile = data.isFile()
+    const obj = OpenedAPI.extract(fullpath)
 
     // Open file
     if (isFile) {
-        OPENED.val = OpenedAPI.extract(fullpath)
+        OPENED.val = obj
         storage.set('OPENED', OPENED.val)
     }
 
@@ -36,7 +37,29 @@ document.addEventListener('drop', e => {
         changeDirectory(ROOT.val)
     }
 
-    dropElem.style.visibility = 'hidden'
+    // Animate filedrop
+    const icon = document.querySelector('#drop #drop-icon')
+    icon.classList.remove('no-file')
+    
+    // File Icon
+    if (isFile) {
+        if (ICONS.val.includes(`${obj.extension}-icon.svg`)) {
+            icon.style.backgroundImage = `url(../../art/icons/${obj.extension}-icon.svg)`
+        }   
+        else {
+            icon.style.backgroundImage = 'url(../../art/icons/file-icon.svg)'
+        }
+    }
+    
+    // Directory Icon
+    else {
+        icon.style.backgroundImage = 'url(../../art/icons/directory-icon.svg)'
+    }
+
+    setTimeout(() => {
+        dropElem.style.visibility = 'hidden'
+        icon.classList.add('no-file')
+    }, 1000)
 
 })
 

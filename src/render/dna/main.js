@@ -52,41 +52,41 @@ class DNA {
                 }
             },
 
-            'Quick Commands',
+            // 'Quick Commands',
 
-            {
-                id: 'cmd-1',
-                name: '(ALT + 1)',
-                type: 'text',
-                placeholder: 'compile src.code -o here.out',
-                attach: 'COMMAND1',
-                trigger(val) {
-                    COMMAND1.val = val
-                },
-                update() {}
-            },
-            {
-                id: 'cmd-2',
-                name: '(ALT + 2)',
-                type: 'text',
-                placeholder: 'package-manager run build',
-                attach: 'COMMAND2',
-                trigger(val) {
-                    COMMAND2.val = val
-                },
-                update() {}
-            },
-            {
-                id: 'cmd-3',
-                name: '(ALT + 3)',
-                type: 'text',
-                placeholder: 'git pull origin master',
-                attach: 'COMMAND3',
-                trigger(val) {
-                    COMMAND3.val = val
-                },
-                update() {}
-            },
+            // {
+            //     id: 'cmd-1',
+            //     name: '(ALT + 1)',
+            //     type: 'text',
+            //     placeholder: 'compile src.code -o here.out',
+            //     attach: 'COMMAND1',
+            //     trigger(val) {
+            //         COMMAND1.val = val
+            //     },
+            //     update() {}
+            // },
+            // {
+            //     id: 'cmd-2',
+            //     name: '(ALT + 2)',
+            //     type: 'text',
+            //     placeholder: 'package-manager run build',
+            //     attach: 'COMMAND2',
+            //     trigger(val) {
+            //         COMMAND2.val = val
+            //     },
+            //     update() {}
+            // },
+            // {
+            //     id: 'cmd-3',
+            //     name: '(ALT + 3)',
+            //     type: 'text',
+            //     placeholder: 'git pull origin master',
+            //     attach: 'COMMAND3',
+            //     trigger(val) {
+            //         COMMAND3.val = val
+            //     },
+            //     update() {}
+            // },
             
             'Project File',
             
