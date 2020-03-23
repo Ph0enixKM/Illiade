@@ -9,6 +9,12 @@ Once installed you can run the executable
 or if you have **Ubuntu | Debian | Lava** operating system
 you can easily run it with `illiade` or shortname `illie`
 
+## Installation (Linux)
+Illiade can be easily installed on linux via this command:
+```bash
+curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/linux.sh | bash
+```
+
 ## CLI
 - Open current directory `illie .`
 - Open current directory as a separate process `illie . &`
