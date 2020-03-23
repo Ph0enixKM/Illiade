@@ -3,6 +3,8 @@
 </div>
 
 # Illiade
+> Current stable version: Illiade Risen
+
 The official Phoenix Arts IDE.
 Download newest release [here](https://github.com/Ph0enixKM/Illiade/releases/latest)
 Once installed you can run the executable
@@ -47,7 +49,7 @@ If you want to get Illiade working on MacOS then below I have written what must 
 ## Upcomming changes
 _🤞 - In progress | 👍 - Done and ready_
 - Hide terminal when *"Alt-tabbing"* \[👍]
-- Fix common terminal issues \[🤞]
+- Fix common terminal issues \[👍]
 - Fix bug with resizing and zooming in terminal \[👍]
 - Add new tab in terminal \[👍]
 - Add animation on file drop \[👍]
