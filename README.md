@@ -11,6 +11,10 @@ Once installed you can run the executable
 or if you have **Ubuntu | Debian | Lava** operating system
 you can easily run it with `illiade` or shortname `illie`
 
+<div align="center">
+    <img src="logo/ss.jpg">
+</div>
+
 ## Installation (Linux)
 Illiade can be easily installed on linux via this command:
 ```bash
