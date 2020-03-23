@@ -61,3 +61,4 @@ _🤞 - In progress | 👍 - Done and ready_
 - Refactor code for better maintaining \[🤞]
 - Windows - File Open error \[🤞]
 - Create File and Create Directory \[🤞]
+- Add Troubleshooting page (curl, wget...) \[🤞]
