@@ -27,7 +27,7 @@ TERMINAL_OPEN.trigger(val => {
             termElem.style.visibility = 'visible'
             termElem.style.transform = 'scale(1)'
             TERMINALS.val[TERMINAL_ID.val].xterm.focus()
-        }, 300)
+        }, 200)
     }
 
     else {
@@ -37,7 +37,7 @@ TERMINAL_OPEN.trigger(val => {
         setTimeout(() => {
             termElem.style.visibility = 'hidden'
             $('.inputarea').focus()
-        }, 300)
+        }, 200)
     }
 })
 
@@ -88,6 +88,12 @@ TERM_POS.trigger(val => {
 // Run Terminal
 initTerm()
 changeTerm(0)
+
+// Hide terminal once rendered
+setTimeout(() => {
+    termElem.style.transform = 'scale(0)'
+    termElem.style.visibility = 'hidden'
+}, 100)
 
 function initTerm() {
     const ID = TERMINALS.val.length
