@@ -61,6 +61,6 @@ _🤞 - In progress | 👍 - Done and ready_
 - Refactor code for better maintaining \[🤞]
 - Windows - File Open error fix \[👍]
 - Create File and Create Directory \[👍]
-- Ambient sound behavior improvements \[🤞]
+- Ambient sound behavior improvements \[👍]
 - Open File Directory \[🤞]
 - Suggestion Bar Style updated \[👍]
