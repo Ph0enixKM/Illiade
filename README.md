@@ -59,5 +59,6 @@ _🤞 - In progress | 👍 - Done and ready_
 - Make comments darker in the default theme \[👍]
 - Add bash / shell icon for BashScripts \[👍]
 - Refactor code for better maintaining \[🤞]
-- Windows - File Open error \[🤞]
-- Create File and Create Directory \[🤞]
+- Windows - File Open error fix \[👍]
+- Create File and Create Directory \[👍]
+- Ambient sound behavior improvements \[🤞]
