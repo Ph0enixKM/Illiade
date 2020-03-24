@@ -115,10 +115,15 @@ const watcher = chokidar.watch([], {
     ignoreInitial: true
 })
 
-watcher.on('all', (event, path) => {
+watcher.on('add', watcherUpdate)
+watcher.on('addDir', watcherUpdate)
+watcher.on('unlink', watcherUpdate)
+watcher.on('unlinkDir', watcherUpdate)
+
+function watcherUpdate() {
     console.log(event, path)
     treeNeedsUpdate = true
-})
+}
 
 setInterval(() => {
     if (treeNeedsUpdate) {
@@ -129,7 +134,6 @@ setInterval(() => {
 
 // clear console
 EDITOR_LOAD.trigger(() => {
-    console.clear()
     console.log(
         `%cIlliade ${VERSION_LEVEL.val}`,
         `   

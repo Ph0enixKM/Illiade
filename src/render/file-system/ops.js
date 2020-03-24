@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import { exec } from 'child_process'
 
 // Core of Directory and File
 class FileCore {
@@ -80,6 +81,26 @@ class FileCore {
                     let newName = await menu.get()
                     let newPath = path.join(targetDir, newName)
                     fs.mkdirSync(newPath)
+                }
+            },
+            {
+                name: 'open file manager',
+                action: async () => {
+                    if (process.platform == 'linux') {
+                        exec('xdg-open ' + path.join(thepath, name))
+                    }
+
+                    else if (process.platform == 'win32') {
+                        exec('explorer ' + path.join(thepath, name))
+                    }
+
+                    else if (process.platform == 'darwin') {
+                        exec('open ' + path.join(thepath, name))
+                    }
+
+                    else $err.spawn(
+                        'This feature is not supported on your operating system'
+                    )
                 }
             },
             {

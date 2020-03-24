@@ -48,12 +48,11 @@ class DNA {
                 },
                 update() {
                     if (AMBIENT_SOUND.val) {
-                        audioController.audio.volume = 
-                            audioController.level * 0.0005
+                        audioController.audioMaster.set(0.2)
                     }
 
                     else {
-                        audioController.audio.volume = 0
+                        audioController.audioMaster.set(0)
                     }
                 }
             },

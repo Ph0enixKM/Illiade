@@ -1,7 +1,9 @@
 import os from 'os'
 import { Terminal } from 'xterm'
 import { clipboard } from 'electron'
+import { WebglAddon } from 'xterm-addon-webgl'
 const pty = require('node-pty')
+
 
 // Initialize node-pty with an appropriate shell
 const termElem = $('#terminal')
@@ -144,8 +146,9 @@ function initTerm() {
         ptyProcess,
         tab
     })
-    
+
     xterm.open(xtermsElem)
+    xterm.loadAddon(new WebglAddon())
 
     TERM_X.trigger(val => {
         TERMINALS.val.map(term => {

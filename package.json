@@ -55,7 +55,8 @@
     "three": "^0.110.0",
     "tippy.js": "^5.1.2",
     "typescript": "^3.6.4",
-    "xterm": "^4.4.0"
+    "xterm": "^4.4.0",
+    "xterm-addon-webgl": "0.5.0"
   },
   "devDependencies": {}
 }

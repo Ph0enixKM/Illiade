@@ -42,9 +42,9 @@ const SASS_LANGUAGE = {
         [/(\*|&)(?=[^&])/, 'keyword'],
         
         // Directives
-        [/:\S+/, 'type'],
-        [/#[A-Za-z0-9\$\-]+/, 'function'],
-        [/\.[A-Za-z0-9\$\-]+/, 'number'],
+        [/[:]+[a-zA-Z0-9_\-\$]+/, 'type'],
+        [/#[A-Za-z0-9_\$\-]+/, 'function'],
+        [/\.[A-Za-z0-9_\$\-]+/, 'number'],
         
         
         // Functions
@@ -62,14 +62,17 @@ const SASS_LANGUAGE = {
         [/\b\d+\b/, 'number'],
         [/\b(\d+)(em|ex|ch|rem|vmin|vmax|vw|vh|vm|cm|mm|in|px|pt|pc|deg|grad|rad|turn|s|ms|Hz|kHz|[%])\b/, ['number', 'keyword']],
         
-        // Key - Val
-        [/\b([A-Za-z0-9_\$\-]+)(\s*:\s*)([^#\d\(]+$)/, ['default', 'default', 'identifier']],
+        // identifiers
+        [/\$[A-Za-z0-9_$\-]*\b/, 'identifier'],
+
+        [/\b(a|article|aside|body|br|details|div|h1|h2|h3|h4|h5|h6|head|header|hgroup|hr|footer|nav|p|section|span|summary|link|meta|style|title|button|fieldset|input|label|keygen|select|option|ul|li|ol|textarea|iframe|b|u|i|code|script|progress)\b/, 'identifier'],
+        [/\b\S+(?=:)\b/, 'default'],
+        [/\b\S+\b/, 'special'],
+
         
         // delimiter: after number because of .\d floats
         [/[;,.:]/, 'delimiter'],
         
-        // identifiers
-        [/^\s*[A-Za-z_$][A-Za-z0-9_$]*\b/, 'identifier'],
         
         // strings
         [/"([^"\\]|\\.)*$/, 'string.invalid'],
