@@ -63,3 +63,4 @@ _🤞 - In progress | 👍 - Done and ready_
 - Create File and Create Directory \[👍]
 - Ambient sound behavior improvements \[🤞]
 - Open File Directory \[🤞]
+- Suggestion Bar Style updated \[👍]
