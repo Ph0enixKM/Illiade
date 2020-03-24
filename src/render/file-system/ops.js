@@ -17,7 +17,6 @@ class FileCore {
                     let newName = await menu.get()
                     if (newName === null) return false
                     fs.renameSync(path.join(thepath, name), path.join(thepath, newName))
-                    updateTree()
                 }
             },
             {
@@ -38,16 +37,64 @@ class FileCore {
                         path.join(thepath, newName),
                         (err) => {
                             if (err) throw err;
-                            updateTree()
                     })
                 }
             },
             {
+                name: 'create file',
+                action: async () => {
+                    let targetDir = path.join(thepath, name)
+
+                    // Get parent path if it's a file
+                    if (this.isFile) {
+                        targetDir = thepath
+                    }
+
+                    menu.on({
+                        title: 'Create New File',
+                        subtitle: 'Choose a filename (with extension)',
+                        placeholder: 'name.ext'
+                    })
+
+                    let newName = await menu.get()
+                    let newPath = path.join(targetDir, newName)
+                    fs.writeFileSync(newPath, '')
+                }
+            },
+            {
+                name: 'create directory',
+                action: async () => {
+                    let targetDir = path.join(thepath, name)
+
+                    // Get parent path if it's a file
+                    if (this.isFile) {
+                        targetDir = thepath
+                    }
+
+                    menu.on({
+                        title: 'Create New Directory',
+                        subtitle: 'Choose a folder name',
+                        placeholder: 'name'
+                    })
+
+                    let newName = await menu.get()
+                    let newPath = path.join(targetDir, newName)
+                    fs.mkdirSync(newPath)
+                }
+            },
+            {
                 name: 'delete',
-                action: () => {
-                    // Ask some verification before
-                    fs.removeSync(this.element.getAttribute('fullpath'))
-                    updateTree()
+                action: async () => {
+                    menu.on({
+                        title: 'Delete directory',
+                        subtitle: `Are you sure you want to delete <br>${name}?`,
+                        placeholder: `[Y/n]`
+                    })
+
+                    let answer = await menu.get()
+                    if (answer.toLowerCase() == 'y') {
+                        fs.removeSync(this.element.getAttribute('fullpath'))
+                    }
                 }
             }
         ])

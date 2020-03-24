@@ -6,7 +6,12 @@ cliInit()
 // CLI run
 function cliInit() {
     const cliPath = remote.process.argv[1]
-    console.log(remote.process.argv);
+
+    // Report path to debugger
+    EDITOR_LOAD.trigger(() => console.log(
+        `%ccli-path: ${cliPath}`, DEBUGGER_STYLE.val
+    ))
+    
     
     if (cliPath != null) {
         let thePath = ''

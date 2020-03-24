@@ -1,4 +1,4 @@
-import { pathExists } from "fs-extra"
+import { pathExists, watch } from "fs-extra"
 
 // ---
 // All the File-System Related events
@@ -23,8 +23,9 @@ OPENED.trigger((val, last) => {
     }
 
     const fullpath = OpenedAPI.get('fullpath')
+    const obj = OpenedAPI.extract(fullpath)
 
-    let filename = /[\/\\]([^/\\]*$)/.exec(fullpath)[1]
+    let filename = obj.name
     title.innerHTML = filename
     titleTip.setContent(fullpath)
 })
@@ -282,9 +283,9 @@ window.addEventListener('keydown', async e => {
 
 // Menu "Change Directory" (init load)
 window.onload = async () => {
-    if (ROOT.val != null && ROOT.val.length !== 0) {
-        updateTree()
-    }
+    // if (ROOT.val != null && ROOT.val.length !== 0) {
+    //     updateTree()
+    // }
     OPENED.tick(OPENED.val)
 }
 
@@ -294,8 +295,6 @@ $('#title-cont #saved').addEventListener('click', e => {
 
     fs.writeFileSync(fullpath, editor.getValue())
     e.target.style.visibility = 'hidden'
-
-    updateTree()
 })
 
 // Save File (keyboard shortcut)
@@ -305,7 +304,6 @@ window.addEventListener('keydown', async e => {
 
         fs.writeFileSync(fullpath, editor.getValue())
         $('#title-cont #saved').style.visibility = 'hidden'
-
-        updateTree()
     }
 })
+

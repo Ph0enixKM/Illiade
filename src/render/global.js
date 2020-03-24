@@ -66,6 +66,7 @@ new Global('brief', 'EXT_UNSAVABLE', ['png', 'jpg', 'svg', 'welcome'], 'Non-sava
 new Global('brief', 'SAVE_PROJECT_CONFIG', false, 'Save current configuration to .illiade project file')
 new Global('brief', 'TERMINALS', [], 'Terminal Objects')
 new Global('brief', 'TERMINAL_ID', 0, 'Terminal chosen ID - used to get back to the terminal used before')
+new Global('brief', 'DEBUGGER_STYLE', 'color: #9a0187', 'Set the debugger style')
 
 
 

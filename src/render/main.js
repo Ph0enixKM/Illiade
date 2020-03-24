@@ -1,5 +1,6 @@
 import fs from 'fs-extra'
 import path from 'path'
+import chokidar from 'chokidar'
 
 tippy('[data-tippy-content]', {
     theme: 'dark',
@@ -106,3 +107,35 @@ Array.prototype.last = function () {
 String.prototype.last = function () {
     return this[this.length - 1]
 }
+
+// Update file system
+let treeNeedsUpdate = true
+const watcher = chokidar.watch([], {
+    depth: 0,
+    ignoreInitial: true
+})
+
+watcher.on('all', (event, path) => {
+    console.log(event, path)
+    treeNeedsUpdate = true
+})
+
+setInterval(() => {
+    if (treeNeedsUpdate) {
+        updateTree()
+        treeNeedsUpdate = false
+    }
+}, 1000)
+
+// clear console
+EDITOR_LOAD.trigger(() => {
+    console.clear()
+    console.log(
+        `%cIlliade ${VERSION_LEVEL.val}`,
+        `   
+            color: #BF00A8;
+            font-family: Lato, Verdana;
+            font-size: 30px;
+        `
+    )
+})

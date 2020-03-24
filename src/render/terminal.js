@@ -572,7 +572,6 @@ class Terminal {
             // Listen for the terminal
             this.cmd.on('close', (code) => {
                 this.clear()
-                updateTree()
                 OPENED.tick(OPENED.val)
 
                 console.log(`child process exited with code ${code}`);

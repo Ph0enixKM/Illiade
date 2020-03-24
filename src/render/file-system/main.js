@@ -1,6 +1,6 @@
 
 import tippy from 'tippy.js'
-import fs from 'fs-extra'
+import fs, { watch } from 'fs-extra'
 
 let fileSystem = $('#file-system')
 let fsCont = $('#file-system #container')
@@ -43,11 +43,10 @@ async function changeDirectory(inputDir, container = fsCont) {
             if (ROOTS.val.length > historyLength) {
                 ROOTS.val = ROOTS.val.slice(0, historyLength)
             }
-            
-            // Automate em
+                        
+            // Save Globals
             storage.set('ROOT', ROOT.val)
             storage.set('ROOTS', ROOTS.val)
-
         }
     })    
 }
@@ -57,6 +56,7 @@ async function changeDirectory(inputDir, container = fsCont) {
 class Directory extends FileCore {
     constructor(thepath, name, isExpanded = false) {
         super(document.createElement('div'), thepath, name)
+        this.isFile = false
 
         this.tree = isExpanded
 
@@ -87,7 +87,6 @@ class Directory extends FileCore {
                     if (err) throw err
                     FS_MOVE.val = null
                     fsMove.off()
-                    updateTree()
                 })
             }
             
@@ -99,6 +98,7 @@ class Directory extends FileCore {
             let insides = fs.readdirSync(this.fullpath)
             this.element.children[0].classList.toggle('expanded')
             generateTree(this.element.children[1], insides, this.fullpath)
+            watcher.add(this.fullpath)
         }
     }
     
@@ -116,15 +116,15 @@ class Directory extends FileCore {
         if (this.tree) {
             let insides = fs.readdirSync(this.fullpath)
             generateTree(this.element.children[1], insides, this.fullpath)
+            TREE_MAP.push(this.fullpath)
+            watcher.add(this.fullpath)
         }
 
         else {
             this.element.children[1].innerHTML = ''
+            TREE_MAP.val = TREE_MAP.val.filter(v => v != this.fullpath)
+            watcher.unwatch(this.fullpath)
         }
-        
-        // Add / Remove from expanded
-        if (this.tree) TREE_MAP.push(this.fullpath)
-        else TREE_MAP.val = TREE_MAP.val.filter(v => v != this.fullpath)
         
     }
 
@@ -138,6 +138,7 @@ class Directory extends FileCore {
 class File extends FileCore {
     constructor(thepath, name) {
         super(document.createElement('div'), thepath, name)
+        this.isFile = true
         
         // Setup full path
         this.fullpath = path.join(thepath, name)

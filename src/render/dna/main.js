@@ -133,6 +133,11 @@ class DNA {
                 el.appendChild(name)
                 el.appendChild(control)
                 this.cont.appendChild(el)
+
+                // Show stats in the console
+                EDITOR_LOAD.trigger(() => console.log(
+                    `%c${item.id}: ${window[item.attach].val}`, DEBUGGER_STYLE.val
+                ))
                 
                 if (item.type === 'switch') {
                     let setting = document.createElement('div')
