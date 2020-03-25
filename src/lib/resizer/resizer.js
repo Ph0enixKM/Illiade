@@ -7,6 +7,8 @@ class Resizer {
     // [x] boolean
     // [y] boolean
     // [on] callback function for resizing
+    // [xLimits] array of range in which the size can be on x axis
+    // [yLimits] array of range in which the size can be on y axis
     constructor(options) {
         if (options) {
             this.resizable = options.element
@@ -14,7 +16,11 @@ class Resizer {
             this.x = (options.x == null) ? true : options.x
             this.y = (options.y == null) ? true : options.y
             this.on = (options.on == null) ? () => {} : options.on
+            this.on = (options.on == null) ? () => {} : options.on
+            this.xLimits = (options.xLimits == null) ? [-Infinity, Infinity] : options.xLimits
+            this.yLimits = (options.yLimits == null) ? [-Infinity, Infinity] : options.yLimits
         }
+
 
         // Local variables
         this.startX = 0
@@ -45,10 +51,28 @@ class Resizer {
         let startX = this.startX
         let startY = this.startY
         let on = this.on
+        let xlimits = this.xLimits
+        let ylimits = this.yLimits
         
         function doDrag(e) {
             let deltaX = startWidth + e.clientX - startX
             let deltaY = startHeight + e.clientY - startY
+
+            if (deltaX > xlimits[1]) {
+                deltaX = xlimits[1]
+            }
+
+            if (deltaX < xlimits[0]) {
+                deltaX = xlimits[0]
+            }
+
+            if (deltaY > xlimits[1]) {
+                deltaY = xlimits[1]
+            }
+
+            if (deltaY < xlimits[0]) {
+                deltaY = xlimits[0]
+            }
 
             if (x) resizable.style.width = deltaX + 'px'
             if (y) resizable.style.height = deltaY + 'px'
@@ -66,15 +90,4 @@ class Resizer {
         document.documentElement.addEventListener('mousemove', doDrag, false)
         document.documentElement.addEventListener('mouseup', stopDrag, false)
     }
-
-    // doDrag(e) {
-    //     if (this.x) this.resizable.style.width = (this.startWidth + e.clientX - this.startX) + 'px'
-    //     if (this.y) this.resizable.style.height = (this.startHeight + e.clientY - this.startY) + 'px'
-    // }
-
-
-    // stopDrag(e) {
-    //     document.documentElement.removeEventListener('mousemove', this.doDrag.bind(this), false)   
-    //     document.documentElement.removeEventListener('mouseup', this.stopDrag.bind(this), false)
-    // }
 }

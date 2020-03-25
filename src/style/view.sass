@@ -2,11 +2,22 @@
 
 
 #view
+    position: relative
     backdrop-filter: blur(10px)
     display: inline-block
     vertical-align: top
-    width: calc(100vw - 200px)
+    width: calc(100vw - 100px)
     height: 100vh
+    &::after
+        display: inline-block
+        position: absolute
+        content: ''
+        right: 0
+        top: 0px
+        width: 100vw
+        height: 100vh
+        transform: translate(100vw, 0)
+        background: #2a2522
     #image
         transition: opacity 200ms 
         visibility: hidden

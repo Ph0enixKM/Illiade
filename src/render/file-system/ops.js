@@ -16,8 +16,17 @@ class FileCore {
                     })
 
                     let newName = await menu.get()
+                    let newPath = path.join(thepath, newName)
+                    let oldPath = path.join(thepath, name)
+
                     if (newName === null) return false
-                    fs.renameSync(path.join(thepath, name), path.join(thepath, newName))
+                    fs.renameSync(oldPath, newPath)
+
+                    // If currently in the file - open it
+                    if (OpenedAPI.get('fullpath') == oldPath) {
+                        const newFile = OpenedAPI.extract(newPath)
+                        OPENED.val = newFile
+                    }
                 }
             },
             {

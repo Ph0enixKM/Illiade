@@ -54,6 +54,8 @@ new Global('always', 'TERM_X', 50, 'Terminal width')
 new Global('always', 'TERM_Y', 20, 'Terminal height')
 new Global('always', 'TERM_FONT_SIZE', 14, 'Terminal font size')
 new Global('always', 'TERM_POS', [0.4, 0.4], 'Terminal position')
+new Global('always', 'LEFT_PANEL_SIZE', 200, 'Terminal position')
+
 
 new Global('brief', 'OPENED_LAST', [], 'Opened file - holds Objects')
 new Global('brief', 'EDITOR_LOAD', false, 'Editor Loaded')
