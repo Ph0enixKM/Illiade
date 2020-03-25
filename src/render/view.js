@@ -46,7 +46,6 @@ class View {
             return this.textConstruct(extension, fullpath)
         }
     }
-
     // --- Text Editor ---
 
     textConstruct(extension, path) {
@@ -65,7 +64,11 @@ class View {
         }
         
         else if (['js', 'mjs', 'jsx'].includes(extension)) {
-            language = '$js'
+            language = '$ts'
+        }
+
+        else if (['vue'].includes(extension)) {
+            language = '$vue'
         }
         
         else if (['ts', 'tsx', 'd.ts'].includes(extension)) {

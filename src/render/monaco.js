@@ -55,22 +55,26 @@ amdRequire(['vs/editor/editor.main'], () => {
         },
     })
     
-    monaco.languages.register({ id: '$js' })
+    monaco.languages.register({ id: '$js', mimetypes: ['text/$js'] })
     monaco.languages.setMonarchTokensProvider('$js', JS_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$js', JS_CONFIG)
     
     
-    monaco.languages.register({ id: '$sass' })
+    monaco.languages.register({ id: '$sass', mimetypes: ['text/$sass'] })
     monaco.languages.setMonarchTokensProvider('$sass', SASS_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$sass', SASS_CONFIG)
     
-    monaco.languages.register({ id: '$json' })
+    monaco.languages.register({ id: '$json', mimetypes: ['text/$json'] })
     monaco.languages.setMonarchTokensProvider('$json', JSON_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$json', JSON_CONFIG)
     
-    monaco.languages.register({ id: '$ts' })
+    monaco.languages.register({ id: '$ts', mimetypes: ['text/$ts'] })
     monaco.languages.setMonarchTokensProvider('$ts', TS_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$ts', TS_CONFIG)
+
+    monaco.languages.register({ id: '$vue', mimetypes: ['text/$vue'] })
+    monaco.languages.setMonarchTokensProvider('$vue', VUE_LANGUAGE)
+    monaco.languages.setLanguageConfiguration('$vue', VUE_CONFIG)
 
     // Config Theme
     monaco.editor.defineTheme('blaze', {
@@ -79,13 +83,14 @@ amdRequire(['vs/editor/editor.main'], () => {
         rules: [
             { token: 'comment', foreground: '555555', fontStyle: 'italic' },
             { token: 'keyword', foreground: 'cc6bc4' },
+            { token: 'identifier', foreground: 'ec5656' },
             { token: 'number', foreground: 'ff851a' },
             { token: 'string', foreground: '79c534' },
             { token: 'type', foreground: '00d66b' },
             { token: 'function', foreground: '5DA3F2' },
-            { token: 'identifier', foreground: 'ec5656' },
             { token: 'delimiter', foreground: '888888' },
             { token: 'special', foreground: 'E09C4F' },
+            { token: 'regexp', foreground: '7971e2' },
             { background : '2a2522'},
             { token: 'tag', foreground: 'ec5a5d' },
             { token: 'attribute.name', foreground: 'FF7700' },

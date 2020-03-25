@@ -151,22 +151,24 @@ class Terminal {
         // terminal manipulative commands
         // like resize, move, zoom etc.
         xterm.attachCustomKeyEventHandler(e => {
-            // Polyfill of text copying
-            // from the termnal selection to clipboard
-            if (e.key.toLowerCase() == 'c' && e.ctrlKey && e.shiftKey) {
-                clipboard.writeText(xterm.getSelection(), 'clipboard')
-            }
-            
-            // Polyfill of text pasting
-            // from the clipboard to terminal input
-            if (e.key.toLowerCase() == 'v' && e.ctrlKey && e.shiftKey) {
-                console.log(xterm.paste())
-            }
 
+            if (e.type == 'keydown') {
+                // Polyfill of text copying
+                // from the termnal selection to clipboard
+                if (e.key.toLowerCase() == 'c' && e.ctrlKey && e.shiftKey) {
+                    clipboard.writeText(xterm.getSelection(), 'clipboard')
+                }
+                
+                // Polyfill of text pasting
+                // from the clipboard to terminal input
+                if (e.key.toLowerCase() == 'v' && e.ctrlKey && e.shiftKey) {
+                    console.log(xterm.paste())
+                }
 
-            // Moving
-            if (e.key.toLowerCase() == 'e' && e.altKey) {
-                TERMINAL_EDIT.val = !TERMINAL_EDIT.val
+                // Moving
+                if (e.key.toLowerCase() == 'e' && e.altKey) {
+                    TERMINAL_EDIT.val = !TERMINAL_EDIT.val
+                }
             }
 
             // Keybindings to resize,
@@ -465,10 +467,5 @@ class Terminal {
 
     }
 }
-
-
-
-
-
 
 window.terminal = new Terminal()

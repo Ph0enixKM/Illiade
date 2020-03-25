@@ -25,7 +25,7 @@ const TS_CONFIG = {
   ],
   folding: {
       offSide: true
-  }
+  },
 }
 
 const TS_LANGUAGE = {
@@ -61,10 +61,15 @@ const TS_LANGUAGE = {
   
     // Escapes
     escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
+    regexpctl: /[(){}\[\]\$\^|\-*+?\.]/,
+    regexpesc: /\\(?:[bBdDfnrstvwWn0\\\/]|@regexpctl|c[A-Z]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})/,
   
     // The main tokenizer for our languages
     tokenizer: {
       root: [
+        
+        // regular expression: ensure it is terminated before beginning (otherwise it is an opeator)
+        [/\/(?=([^\\\/]|\\.)+\/([gimsuy]*)(\s*)(\.|;|\/|,|\)|\]|\}|$))/, { token: 'regexp', bracket: '@open', next: '@regexp' }],
         // Structure declarations
         [/\b(class|enum|struct|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
         [/\b(new)(\s+)([A-Za-z0.-9_$]+)(<[^(]*>)/, ['keyword', 'default', 'special', 'type'] ],
@@ -80,6 +85,9 @@ const TS_LANGUAGE = {
         // Keywords
         [/\b(interface|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
+
+        // TSX
+        [/(\s*<)([^/<>\s\{\}\[\]\(\^)]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
         
         // Functions
         [/([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
@@ -87,8 +95,8 @@ const TS_LANGUAGE = {
         
         // Types
         [/(\)\s*:\s*)([A-Za-z_][0-9A-Za-z_:<>]*)/, ['default', 'type']],
-        [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]]+)(<[^=]*>)/, ['identifier', 'default', 'type', 'type']],
-        [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]]+)/, ['identifier', 'default', 'type']],
+        [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]\/]+)(<[^=]*>)/, ['identifier', 'default', 'type', 'type']],
+        [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]\/]+)/, ['identifier', 'default', 'type']],
         
         
         // Directives
@@ -96,16 +104,15 @@ const TS_LANGUAGE = {
         [/^\s*#\S+/, 'keyword'],
         
         
-        
         [/\b(null|undefined|NaN|Infinity|true|false)\b/, 'number' ],
-        [/\b([A-Z_$]+[0-9A-Z_$]*)\b/, 'special' ],
+        [/\b([A-Z_$]+[0-9A-Za-z_$]*)\b/, 'special' ],
         
         // whitespace
         { include: '@whitespace' },
         
         // delimiters and operators
-        [/@symbols/, { cases: { '@operators': 'operator',
-        '@default'  : 'default' } } ],
+        // [/@symbols/, { cases: { '@operators': 'operator',
+        // '@default'  : 'default' } } ],
         
         // numbers
         [/\b\d*\.\d+([eE][\-+]?\d+)?\b/, 'number.float'],
@@ -138,7 +145,7 @@ const TS_LANGUAGE = {
       comment: [
         [/[^\/*]+/, 'comment' ],
         [/\/\*/,    'comment', '@push' ],    // nested comment
-        ["\\*/",    'comment', '@pop'  ],
+        ['\\*/',    'comment', '@pop'  ],
         [/[\/*]/,   'comment' ]
       ],
   
@@ -176,6 +183,43 @@ const TS_LANGUAGE = {
       typeCounting: [
         [/\</, 'type', '@typeCounting'],
         [/\>/, 'type', '@pop'],
+      ],
+
+      jsxElement: [
+        [/(\/>)/, {token: 'default', next: '@pop'}],
+        [/(>)/, [{token: '@rematch', next: '@jsx'}]],
+        [/[^<>"',=\{\}]+/, 'number'],
+        [/[,=]+/, 'default'],
+        [/\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
+        [/"/, 'string', '@string_double'],
+        [/'/, 'string', '@string_single']
+      ],
+
+      jsx: [
+        [/[^{}<>]+/, 'default'],
+        [/(<)([^/<>\s]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
+        [/\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
+        [/(<\/)([^<>]+)(>)/, [{token: 'default'}, {token: 'identifier', next: '@pop'}, {token: 'default', next: '@pop'}]]
+      ],
+
+      // We match regular expression quite precisely
+      regexp: [
+        [/(\{)(\d+(?:,\d*)?)(\})/, ['regexp.escape.control', 'regexp.escape.control', 'regexp.escape.control']],
+        [/(\[)(\^?)(?=(?:[^\]\\\/]|\\.)+)/, ['regexp.escape.control', { token: 'regexp.escape.control', next: '@regexrange' }]],
+        [/(\()(\?:|\?=|\?!)/, ['regexp.escape.control', 'regexp.escape.control']],
+        [/[()]/, 'regexp.escape.control'],
+        [/@regexpctl/, 'regexp.escape.control'],
+        [/[^\\\/]/, 'regexp'],
+        [/@regexpesc/, 'regexp.escape'],
+        [/\\\./, 'regexp.invalid'],
+        [/(\/)([gimsuy]*)/, [{ token: 'regexp', bracket: '@close', next: '@pop' }, 'keyword.other']],
+      ],
+      regexrange: [
+          [/-/, 'regexp.escape.control'],
+          [/\^/, 'regexp.invalid'],
+          [/@regexpesc/, 'regexp.escape'],
+          [/[^\]]/, 'regexp'],
+          [/\]/, { token: 'regexp.escape.control', next: '@pop', bracket: '@close' }]
       ],
   
       whitespace: [
