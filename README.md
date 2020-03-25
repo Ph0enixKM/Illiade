@@ -70,3 +70,5 @@ _🤞 - In progress | 👍 - Done and ready_
 - Restrict left panel to some size range \[👍]
 - Save left panel size \[👍]
 - Left panel animation \[👍]
+- VueJS syntax integration \[👍]
+- React syntax integration \[👍]
