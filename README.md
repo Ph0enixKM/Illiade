@@ -67,3 +67,4 @@ _🤞 - In progress | 👍 - Done and ready_
 - Renaming files automatically changes the opened file \[🤞]
 - Terminal moving with keyboard \[👍]
 - Illiade user guide \[🤞]
+- Restrict left panel to some size range \[🤞]
