@@ -3,7 +3,9 @@ import fs from 'fs-extra'
 
 cliInit()
 
-// CLI run
+// Run the CLI interface
+// use 'illiade' or 'illie'
+// and pass desired flags
 function cliInit() {
     const cliPath = remote.process.argv[1]
 

@@ -1,24 +1,34 @@
 import { remote } from 'electron'
 
+// Audio controller which
+// is responsible for ambient
+// audio that is played when
+// dna option ambient-sound
+// is set to true.
 class AudioController {
+    // Init the audio master
+    // controller and play it.
     constructor() {
-        // Custom global ranges
+        // Custom global ranges.
         this.FOCUS_RANGE = [0.2, 0.4]
         this.BLUR_RANGE = [0.05, 0.1]
 
-        // Get current window
+        // Setup all global attributes.
         this.win = remote.getCurrentWindow()
         this.audio = $('audio')
-        this.audio.volume = 0.3
+        this.audio.volume = 0
         this.range = this.FOCUS_RANGE
         this.isFocused = true
-        this.audioMaster = new Transition(0.2, 300)
+        this.audioMaster = new Transition(0, 300)
+        this.audio.play()
 
-        // Set event to update volume of audio
+        // Set event to update volume of audio.
         this.audioMaster.update((value) => {
             this.audio.volume = value
         })
         
+        // Increase the sound when
+        // window is focused.
         this.win.on('focus', () => {
             this.isFocused = true
             if (AMBIENT_SOUND.val) {
@@ -27,6 +37,8 @@ class AudioController {
             }
         })
 
+        // Decreate the sound when
+        // window is blured.
         this.win.on('blur', () => {
             this.isFocused = false
             if (AMBIENT_SOUND.val) {
@@ -35,11 +47,18 @@ class AudioController {
             }
         })
 
+        // Change sound level
+        // every 10 seconds so that
+        // the ambient feels alive.
         setInterval(() => {
             if (AMBIENT_SOUND.val) this.loop()
         }, 10000)
     }
 
+    // Changes sound level
+    // to be a little bit
+    // louder of to be a
+    // little bit quieter.
     loop() {
         if(!this.isFocused) return
         let choice = Math.round(Math.random())

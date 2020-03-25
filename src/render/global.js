@@ -53,7 +53,7 @@ new Global('always', 'COMMAND3', '', 'Command to use for a programmer')
 new Global('always', 'TERM_X', 50, 'Terminal width')
 new Global('always', 'TERM_Y', 20, 'Terminal height')
 new Global('always', 'TERM_FONT_SIZE', 14, 'Terminal font size')
-new Global('always', 'TERM_POS', [250, 250], 'Terminal position')
+new Global('always', 'TERM_POS', [0.4, 0.4], 'Terminal position')
 
 new Global('brief', 'OPENED_LAST', [], 'Opened file - holds Objects')
 new Global('brief', 'EDITOR_LOAD', false, 'Editor Loaded')
@@ -66,6 +66,7 @@ new Global('brief', 'EXT_UNSAVABLE', ['png', 'jpg', 'svg', 'welcome'], 'Non-sava
 new Global('brief', 'SAVE_PROJECT_CONFIG', false, 'Save current configuration to .illiade project file')
 new Global('brief', 'TERMINALS', [], 'Terminal Objects')
 new Global('brief', 'TERMINAL_ID', 0, 'Terminal chosen ID - used to get back to the terminal used before')
+new Global('brief', 'TERMINAL_EDIT', false, 'Tells whether terminal is in edit mode')
 new Global('brief', 'DEBUGGER_STYLE', 'color: #9a0187', 'Set the debugger style')
 
 

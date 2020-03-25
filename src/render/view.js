@@ -50,8 +50,6 @@ class View {
     // --- Text Editor ---
 
     textConstruct(extension, path) {
-        
-        
         let language = 'plaintext'
 
         if (['mg'].includes(extension)) {
@@ -70,7 +68,7 @@ class View {
             language = '$js'
         }
         
-        else if (['ts', 'tsx'].includes(extension)) {
+        else if (['ts', 'tsx', 'd.ts'].includes(extension)) {
             language = '$ts'
         }
         

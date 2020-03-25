@@ -56,6 +56,7 @@ html(lang="en")
         #terminal
             #term-tabs
             #xterms
+            #term-edit
         #dna
             #dna-bg
                 .main-title Edit Illiade's DNA
@@ -79,24 +80,18 @@ html(lang="en")
         #error Error: Oopsie
         #drop
             #drop-icon.no-file
-
-        #decision
-            .content Should I remove the file?
-            .container
-                .btn.y(data-tippy-content="ALT + Y") Yes
-                .btn.n(data-tippy-content="ALT + N") No
-        audio(autoplay loop)
+        audio(loop)
             source(src="../../art/underwater2.mp3" type="audio/mpeg")
         script(src="../lib/draggable/draggable.js")
         script(src="../render/global.js")
         script(src="../render/main.js")
         script(src="../render/error.js")
-        script(src="../render/decision.js")
         script(src="../render/menu.js")
         script(src="../render/view.js")
         script(src="../render/monaco.js")
         script(src="../render/audio.js")
-        script(src="../render/term.js")
+        script(src="../render/term/main.js")
+        script(src="../render/term/event.js")
         script(src="../render/file-system/ops.js")
         script(src="../render/file-system/main.js")
         script(src="../render/file-system/resizer.js")

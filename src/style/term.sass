@@ -4,7 +4,7 @@
     bottom: 100px
     width: auto !important
     height: auto !important
-    z-index: 5
+    z-index: 3
     overflow: hidden
     padding: 30px
     backdrop-filter: blur(30px) 
@@ -16,6 +16,29 @@
     will-change: transform
     visibility: hidden
     transition: transform 200ms
+    #term-edit
+        position: absolute
+        top: 0
+        left: 0
+        background-color: rgba(30, 30, 30, 0.75)
+        border-radius: 10px
+        border: 2px #920048 dashed
+        width: calc(100% - 4px)
+        height: calc(100% - 4px)
+        background-image: url('../../art/move.png')
+        background-size: 10%
+        background-position: center
+        background-repeat: no-repeat
+        z-index: 5
+        transition: 300ms
+        visibility: hidden
+        opacity: 0
+        &.on
+            visibility: visible
+            background-size: 30%
+            opacity: 1
+
+
     #term-tabs
         position: absolute
         top: 10px

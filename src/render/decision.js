@@ -1,3 +1,8 @@
+
+// This file is DEPRECATED
+// Remove when implemented
+// appropriate Decision interface
+
 class Decision {
     constructor() {
         this.element = $('#decision')
