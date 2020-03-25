@@ -64,7 +64,7 @@ _🤞 - In progress | 👍 - Done and ready_
 - Ambient sound behavior improvements \[👍]
 - Open File Directory \[👍]
 - Suggestion Bar Style updated \[👍]
-- Renaming files automatically changes the opened file \[🤞]
+- Renaming files automatically changes the opened file \[👍]
 - Terminal moving with keyboard \[👍]
 - Illiade user guide \[🤞]
 - Restrict left panel to some size range \[🤞]
