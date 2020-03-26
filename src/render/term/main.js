@@ -192,45 +192,45 @@ class Terminal {
 
                 // Scaling
                 if (e.type == 'keydown') {
-                    if (e.key == 'w' && e.altKey) this.edit.resize[0] = true
+                    if (e.key == 'w' && !e.altKey) this.edit.resize[0] = true
                     else
-                    if (e.key == 'd' && e.altKey) this.edit.resize[1] = true
+                    if (e.key == 'd' && !e.altKey) this.edit.resize[1] = true
                     else
-                    if (e.key == 's' && e.altKey) this.edit.resize[2] = true
+                    if (e.key == 's' && !e.altKey) this.edit.resize[2] = true
                     else
-                    if (e.key == 'a' && e.altKey) this.edit.resize[3] = true
+                    if (e.key == 'a' && !e.altKey) this.edit.resize[3] = true
                 }
                 else 
                 if (e.type == 'keyup') {
-                    if (e.key == 'w' && e.altKey) this.edit.resize[0] = false
+                    if (e.key == 'w' && !e.altKey) this.edit.resize[0] = false
                     else 
-                    if (e.key == 'd' && e.altKey) this.edit.resize[1] = false
+                    if (e.key == 'd' && !e.altKey) this.edit.resize[1] = false
                     else
-                    if (e.key == 's' && e.altKey) this.edit.resize[2] = false
+                    if (e.key == 's' && !e.altKey) this.edit.resize[2] = false
                     else
-                    if (e.key == 'a' && e.altKey) this.edit.resize[3] = false
+                    if (e.key == 'a' && !e.altKey) this.edit.resize[3] = false
                 }
 
 
                 // Moving
                 if (e.type == 'keydown') {
-                    if (e.key == 'w'&& !e.altKey) this.edit.move[0] = true
+                    if (e.key == 'ArrowUp' && !e.altKey) this.edit.move[0] = true
                     else
-                    if (e.key == 'd'&& !e.altKey) this.edit.move[1] = true
+                    if (e.key == 'ArrowRight' && !e.altKey) this.edit.move[1] = true
                     else
-                    if (e.key == 's'&& !e.altKey) this.edit.move[2] = true
+                    if (e.key == 'ArrowDown' && !e.altKey) this.edit.move[2] = true
                     else
-                    if (e.key == 'a'&& !e.altKey) this.edit.move[3] = true
+                    if (e.key == 'ArrowLeft' && !e.altKey) this.edit.move[3] = true
                 }
                 else 
                 if (e.type == 'keyup') {
-                    if (e.key == 'w'&& !e.altKey) this.edit.move[0] = false
+                    if (e.key == 'ArrowUp' && !e.altKey) this.edit.move[0] = false
                     else 
-                    if (e.key == 'd'&& !e.altKey) this.edit.move[1] = false
+                    if (e.key == 'ArrowRight' && !e.altKey) this.edit.move[1] = false
                     else
-                    if (e.key == 's'&& !e.altKey) this.edit.move[2] = false
+                    if (e.key == 'ArrowDown' && !e.altKey) this.edit.move[2] = false
                     else
-                    if (e.key == 'a'&& !e.altKey) this.edit.move[3] = false
+                    if (e.key == 'ArrowLeft' && !e.altKey) this.edit.move[3] = false
                 }
             }
         })
