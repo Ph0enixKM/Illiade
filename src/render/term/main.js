@@ -1,7 +1,6 @@
 import os from 'os'
 import { clipboard } from 'electron'
 import { WebglAddon } from 'xterm-addon-webgl'
-import { FitAddon } from 'xterm-addon-fit'
 const { Terminal: xTerminal } = require('xterm')
 const pty = require('node-pty')
 
@@ -56,19 +55,20 @@ class Terminal {
         // Initialize a new pty context
         ptyConfig.cwd = ROOT.val
         let ptyProcess = pty.spawn(shell, [], ptyConfig)
-        const fitAddon = new FitAddon()
 
         // Create tab
         const tab = document.createElement('div')
         tab.className = 'term-tab'
         tabsElem.appendChild(tab)
+        const cursor = ['block', 'underline', 'bar']
 
         // Initialize xterm.js and attach it to the DOM
         let xterm = new xTerminal({
             cols: TERM_X.val,
             rows: TERM_Y.val,
             allowTransparency: true,
-            cursorStyle: 'bar',
+            cursorStyle: TERM_CURSOR_STYLE.val.toLowerCase(),
+            cursorColor: '#FF0000',
             fontFamily: 'monospace',
             fontSize: TERM_FONT_SIZE.val,
             drawBoldTextInBrightColors: false,
@@ -90,7 +90,8 @@ class Terminal {
                 lightBlue: '#2A968A',
                 lightMagenta: '#AA6BC4',
                 lightCyan: '#65B57B',
-                lightWhite: '#CFB8AB'
+                lightWhite: '#CFB8AB',
+                cursor: TERM_CURSOR_COLOR.val
             }
         })    
         
@@ -99,14 +100,11 @@ class Terminal {
         TERMINALS.push({
             xterm,
             ptyProcess,
-            tab,
-            fitAddon
+            tab
         })
 
         // Initialize xterm frontend
         xterm.open(xtermsElem)
-        xterm.loadAddon(fitAddon)
-        fitAddon.fit()
         // xterm.loadAddon(new WebglAddon())
 
         // Update width of the terminal
@@ -117,7 +115,6 @@ class Terminal {
                 if (term == null) return null
                 term.xterm.resize(TERM_X.val, TERM_Y.val)
                 term.ptyProcess.resize(TERM_X.val, TERM_Y.val)
-                term.fitAddon.fit()
             })            
             storage.set('TERM_X', TERM_X.val)
             storage.set('TERM_Y', TERM_Y.val)
@@ -132,7 +129,6 @@ class Terminal {
                 if (term == null) return null
                 term.xterm.resize(TERM_X.val, TERM_Y.val)
                 term.ptyProcess.resize(TERM_X.val, TERM_Y.val)
-                term.fitAddon.fit()
             })
             storage.set('TERM_X', TERM_X.val)
             storage.set('TERM_Y', TERM_Y.val)

@@ -65,90 +65,13 @@ const VUE_CONFIG = {
       // The main tokenizer for our languages
       tokenizer: {
         root: [
+            [/(<)(style)/, ['delimiter', { token: 'special', next: '@style' }]],
+            [/(<)(script)/, ['delimiter', { token: 'special', next: '@script' }]],
 
-            
-
-          // Structure declarations
-        //   [/\b(class|enum|struct|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
-        //   [/\b(new)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special'] ],
-        //   [/\b(this)/, 'special' ],
-        //   [/\b(super)(\s*\()/, ['special', 'default'] ],
-        //   [/(\.)([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['default', 'function', 'default']],
-          
-        //   // Functions get and set shall not be highlighted
-        //   [/(get|set)(\s*\()/, ['function', 'default']],
-        //   [/(get|set)(\s*[=:]\s*function\s*\()/, ['function', 'default']],
-          
-        //   // Keywords
-        //   [/\b(break|case|catch|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
-        //   [/(\*|&)(?=[^&])/, 'keyword'],
-  
-        //   // JSX
-        //   [/(\s*<)([^/<>\s]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
-        //   // [/>[^<>{}]*\{/, 'default'],
-        //   // [/\}[^<>{}]*\</, 'default'],
-  
-        //   // Directives
-        //   [/(^\s*)(#include)(\s+)(\S+)/, ['default', 'keyword', 'default', 'string']],
-        //   [/^\s*#\S+/, 'keyword'],
-          
-          
-        //   // Functions
-        //   // [/([A-Za-z][0-9A-Za-z_]*)(\s*<[^\(\s]+>\s*)(\()/, ['function', 'type', 'default']],
-        //   [/([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
-        //   [/([A-Za-z_$][0-9A-Za-z_]*)(\s*[=:]\s*function\s*\()/, ['function', 'default']],
-          
-        //   [/\b(null|undefined|NaN|Infinity|true|false)\b/, 'number' ],
-        //   [/\b([A-Z_$]+[0-9A-Z_$]*)\b/, 'special' ],
-          
-        //   // whitespace
-        //   { include: '@whitespace' },
-          
-        //   // delimiters and operators
-        //   [/@symbols/, { cases: { '@operators': 'operator',
-        //   '@default'  : 'default' } } ],
-          
-        //   // numbers
-        //   [/\b\d*\.\d+([eE][\-+]?\d+)?\b/, 'number.float'],
-        //   [/\b0[xX][0-9a-fA-F]+\b/, 'number.hex'],
-        //   [/\b\d+\b/, 'number'],
-          
-        //   // booleans
-        //   [/\b(true|false)\b/, 'number'],
-          
-        //   // delimiter: after number because of .\d floats
-        //   [/[;,.:]/, 'delimiter'],
-          
-        //   // identifiers
-        //   // [/([A-Za-z_$][A-Za-z0-9_$]*)(\<\S*\>)/, ['identifier', 'type']],
-        //   [/\b[A-Za-z_$][A-Za-z0-9_$]*\b/, 'identifier'],
-          
-        //   // strings
-        //   [/"([^"\\]|\\.)*$/, 'string.invalid'],
-        //   [/'([^'\\]|\\.)*$/, 'string.invalid'],
-        //   [/"/, 'string', '@string_double'],
-        //   [/'/, 'string', '@string_single'],
-        //   [/`/, 'string', '@string_backtick'],
-    
-        //   // characters
-        //   [/'[^\\']'/, 'string'],
-        //   [/(')(@escapes)(')/, ['string','type','string']],
-        //   [/'/, 'string.invalid']
-            // [/(<)(template)(>)/, ['default', 'identifier', {token: 'default', next: '@template', nextEmbedded: 'text/css'}]]
-            [/(<)(style)/, ['delimiter', { token: 'tag', next: '@style' }]],
-            [/(<)(script)/, ['delimiter', { token: 'tag', next: '@script' }]],
-
-            [/(<)(template )(lang)(=)("pug")/, ['delimiter', 'tag', 'number', 'default', { token: 'string', next: '@templatePug' }]],
-            [/(<)(template )(lang)(=)("jade")/, ['delimiter', 'tag', 'number', 'default', { token: 'string', next: '@templatePug' }]],
-            [/(<)(template)/, ['delimiter', { token: 'tag', next: '@template' }]],
+            [/(<)(template )(lang)(=)("pug")/, ['delimiter', 'special', 'number', 'default', { token: 'string', next: '@templatePug' }]],
+            [/(<)(template )(lang)(=)("jade")/, ['delimiter', 'special', 'number', 'default', { token: 'string', next: '@templatePug' }]],
+            [/(<)(template)/, ['delimiter', { token: 'special', next: '@template' }]],
         ],
-
-        // template: [
-        //     [/(<\/)(template)(>)/, ['default', 'identifier', {token: 'rematch', next: '@pop', nextEmbedded: '@pop'}]],
-        //     [/[^<]+/, '']
-        // ],
-
-
 
         style: [
             [/"([^"]*)"/, 'attribute.value'],
@@ -157,7 +80,7 @@ const VUE_CONFIG = {
             [/=/, 'delimiter'],
             [/>/, { token: 'delimiter', next: '@styleEmbedded', nextEmbedded: 'text/$sass' }],
             [/[ \t\r\n]+/],
-            [/(<\/)(style\s*)(>)/, ['delimiter', 'tag', { token: 'delimiter', next: '@pop' }]]
+            [/(<\/)(style\s*)(>)/, ['delimiter', 'special', { token: 'delimiter', next: '@pop' }]]
         ],
         // After <style ... type
         styleAfterType: [
@@ -197,7 +120,7 @@ const VUE_CONFIG = {
             [/=/, 'delimiter'],
             [/>/, { token: 'delimiter', next: '@scriptEmbedded', nextEmbedded: 'text/$ts' }],
             [/[ \t\r\n]+/],
-            [/(<\/)(script\s*)(>)/, ['delimiter', 'tag', { token: 'delimiter', next: '@pop' }]]
+            [/(<\/)(script\s*)(>)/, ['delimiter', 'special', { token: 'delimiter', next: '@pop' }]]
         ],
         scriptEmbedded: [
             [/<\/script/, { token: '@rematch', next: '@pop', nextEmbedded: '@pop' }],
@@ -211,7 +134,7 @@ const VUE_CONFIG = {
             [/=/, 'delimiter'],
             [/>/, { token: 'delimiter', next: '@templateEmbedded', nextEmbedded: 'text/$pug' }],
             [/[ \t\r\n]+/],
-            [/(<\/)(template\s*)(>)/, ['delimiter', 'tag', { token: 'delimiter', next: '@pop' }]]
+            [/(<\/)(template\s*)(>)/, ['delimiter', 'special', { token: 'delimiter', next: '@pop' }]]
         ],
         template: [
             [/"([^"]*)"/, 'attribute.value'],
@@ -220,7 +143,7 @@ const VUE_CONFIG = {
             [/=/, 'delimiter'],
             [/>/, { token: 'delimiter', next: '@jsx' }],
             [/[ \t\r\n]+/],
-            [/(<\/)(template\s*)(>)/, ['delimiter', 'tag', { token: 'delimiter', next: '@pop' }]]
+            [/(<\/)(template\s*)(>)/, ['delimiter', 'special', { token: 'delimiter', next: '@pop' }]]
         ],
         templateEmbedded: [
             [/<\/template/, { token: '@rematch', next: '@pop', nextEmbedded: '@pop' }],
@@ -276,6 +199,7 @@ const VUE_CONFIG = {
             [/[^{}<>]+/, 'default'],
             [/(<)([^/<>\s]+)/, ['delimiter', { token: 'identifier', next: '@jsxElement' }]],
             [/\{/, { token: 'default', next: '@eval', nextEmbedded: 'text/$ts' }],
+            [/(<\/)(template\s*)(>)/, [{token: 'delimiter'}, {token: 'special', next: '@pop'}, {token: 'delimiter', next: '@pop'}]],
             [/(<\/)([^<>]+)(>)/, [{token: 'delimiter'}, {token: 'identifier', next: '@pop'}, {token: 'delimiter', next: '@pop'}]]
         ],
 

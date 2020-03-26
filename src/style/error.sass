@@ -5,7 +5,7 @@
     overflow-y: scroll
     overflow-x: hidden
     position: absolute
-    top: 30px
+    top: 100px
     right: -250px
     will-change: border
     background: linear-gradient(rgba(255, 0, 0, 0.3), rgba(255, 0, 0, 0.2))
@@ -27,6 +27,11 @@
         background-color: rgba(255, 0, 0, 0.5)
         border-radius: 20px
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5)
+    &.done
+        background: linear-gradient(rgba(104, 221, 25, 0.3),#bcec0f33)
+        color: rgb(177, 255, 170)
+        &::-webkit-scrollbar-thumb
+            background-color: rgba(51, 255, 0, 0.5)
         
     &:hover
         cursor: pointer

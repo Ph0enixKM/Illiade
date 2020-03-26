@@ -103,8 +103,26 @@ header
 .tiny-menu-item:hover
     background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
     color: white
-    // -webkit-background-clip: text
-    // -webkit-text-fill-color: transparent
+
+.pcr-app
+    box-shadow: 0 0 20px 10px black !important
+    background: rgba(50, 50, 50, 0.7) !important
+    backdrop-filter: blur(5px) !important
+    .pcr-save
+        background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9) !important
+    .pcr-picker
+        border-color: black !important
+    .pcr-result
+        background: rgba(20, 20, 20, 0.7) !important
+        &::selection
+           background-color: #DD0039 !important
+    .pcr-current-color
+        border-radius: 5px !important
+        &::before
+           display: none 
+    .pcr-interaction input:focus
+            box-shadow: none !important
+
 
 @font-face
     font-family: Lato

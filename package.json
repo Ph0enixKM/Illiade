@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/Ph0enixKM/Illiade#readme",
   "dependencies": {
+    "@simonwep/pickr": "^1.5.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-remove-strict-mode": "0.0.2",

@@ -1,4 +1,6 @@
 import fs from 'fs-extra'
+import Pickr from '@simonwep/pickr'
+import { ListFormat } from 'typescript'
 
 /**
  * DNA Class that is responsible
@@ -93,6 +95,46 @@ class DNA {
             //     },
             //     update() {}
             // },
+
+            'Terminal',
+
+            {
+                id: 'term-cursor-style',
+                name: 'Terminal cursor style',
+                type: 'select',
+                attach: 'TERM_CURSOR_STYLE',
+                options: ['Block', 'Underline', 'Bar'],
+                by: 'value',
+                trigger(e) {
+                    TERM_CURSOR_STYLE.val = e[1]
+                },
+                update() {
+                    for (const term of TERMINALS.val) {
+                        if (term == null) continue
+                        term.xterm.setOption(
+                            'cursorStyle', 
+                            TERM_CURSOR_STYLE.val.toLowerCase()
+                        )
+                    }
+                }
+            },
+
+            {
+                id: 'term-cursor-color',
+                name: 'Terminal cursor color',
+                type: 'color',
+                attach: 'TERM_CURSOR_COLOR',
+                default: '#CFB8AB',
+                trigger(e) {
+                    TERM_CURSOR_COLOR.val = e
+                },
+                update(info) {
+                    if (info != 'init')
+                    $err.done(`Changes will be 
+                    visible once killed current 
+                    terminal or opened a new one`)
+                }
+            },
             
             'Project File',
             
@@ -126,6 +168,7 @@ class DNA {
                 type: 'select',
                 attach: 'BOOT_ANIMATION_TYPE',
                 options: ['Silk', 'Papyrus', 'Feather'],
+                by: 'index',
                 trigger(e) {
                     BOOT_ANIMATION_TYPE.val = e[0]
                 },
@@ -147,6 +190,7 @@ class DNA {
             }
             // If it's a setting
             else {
+                
                 const el = document.createElement('div')
                 const name = document.createElement('div')
                 const control = document.createElement('div')
@@ -181,7 +225,7 @@ class DNA {
 
                     window[item.attach].trigger(item.update)
                     window[item.attach].tick(window[item.attach].val)
-                    item.update()
+                    item.update('init')
                 }
 
                 // Setting type text.
@@ -204,7 +248,7 @@ class DNA {
 
                     window[item.attach].trigger(item.update)
                     window[item.attach].tick(window[item.attach].val)
-                    item.update()
+                    item.update('init')
                 }
 
                 // Settings type select.
@@ -216,13 +260,14 @@ class DNA {
                     setting.className = 'select'
 
                     if (!item.options) return $err.spawn(`
-                        DNA Error: 
+                        DNA: 
                         Badly parsed setting of type 'select' of id '${item.id}'
                         Missing option 'options'
                     `)
                     for (const [index, opt] of item.options.entries()) {
                         let el = document.createElement('div')
                         el.className = 'item'
+                        
                         el.innerHTML = opt
                         el.setAttribute('index', index)
                         setting.appendChild(el)
@@ -234,9 +279,23 @@ class DNA {
 
                     window[item.attach].trigger(value => {
                         for (const el of setting.children) {
-                            el.classList.remove('on')
+                            el.classList.remove('on')                            
                         }
-                        setting.children[window[item.attach].val].classList.add('on')
+
+                        // Get selected item by index
+                        if (item.by == 'index') {
+                            setting.children[window[item.attach].val].classList.add('on')
+                        }
+
+                        // Get selected item by value
+                        else if (item.by == 'value') {
+                            const index = item.options.indexOf(window[item.attach].val)
+                            
+                            setting.children[index].classList.add('on')
+                        }
+
+                        // If type is unrelated
+                        else $err.spawn(`DNA: You must specify are you storing selection by index or by value '${item.attach}'`)
                         storage.set(item.attach, value)
                     })
 
@@ -244,8 +303,57 @@ class DNA {
                     
                     window[item.attach].trigger(item.update)
                     window[item.attach].tick(window[item.attach].val)
-                    item.update()
+                    item.update('init')                    
                 }
+                
+                // Setting type color picker.
+                // Contains color exposed as a string.
+                // Can be changed to any other color.
+                else if (item.type == 'color') {
+                    let setting = document.createElement('div')
+                    setting.id = item.id
+                    setting.className = 'color'
+                    control.appendChild(setting)
+
+                    const pickr = Pickr.create({
+                        el: setting,
+                        theme: 'nano',
+                        default: TERM_CURSOR_COLOR.val,
+
+                        swatches: [
+                            '#CFB8AB'
+                        ],
+                     
+                        components: {
+                     
+                            // Main components
+                            preview: true,
+                            opacity: true,
+                            hue: true,
+
+                            interaction: {
+                                // hex: true,
+                                input: true,
+                                save: true
+                            }
+                        }
+                    })
+
+                    pickr.on('save', (color, instance) => {
+                        item.trigger(color.toHEXA().toString())
+                        item.update()
+                    })
+                    
+                    window[item.attach].trigger(value => {
+                        storage.set(item.attach, value)
+                    })
+
+                    pickr.setColor(item.default)
+                    window[item.attach].tick(window[item.attach].val)
+                    item.update('init')
+                }
+
+                else $err.spawn(`DNA: Bad DNA item type '${item.type}'`)
             }
         }
     }
@@ -260,31 +368,4 @@ window.addEventListener('keydown', e => {
         dna.off()
     }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
