@@ -243,11 +243,28 @@ const VUE_CONFIG = {
           ["\\*/",    'comment', '@pop'  ],
           [/[\/*]/,   'comment' ]
         ],
+
+        vueDirective: [
+            [/(:)([^="'\{\}\[\]]+)/, ['default', 'special']],
+            [/[^:\s="']/, 'keyword'],
+            [/['"]/, '@rematch', '@pop'],
+        ],
   
         jsxElement: [
+            [/(v\-)/, {token: 'keyword', next: '@vueDirective'}],
             [/\/>/, {token: 'delimiter', next: '@pop'}],
             [/>/, {token: 'delimiter', next: '@jsx'}],
-            [/[^<>"',=\{\}\/]+/, 'number'],
+            [/[^-<>"',:=\{\}\/]+(?=\=)/, 'number'],
+            [/[,=]+/, 'delimiter'],
+            [/\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
+            [/"/, 'string', '@string_double'],
+            [/'/, 'string', '@string_single'],
+        ],
+
+        jsxSelfClosingElement: [
+            [/(v\-\S+)/, 'keyword', '@vueDirective'],
+            [/>/, {token: 'delimiter', next: '@pop'}],
+            [/[^-<>"',\s:=\{\}\/]+/, 'number'],
             [/[,=]+/, 'delimiter'],
             [/\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
             [/"/, 'string', '@string_double'],
@@ -255,6 +272,7 @@ const VUE_CONFIG = {
         ],
   
         jsx: [
+            [/(<)(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)/, ['delimiter', {token: 'identifier', next: '@jsxSelfClosingElement'}]],
             [/[^{}<>]+/, 'default'],
             [/(<)([^/<>\s]+)/, ['delimiter', { token: 'identifier', next: '@jsxElement' }]],
             [/\{/, { token: 'default', next: '@eval', nextEmbedded: 'text/$ts' }],
@@ -263,7 +281,6 @@ const VUE_CONFIG = {
 
         eval: [
             [/\}\}/, {token: '@rematch', next: '@pop', nextEmbedded: '@pop'}],
-
         ],
         bracketCounting: [
             [/\{/, 'delimiter.bracket', '@bracketCounting'],

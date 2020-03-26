@@ -1,6 +1,7 @@
 import os from 'os'
 import { clipboard } from 'electron'
 import { WebglAddon } from 'xterm-addon-webgl'
+import { FitAddon } from 'xterm-addon-fit'
 const { Terminal: xTerminal } = require('xterm')
 const pty = require('node-pty')
 
@@ -55,6 +56,7 @@ class Terminal {
         // Initialize a new pty context
         ptyConfig.cwd = ROOT.val
         let ptyProcess = pty.spawn(shell, [], ptyConfig)
+        const fitAddon = new FitAddon()
 
         // Create tab
         const tab = document.createElement('div')
@@ -97,11 +99,14 @@ class Terminal {
         TERMINALS.push({
             xterm,
             ptyProcess,
-            tab
+            tab,
+            fitAddon
         })
 
         // Initialize xterm frontend
         xterm.open(xtermsElem)
+        xterm.loadAddon(fitAddon)
+        fitAddon.fit()
         // xterm.loadAddon(new WebglAddon())
 
         // Update width of the terminal
@@ -111,13 +116,14 @@ class Terminal {
             TERMINALS.val.map(term => {
                 if (term == null) return null
                 term.xterm.resize(TERM_X.val, TERM_Y.val)
-            })
-            ptyProcess.resize(TERM_X.val, TERM_Y.val)
+                term.ptyProcess.resize(TERM_X.val, TERM_Y.val)
+                term.fitAddon.fit()
+            })            
             storage.set('TERM_X', TERM_X.val)
             storage.set('TERM_Y', TERM_Y.val)
             drag.setOption('limit', document.body)
         })
-
+        
         // Update height of the terminal
         // notify client and backend and
         // persist changes to the dna
@@ -125,8 +131,9 @@ class Terminal {
             TERMINALS.val.map(term => {
                 if (term == null) return null
                 term.xterm.resize(TERM_X.val, TERM_Y.val)
+                term.ptyProcess.resize(TERM_X.val, TERM_Y.val)
+                term.fitAddon.fit()
             })
-            ptyProcess.resize(TERM_X.val, TERM_Y.val)
             storage.set('TERM_X', TERM_X.val)
             storage.set('TERM_Y', TERM_Y.val)
             drag.setOption('limit', document.body)
@@ -169,6 +176,46 @@ class Terminal {
                 if (e.key.toLowerCase() == 'e' && e.altKey) {
                     TERMINAL_EDIT.val = !TERMINAL_EDIT.val
                 }
+
+                if (!TERMINAL_EDIT.val) {
+                    // Invoke terminal
+                    if (e.key.toLowerCase() == 't' && e.altKey) {
+                        TERMINAL_OPEN.val = false
+                        TERMINALS.val[TERMINAL_ID.val].xterm.focus()
+                        e.preventDefault()
+                        e.stopPropagation()
+                    }
+                    
+                    // Create new tab
+                    if (e.key.toLowerCase() == 't' && e.ctrlKey) {
+                        this.initTerm()
+                        this.changeTerm(1)
+                        e.preventDefault()
+                        e.stopPropagation()
+                    }
+    
+                    // Switch to the next tab
+                    if (e.key == 'ArrowRight' && e.ctrlKey) {
+                        this.changeTerm(1)
+                        e.preventDefault()
+                        e.stopPropagation()
+                    }
+    
+                    // Switch to the previous tab
+                    if (e.key == 'ArrowLeft' && e.ctrlKey) {
+                        this.changeTerm(-1)
+                        e.preventDefault()
+                        e.stopPropagation()
+                    }
+    
+                    // Close current tab
+                    if (e.key.toLowerCase() == 'w' && e.ctrlKey) {
+                        ptyProcess.kill()
+                        e.preventDefault()
+                        e.stopPropagation()
+                    }
+                }
+
             }
 
             // Keybindings to resize,
@@ -244,50 +291,6 @@ class Terminal {
         })
         ptyProcess.on('data', function (data) {
             xterm.write(data)
-        })
-
-        // Xterm bindings regarding
-        // tab switching, creating
-        // tabs and removing them
-        xterm.onKey(key => {
-            if (TERMINAL_EDIT.val) return null
-
-            // Invoke terminal
-            if (key.domEvent.key.toLowerCase() == 't' && key.domEvent.altKey) {
-                TERMINAL_OPEN.val = false
-                TERMINALS.val[TERMINAL_ID.val].xterm.focus()
-                key.domEvent.preventDefault()
-                key.domEvent.stopPropagation()
-            }
-            
-            // Create new tab
-            if (key.domEvent.key.toLowerCase() == 't' && key.domEvent.ctrlKey) {
-                this.initTerm()
-                this.changeTerm(1)
-                key.domEvent.preventDefault()
-                key.domEvent.stopPropagation()
-            }
-
-            // Switch to the next tab
-            if (key.domEvent.key == 'ArrowRight' && key.domEvent.ctrlKey) {
-                this.changeTerm(1)
-                key.domEvent.preventDefault()
-                key.domEvent.stopPropagation()
-            }
-
-            // Switch to the previous tab
-            if (key.domEvent.key == 'ArrowLeft' && key.domEvent.ctrlKey) {
-                this.changeTerm(-1)
-                key.domEvent.preventDefault()
-                key.domEvent.stopPropagation()
-            }
-
-            // Close current tab
-            if (key.domEvent.key.toLowerCase() == 'w' && key.domEvent.ctrlKey) {
-                ptyProcess.kill()
-                key.domEvent.preventDefault()
-                key.domEvent.stopPropagation()
-            }
         })
 
         // Enable terminal
@@ -415,6 +418,11 @@ class Terminal {
 
                         pos[1] -= updown * speed
                         pos[0] += leftright * speed
+
+                        if (pos[0] > 100) pos[0] = 100
+                        if (pos[0] < 0) pos[0] = 0
+                        if (pos[1] > 100) pos[1] = 100
+                        if (pos[1] < 0) pos[1] = 0
 
                         TERM_POS.val = pos
                     })();

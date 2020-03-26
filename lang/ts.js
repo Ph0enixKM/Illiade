@@ -195,7 +195,17 @@ const TS_LANGUAGE = {
         [/'/, 'string', '@string_single']
       ],
 
+      jsxSelfClosingElement: [
+        [/>/, {token: 'delimiter', next: '@pop'}],
+        [/[^<>"',=\{\}\/]+/, 'number'],
+        [/[,=]+/, 'delimiter'],
+        [/\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
+        [/"/, 'string', '@string_double'],
+        [/'/, 'string', '@string_single']
+      ],
+      
       jsx: [
+        [/(<)(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)/, ['delimiter', {token: 'identifier', next: '@jsxSelfClosingElement'}]],
         [/[^{}<>]+/, 'default'],
         [/(<)([^/<>\s]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
         [/\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
