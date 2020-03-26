@@ -4,19 +4,38 @@
 EDITOR_LOAD.trigger(() => {
     let view = $('#view')
     let max = document.body.getBoundingClientRect()
-    fileSystem.style.transition = '1000ms'
+    
+    // Animate panel
+    if (BOOT_ANIMATION.val) {
+        const beziers = [
+            'cubic-bezier(.11,.65,.27,.93)', // Silk
+            'cubic-bezier(.96,.53,.27,.93)', // Papyrus
+            'cubic-bezier(.85,.18,.7,1)' // Feather
+        ]
+        
+        fileSystem.style.transition = `700ms ${beziers[BOOT_ANIMATION_TYPE.val]}`
 
-    setTimeout(() => {
+        setTimeout(() => {
+            view.style.width = `calc(100vw - ${LEFT_PANEL_SIZE.val}px)`
+            window.editor.layout({width: max.width - LEFT_PANEL_SIZE.val, height: max.height - 58})
+            fileSystem.style.width = LEFT_PANEL_SIZE.val + 'px'
+            fileSystem.style.opacity = '1'
+
+            setTimeout(() => {
+                viewResize()
+                fileSystem.style.transition = '0ms'
+            }, 1000)
+        }, 100)
+    }
+
+    // Don't animate panel
+    else {
         view.style.width = `calc(100vw - ${LEFT_PANEL_SIZE.val}px)`
         window.editor.layout({width: max.width - LEFT_PANEL_SIZE.val, height: max.height - 58})
         fileSystem.style.width = LEFT_PANEL_SIZE.val + 'px'
         fileSystem.style.opacity = '1'
-
-        setTimeout(() => {
-            viewResize()
-            fileSystem.style.transition = '0ms'
-        }, 1200)
-    }, 100)
+        viewResize()
+    }
 })
 
 // Updates all the content

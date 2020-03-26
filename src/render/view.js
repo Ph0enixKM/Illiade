@@ -64,7 +64,7 @@ class View {
         }
         
         else if (['js', 'mjs', 'jsx'].includes(extension)) {
-            language = '$ts'
+            language = '$js'
         }
 
         else if (['vue'].includes(extension)) {

@@ -151,20 +151,20 @@ const TS_LANGUAGE = {
   
       string_double: [
         [/[^\\"]+/, 'string'],
-        [/@escapes/, 'string.escape'],
+        [/@escapes/, 'type'],
         [/\\./, 'string.escape.invalid'],
         [/"/, 'string', '@pop']
       ],
       string_single: [
         [/[^\\']+/, 'string'],
-        [/@escapes/, 'string.escape'],
+        [/@escapes/, 'type'],
         [/\\./, 'string.escape.invalid'],
         [/'/, 'string', '@pop']
       ],
       string_backtick: [
         [/\$\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
         [/[^\\`$]+/, 'string'],
-        [/@escapes/, 'string.escape'],
+        [/@escapes/, 'type'],
         [/\\./, 'string.escape.invalid'],
         [/`/, 'string', '@pop']
       ],

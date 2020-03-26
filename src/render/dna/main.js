@@ -36,6 +36,7 @@ class DNA {
     // Illiade's dna panel
     menu() {
         return [
+
             'Sound',
 
             {
@@ -104,6 +105,31 @@ class DNA {
                     SAVE_PROJECT_CONFIG.val = !SAVE_PROJECT_CONFIG.val
                 },
                 update: updateProjectConfig
+            },
+
+            'Illiade Startup',
+
+            {
+                id: 'boot-animation',
+                name: 'Startup Animation',
+                type: 'switch',
+                attach: 'BOOT_ANIMATION',
+                trigger() {
+                    BOOT_ANIMATION.val = !BOOT_ANIMATION.val
+                },
+                update() {}
+            },
+
+            {
+                id: 'boot-animation-type',
+                name: 'Startup Animation Type',
+                type: 'select',
+                attach: 'BOOT_ANIMATION_TYPE',
+                options: ['Silk', 'Papyrus', 'Feather'],
+                trigger(e) {
+                    BOOT_ANIMATION_TYPE.val = e[0]
+                },
+                update() {}
             }
         ]
     }
@@ -138,6 +164,9 @@ class DNA {
                     `%c${item.id}: ${window[item.attach].val}`, DEBUGGER_STYLE.val
                 ))
                 
+                // Setting type switch.
+                // Contains a boolean value.
+                // Can be turned on or off.
                 if (item.type === 'switch') {
                     let setting = document.createElement('div')
                     setting.id = item.id
@@ -146,7 +175,7 @@ class DNA {
                     control.appendChild(setting)
 
                     window[item.attach].trigger(value => {
-                            setting.classList.toggle('on', value)
+                        setting.classList.toggle('on', value)
                         storage.set(item.attach, value)
                     })
 
@@ -155,13 +184,15 @@ class DNA {
                     item.update()
                 }
 
+                // Setting type text.
+                // Contains string value.
+                // Can be changed to whatever sting desired.
                 else if (item.type === 'text') {
                     let setting = document.createElement('input')
                     setting.id = item.id
                     setting.className = 'text'
                     setting.placeholder = item.placeholder
                     setting.addEventListener('change', e => {
-                        // console.log(e.target.value)
                         item.trigger(e.target.value)
                     })
                     control.appendChild(setting)
@@ -171,6 +202,46 @@ class DNA {
                         storage.set(item.attach, value)
                     })
 
+                    window[item.attach].trigger(item.update)
+                    window[item.attach].tick(window[item.attach].val)
+                    item.update()
+                }
+
+                // Settings type select.
+                // Contains index of selected item and it's label.
+                // Can be changed to any other element from the list.
+                else if (item.type === 'select') {
+                    let setting = document.createElement('div')
+                    setting.id = item.id
+                    setting.className = 'select'
+
+                    if (!item.options) return $err.spawn(`
+                        DNA Error: 
+                        Badly parsed setting of type 'select' of id '${item.id}'
+                        Missing option 'options'
+                    `)
+                    for (const [index, opt] of item.options.entries()) {
+                        let el = document.createElement('div')
+                        el.className = 'item'
+                        el.innerHTML = opt
+                        el.setAttribute('index', index)
+                        setting.appendChild(el)
+                        
+                        el.addEventListener('click', e => {
+                            item.trigger([e.target.getAttribute('index'), e.target.innerText])
+                        })
+                    }
+
+                    window[item.attach].trigger(value => {
+                        for (const el of setting.children) {
+                            el.classList.remove('on')
+                        }
+                        setting.children[window[item.attach].val].classList.add('on')
+                        storage.set(item.attach, value)
+                    })
+
+                    control.appendChild(setting)
+                    
                     window[item.attach].trigger(item.update)
                     window[item.attach].tick(window[item.attach].val)
                     item.update()

@@ -83,6 +83,33 @@
             display: inline-block
             width: calc(50vw - 40px)
             vertical-align: middle
+            .select
+                display: inline-block
+                background-color: rgba(100, 100, 100, 0.2)
+                padding: 5px
+                border-radius: 10px
+                .item
+                    display: inline-block
+                    min-width: 30px
+                    height: 10px
+                    background: #333
+                    border-radius: 10px
+                    padding: 10px
+                    font-family: Lato
+                    margin: 5px
+                    line-height: 10px
+                    color: #888
+                    user-select: none
+                    cursor: pointer
+                    transition: 200ms
+                    &.on
+                        background: #CA006B
+                        color: black
+                    &.on:hover
+                        color: white
+                    &:hover
+                        color: #CA006B
+
             .text
                 background-color: transparent
                 outline: none
