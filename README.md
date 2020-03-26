@@ -72,3 +72,4 @@ _🤞 - In progress | 👍 - Done and ready_
 - Left panel animation \[👍]
 - VueJS syntax integration \[👍]
 - React syntax integration \[👍]
+- Restrict terminal moving \[👍]
