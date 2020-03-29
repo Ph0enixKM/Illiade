@@ -41,7 +41,7 @@ header
     top: 0
     left: 0
     text-align: center
-    padding: 5px
+    padding: 5px 0
     height: 50px
     width: 100vw
     background: #23211f

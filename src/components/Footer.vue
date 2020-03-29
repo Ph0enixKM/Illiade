@@ -37,4 +37,16 @@
             height: 100px
             vertical-align: middle
             margin: 0 50px
+
+    // Mobile rules
+    @media screen and ( max-width: 800px )
+        div
+            #title
+                font-size: 40px
+                margin: 70px 0 20px 0
+            img
+                height: 50px
+            p
+                display: block
+                font-size: 20px
 </style>

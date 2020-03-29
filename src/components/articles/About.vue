@@ -41,4 +41,13 @@
         width: 100%
         border-radius: 10px
         box-shadow: 0 0 15px #0F0F0F88
+
+    // Mobile rules
+    @media screen and ( max-width: 800px )
+        #title
+            font-size: 40px
+            margin: 70px 0 20px 0
+        p
+            font-size: 20px
+        
 </style>

@@ -55,4 +55,13 @@
         &:hover
             transform: scale(0.99)
             opacity: 0.8
+
+    // Mobile rules
+    @media screen and ( max-width: 800px )
+        #title
+            font-size: 40px
+            margin: 70px 0 20px 0
+        button
+            width: 150px
+
 </style>
