@@ -1,28 +1,52 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Jumbotron/>
+    <Articles/>
+    <Footer/>
+    <Header/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import Jumbotron from './components/Jumbotron'
+  import Articles from './components/Articles'
+  import Footer from './components/Footer'
+  import Header from './components/Header'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  export default {
+    name: 'App',
+    components: {
+      Jumbotron,
+      Articles,
+      Footer,
+      Header
+    },
+    data() {
+      return {
+        
+      }
+    }
   }
-}
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass">
+  body
+    margin: 0
+    overflow-x: hidden
+    background: #282523
+    &::-webkit-scrollbar
+        background-color: transparent
+    &::-webkit-scrollbar-track
+        background-color: transparent
+    &::-webkit-scrollbar-thumb
+        background-color: #2f2a28
+        border-radius: 10px
+
+  @font-face
+    font-family: Lato-Regular
+    src: url('./assets/art/lato/Lato-Regular.ttf')
+
+  @font-face
+    font-family: Lato-Light
+    src: url('./assets/art/lato/Lato-Light.ttf')
 </style>
