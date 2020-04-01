@@ -16,10 +16,11 @@ class FileCore {
                     })
 
                     let newName = await menu.get()
-                    let newPath = path.join(thepath, newName)
-                    let oldPath = path.join(thepath, name)
 
                     if (newName === null) return false
+                    let newPath = path.join(thepath, newName)
+                    let oldPath = path.join(thepath, name)
+                    
                     fs.renameSync(oldPath, newPath)
 
                     // If currently in the file - open it

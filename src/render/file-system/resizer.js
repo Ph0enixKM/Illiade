@@ -14,16 +14,28 @@ EDITOR_LOAD.trigger(() => {
         ]
         
         fileSystem.style.transition = `700ms ${beziers[BOOT_ANIMATION_TYPE.val]}`
+        panel.style.transition = `700ms ${beziers[BOOT_ANIMATION_TYPE.val]}`
 
         setTimeout(() => {
             view.style.width = `calc(100vw - ${LEFT_PANEL_SIZE.val}px)`
             window.editor.layout({width: max.width - LEFT_PANEL_SIZE.val, height: max.height - 58})
             fileSystem.style.width = LEFT_PANEL_SIZE.val + 'px'
+            panel.style.width = LEFT_PANEL_SIZE.val + 'px'
+            panel.style.borderColor = 'rgba(70, 70, 70, 1)'
+            panel.style.borderWidth = '10px'
             fileSystem.style.opacity = '1'
+
+            setTimeout(() => {
+                panel.style.opacity = '1'
+                panel.style.transform = 'translate(0, 0)'
+                panel.style.borderColor = '#302B29'
+                panel.style.borderWidth = '1px'
+            }, 300)
 
             setTimeout(() => {
                 viewResize()
                 fileSystem.style.transition = '0ms'
+                panel.style.transition = '0ms'
             }, 1000)
         }, 100)
     }
@@ -33,9 +45,13 @@ EDITOR_LOAD.trigger(() => {
         view.style.width = `calc(100vw - ${LEFT_PANEL_SIZE.val}px)`
         window.editor.layout({width: max.width - LEFT_PANEL_SIZE.val, height: max.height - 58})
         fileSystem.style.width = LEFT_PANEL_SIZE.val + 'px'
+        panel.style.width = LEFT_PANEL_SIZE.val + 'px'
         fileSystem.style.opacity = '1'
+        panel.style.opacity = '1'
+        panel.style.transform = 'translate(0, 0)'
         viewResize()
     }
+
 })
 
 // Updates all the content
@@ -45,9 +61,11 @@ function viewResize () {
     let max = document.body.getBoundingClientRect()
     let fsWidth = fileSystem.getBoundingClientRect().width
 
+    panel.style.width = fsWidth + 'px'
     view.style.width = `calc(100vw - ${fsWidth}px)`
     window.editor.layout({width: max.width - fsWidth, height: max.height - 58})
     updateResizer()
+    LEFT_PANEL_SIZE.val = fsWidth
     storage.set('LEFT_PANEL_SIZE', fsWidth)
 }
 

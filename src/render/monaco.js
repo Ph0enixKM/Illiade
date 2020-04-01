@@ -30,34 +30,127 @@ amdRequire(['vs/editor/editor.main'], () => {
     // Register a completion item provider for the new language
     monaco.languages.registerCompletionItemProvider('$cpp', {
         provideCompletionItems: () => {
-            let suggestions = [{
-                label: 'string',
-                kind: monaco.languages.CompletionItemKind.Text,
-                insertText: 'string'
-            }, {
-                label: 'cout',
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                insertText: 'cout << ${1:condition} << \'\\n\';$0',
-                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-            }, {
-                label: 'ifelse',
-                kind: monaco.languages.CompletionItemKind.Snippet,
-                insertText: [
-                    'if (${1:condition}) {',
-                    '\t$0',
-                    '} else {',
-                    '\t',
-                    '}'
-                ].join('\n'),
-                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-            }];
-            return { suggestions: suggestions };
+            return { suggestions: [
+                    {
+                        label: 'string',
+                        kind: monaco.languages.CompletionItemKind.Text,
+                        insertText: 'string'
+                    }, 
+                    {
+                        label: 'cout',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'cout << ${1:condition} << \'\\n\';$0',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'ifelse',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'if (${1:condition}) {',
+                            '\t$0',
+                            '} else {',
+                            '\t',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }
+                ] 
+            }
         },
     })
     
     monaco.languages.register({ id: '$js', mimetypes: ['text/$js'] })
     monaco.languages.setMonarchTokensProvider('$js', JS_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$js', JS_CONFIG)
+
+    // Register a completion item provider for the new language
+    monaco.languages.registerCompletionItemProvider('$js', {
+        provideCompletionItems: () => {
+            return { suggestions: [
+                    {
+                        label: 'log',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'console.log($0)',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'if',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'if (${1:condition}) {',
+                            '\t$0',
+                            '}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'for',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'for (const ${1:item} of ${2:array}) {',
+                            '\t$0',
+                            '}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'class',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'class ${1:name} {',
+                            '\tconstructor() {',
+                            '\t\t$0',
+                            '\t}',
+                            '}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'qs',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'document.querySelector(\'$0\')',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'qsa',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'document.querySelectorAll(\'$0\')',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'addEvent',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'addEventListener(\'${1:event}\', e => {',
+                            '\t$0',
+                            '})',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'setTimeout',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'setTimeout(() => {',
+                            '\t$0',
+                            '}, ${1:time})',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'setInterval',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'setInterval(() => {',
+                            '\t$0',
+                            '}, ${1:time})',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                ] 
+            }
+        },
+    })
     
     
     monaco.languages.register({ id: '$sass', mimetypes: ['text/$sass'] })
@@ -120,6 +213,31 @@ amdRequire(['vs/editor/editor.main'], () => {
             horizontalScrollbarSize: 5
         }
     })
+
+    // console.log(monaco.KeyCode)
+    // editor.addCommand(monaco.KeyCode.F1, function() {
+    //     console.log('command')
+    // })
+
+    // Hello World in Command Palette
+    editor.addAction({
+        id: 'hello-world',
+        label: 'Hello World',
+        run() {console.log('Hello World!')}
+    })
+
+    // super(nls.localize('quickCommandActionInput', "Type the name of an action you want to execute"), {
+    //     id: 'editor.action.quickCommand',
+    //     label: nls.localize('QuickCommandAction.label', "Command Palette"),
+    //     alias: 'Command Palette',
+    //     precondition: null,
+    //     kbOpts: {
+    //         kbExpr: EditorContextKeys.focus,
+    //         primary: (browser.isIE ? KeyMod.Alt | KeyCode.F1 : KeyCode.F1)
+    //     },
+    //     menuOpts: {
+    //     }
+    // });
     
     setTimeout(() => {
         let style = $('.monaco-list style')

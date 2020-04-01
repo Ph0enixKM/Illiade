@@ -68,7 +68,7 @@ const JS_LANGUAGE = {
     tokenizer: {
       root: [
         // regular expression: ensure it is terminated before beginning (otherwise it is an opeator)
-        [/\/(?=([^\\\/]|\\.)+\/([gimsuy]*)(\s*)(\.|;|\/|,|\)|\]|\}|$))/, { token: 'regexp', bracket: '@open', next: '@regexp' }],
+        [/\/(?=([^\\\/\*]|\\.)+\/([gimsuy]*)(\s*)(\.|;|\/|,|\)|\]|\}|$))/, { token: 'regexp', bracket: '@open', next: '@regexp' }],
         // Structure declarations
         [/\b(class|enum|struct|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
         [/\b(new)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special'] ],
@@ -85,7 +85,7 @@ const JS_LANGUAGE = {
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // JSX
-        [/(\s*<)([^/<>\s]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
+        [/(\s*<)([^/=<>\s]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
 
         // Directives
         [/(^\s*)(#include)(\s+)(\S+)/, ['default', 'keyword', 'default', 'string']],
@@ -102,6 +102,7 @@ const JS_LANGUAGE = {
         
         // whitespace
         { include: '@whitespace' },
+	[/\$[0-9a-zA-Z\$_]*\b/, 'special'],
         
         // delimiters and operators
         [/@symbols/, { cases: { '@operators': 'operator',

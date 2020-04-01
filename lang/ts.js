@@ -87,7 +87,7 @@ const TS_LANGUAGE = {
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // TSX
-        [/(\s*<)([^/<>\s\{\}\[\]\(\^)]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
+        [/(\s*<)([^/=<>\s\{\}\[\]\(\^)]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
         
         // Functions
         [/([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
@@ -121,9 +121,10 @@ const TS_LANGUAGE = {
         
         // booleans
         [/\b(true|false)\b/, 'number'],
-        
+
         // delimiter: after number because of .\d floats
         [/[;,.:]/, 'delimiter'],
+	[/\$[0-9a-zA-Z\$_]*\b/, 'special'],
         
         // identifiers
         // [/([A-Za-z_$][A-Za-z0-9_$]*)(\<\S*\>)/, ['identifier', 'type']],

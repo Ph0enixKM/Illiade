@@ -1,7 +1,7 @@
 
 const SASS_CONFIG = {
   comments: {
-    blockComment: ['/*', '*/'],
+      lineComment: '//',
   },
   autoClosingPairs: [
     { open: '(', close: ')' },
@@ -37,6 +37,7 @@ const SASS_LANGUAGE = {
         ['[@](page|content|font-face|-moz-document|import)', { token: 'keyword' }],
         ['([@])(keyframes|-webkit-keyframes|-moz-keyframes|-o-keyframes)(\\s*)(\\S+)', ['keyword', 'keyword', 'default', 'special']],
         [/\!important/, 'keyword'],
+	[/(@\S+)(\s+)(\S+)/, ['keyword', 'default', 'special']],
                 
         // Keywords
         [/(\*|&)(?=[^&])/, 'keyword'],
@@ -64,8 +65,9 @@ const SASS_LANGUAGE = {
         
         // identifiers
         [/\$[A-Za-z0-9_$\-]*\b/, 'identifier'],
+	[/\-\-[0-9a-zA-Z\-\$]+\b/, 'identifier'],
 
-        [/\b(a|article|aside|body|br|details|div|h1|h2|h3|h4|h5|h6|head|header|hgroup|hr|footer|nav|p|section|span|summary|link|meta|style|title|button|fieldset|input|label|keygen|select|option|ul|li|ol|textarea|iframe|b|u|i|code|script|progress)\b/, 'identifier'],
+        [/\b(a|article|aside|body|br|details|div|h1|h2|h3|h4|h5|h6|head|header|hgroup|hr|footer|nav|p|section|span|summary|link|meta|style|title|button|fieldset|input|label|keygen|select|option|ul|li|ol|textarea|iframe|b|u|i|code|script|progress|img)\b/, 'identifier'],
         [/\b\S+(?=:)\b/, 'default'],
         [/\b\S+\b/, 'special'],
 

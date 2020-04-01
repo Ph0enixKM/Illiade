@@ -1,6 +1,8 @@
 const dropElem = $('#drop')
 
-// Drop mechanism
+// File drop mechanism.
+// Drag and drop any file
+// You want to open.
 document.addEventListener('drop', e => {
     e.preventDefault()
     e.stopPropagation()

@@ -1,20 +1,42 @@
 #panel
+    position: fixed
+    display: inline-block
+    width: 200px
+    height: 100px
+    z-index: 3
+    backdrop-filter: blur(15px)
+    background: linear-gradient(#272424, transparent)
+    border-bottom: 1px #302B29 solid
+    overflow-x: hidden
+    opacity: 0
+    transform: translate(0, -100px)
+    .compact
+        display: none
+        .col
+            div
+                transform-origin: center center
+                height: 30px
+                margin: 30px
+                background-position: center
+                transition: 500ms
+    .big
+        display: none
     .col
         display: flex
     .btn
+        opacity: 0
         flex: 1
         display: inline-block
-        width: auto
         height: 30px
-        // padding: 10px
         margin: 10px 10px 0 10px
         background-color: rgba(70, 70, 70, 0.5)
         border-radius: 10px
-        opacity: 0.5
-        transition: 300ms
         cursor: pointer
         position: relative
         text-align: center
+        opacity: 0
+        transform: scale(0, 0)
+        position: relative
         &::after
             vertical-align: top
             display: inline-block
@@ -26,39 +48,43 @@
             background-size: contain
             background-repeat: no-repeat
         &:hover
-            opacity: 1
+            // opacity: 1
             background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
+        &.on
+            opacity: 1
+            transform: scale(1)
+
 #dna-button
+    transition: 500ms
     margin-left: 5px !important
+    transform-origin: bottom left
     &::after
-        width: 50px !important
         background-image: url('../../art/dna-button-dark.svg')
     &:hover::after
         background-image: url('../../art/dna-button.svg')
 
 #change-dir
+    transform-origin: top right
+    transition: 1500ms
     &::after
         background-image: url('../../art/home-button-dark.svg')
     &:hover::after
         background-image: url('../../art/home-button.svg')
+#more-button
+    transform-origin: bottom right
+    transition: 2000ms
+    &::after
+        background-image: url('../../art/more-button-dark.svg')
+    &:hover::after
+        background-image: url('../../art/more-button.svg')
         
 #terminal-button
+    transform-origin: top left
+    transition: 1000ms
     margin-right: 5px
     &::after
         background-image: url('../../art/terminal-button-dark.svg')
     &:hover::after
-            background-image: url('../../art/terminal-button.svg')
-    &.grab
-        transform: scale(1.05)
-        opacity: 0.8
-        background: rgba(140, 70, 70, 0.5)
-        &::after
-            background-image: url('../../art/terminal-button.svg')
-    &.over
-        transform: scale(1.1)
-        opacity: 1
-        background: #960000
-        &::after
             background-image: url('../../art/terminal-button.svg')
 #soon
     &::after

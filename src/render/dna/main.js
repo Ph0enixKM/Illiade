@@ -153,7 +153,7 @@ class DNA {
 
             {
                 id: 'boot-animation',
-                name: 'Startup Animation',
+                name: 'Startup Rich Animation',
                 type: 'switch',
                 attach: 'BOOT_ANIMATION',
                 trigger() {

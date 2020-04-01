@@ -15,11 +15,12 @@ html(lang="en")
         script(src="../../lang/json.js")
         script(src="../../lang/ts.js")
         script(src="../../lang/vue.js")
-        script(src="../lib/observe/observe.js")
-        script(src="../lib/storage/storage.js")
-        script(src="../lib/tiny-menu/tiny-menu.js")
-        script(src="../lib/resizer/resizer.js")
-        script(src="../lib/transition/transition.js")
+        script(src="../lib/observe/main.js")
+        script(src="../lib/storage/main.js")
+        script(src="../lib/tiny-menu/main.js")
+        script(src="../lib/resizer/main.js")
+        script(src="../lib/transition/main.js")
+        script(src="../lib/shortcuts/main.js")
         script.
             let exports = {"__esModule": true}
             function $(query) { return document.querySelector(query) }
@@ -34,14 +35,19 @@ html(lang="en")
             #title-cont
                 #title
                 #saved(data-tippy-content="Save File (CTRL + S)")
-        #quick-files
-        #file-system
-            #panel
+        //- #quick-files
+        #panel
+            .big
                 .col
-                    .btn#terminal-button(data-tippy-content="ALT + T")
+                    .btn#more-button(data-tippy-content="ALT + M")
                     .btn#dna-button(data-tippy-content="ALT + D")
                 .col
                     .btn#change-dir(data-tippy-content="ALT + R")
+                    .btn#terminal-button(data-tippy-content="ALT + T")
+            .compact
+                .col
+                    .btn#more-button
+        #file-system
             #resizer
             #container
         #fs-move
@@ -82,7 +88,7 @@ html(lang="en")
             #drop-icon.no-file
         audio(loop)
             source(src="../../art/underwater2.mp3" type="audio/mpeg")
-        script(src="../lib/draggable/draggable.js")
+        script(src="../lib/draggable/main.js")
         script(src="../render/global.js")
         script(src="../render/main.js")
         script(src="../render/error.js")
@@ -92,6 +98,7 @@ html(lang="en")
         script(src="../render/audio.js")
         script(src="../render/term/main.js")
         script(src="../render/term/event.js")
+        script(src="../render/file-system/panel.js")
         script(src="../render/file-system/ops.js")
         script(src="../render/file-system/main.js")
         script(src="../render/file-system/resizer.js")

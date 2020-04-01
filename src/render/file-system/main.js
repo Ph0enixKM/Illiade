@@ -4,7 +4,6 @@ import fs, { watch } from 'fs-extra'
 
 let fileSystem = $('#file-system')
 let fsCont = $('#file-system #container')
-let panel = $('#panel')
 let changeDir = $('#panel #change-dir')
 let title = $('header #title')
 
@@ -79,8 +78,10 @@ class Directory extends FileCore {
 
         // Move file to the dir
         this.element.addEventListener('click', e => {
+            // Prevent from children capturing event
+            if (![this.element, this.element.children[0]].includes(event.target)) return false
+
             if (FS_MOVE.val) {
-                console.log(FS_MOVE.val)
                 let src = path.join(FS_MOVE.val.path, FS_MOVE.val.name)
                 let dest = path.join(this.fullpath, FS_MOVE.val.name)
                 fs.move(src, dest, err => {
@@ -104,7 +105,7 @@ class Directory extends FileCore {
     
 
     click(event) {
-        if (FS_MOVE.val) return
+        if (FS_MOVE.val) return null
 
         // Prevent from children capturing event
         if (![this.element, this.element.children[0]].includes(event.target)) return false

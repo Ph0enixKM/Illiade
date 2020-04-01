@@ -2,7 +2,6 @@
 const VUE_CONFIG = {
     comments: {
       lineComment: '//',
-      blockComment: ['/*', '*/'],
     },
     brackets: [
         ['{', '}'],
@@ -169,15 +168,16 @@ const VUE_CONFIG = {
 
         vueDirective: [
             [/(:)([^="'\{\}\[\]]+)/, ['default', 'special']],
-            [/[^:\s="']/, 'keyword'],
-            [/['"]/, '@rematch', '@pop'],
+            [/[^:\s="'\>]/, 'keyword'],
+            [/['"\s\>]/, '@rematch', '@pop']
         ],
   
         jsxElement: [
-            [/(v\-)/, {token: 'keyword', next: '@vueDirective'}],
+            [/\s(v\-)/, {token: 'keyword', next: '@vueDirective'}],
+	    [/\s[:@]/, {token: 'keyword', next: '@vueDirective'}],
             [/\/>/, {token: 'delimiter', next: '@pop'}],
             [/>/, {token: 'delimiter', next: '@jsx'}],
-            [/[^-<>"',:=\{\}\/]+(?=\=)/, 'number'],
+            [/[^@<>"',:=\{\}\/]+(?=\=)/, 'number'],
             [/[,=]+/, 'delimiter'],
             [/\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
             [/"/, 'string', '@string_double'],
@@ -185,9 +185,10 @@ const VUE_CONFIG = {
         ],
 
         jsxSelfClosingElement: [
-            [/(v\-\S+)/, 'keyword', '@vueDirective'],
+            [/\s(v\-)/, 'keyword', '@vueDirective'],
+	    [/\s[:@]/, {token: 'keyword', next: '@vueDirective'}],
             [/>/, {token: 'delimiter', next: '@pop'}],
-            [/[^-<>"',\s:=\{\}\/]+/, 'number'],
+            [/[^@<>"',\s:=\{\}\/]+/, 'number'],
             [/[,=]+/, 'delimiter'],
             [/\{/, { token: 'delimiter.bracket', next: '@bracketCounting' }],
             [/"/, 'string', '@string_double'],

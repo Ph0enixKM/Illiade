@@ -29,13 +29,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Update All icons
 fs.readdir(path.join(__dirname, '../../art/icons'), (err, files) => {
+    if (files == undefined) return null
     files.forEach(file => {
         ICONS.push(file)
     })
 })
 
-
+// Update all project files
 fs.readdir(ROOT.val, (err, files) => {
+    if (files == undefined) return null
     files.forEach(file => {
         if (file === '.illiade') {
             SAVE_PROJECT_CONFIG.val = true
@@ -117,9 +119,12 @@ const watcher = chokidar.watch([], {
 
 watcher.on('add', watcherUpdate)
 watcher.on('addDir', watcherUpdate)
+watcher.on('change', watcherUpdate)
 watcher.on('unlink', watcherUpdate)
 watcher.on('unlinkDir', watcherUpdate)
+watcher.on('raw', v => console.log(v))
 
+// Fix removing empty dirs
 function watcherUpdate() {
     console.log(event, path)
     treeNeedsUpdate = true
