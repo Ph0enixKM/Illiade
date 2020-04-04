@@ -15,16 +15,14 @@ html(lang="en")
         script(src="../../lang/json.js")
         script(src="../../lang/ts.js")
         script(src="../../lang/vue.js")
+        script(src="../lib/predefine/main.js")
         script(src="../lib/observe/main.js")
         script(src="../lib/storage/main.js")
         script(src="../lib/tiny-menu/main.js")
         script(src="../lib/resizer/main.js")
         script(src="../lib/transition/main.js")
         script(src="../lib/shortcuts/main.js")
-        script.
-            let exports = {"__esModule": true}
-            function $(query) { return document.querySelector(query) }
-            const DEBUG = true
+        
     body
         video#bg(autoplay height="100vh" loop="true" muted)
             source(src="../../art/bg.mp4" type="video/mp4")
@@ -98,6 +96,7 @@ html(lang="en")
         script(src="../render/audio.js")
         script(src="../render/term/main.js")
         script(src="../render/term/event.js")
+        script(src="../render/file-system/watcher.js")
         script(src="../render/file-system/panel.js")
         script(src="../render/file-system/ops.js")
         script(src="../render/file-system/main.js")

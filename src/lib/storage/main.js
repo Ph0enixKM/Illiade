@@ -1,21 +1,26 @@
-const storage = (() => {
-
 class Storage {
-    constructor() {
+    constructor(cargodb) {
         this.hash = '$'
         this.token = 'PHX-TKN'
+        this.cargo = cargodb
+        if (cargodb == null) this.cargo = window.localStorage
+        setTimeout(() => {
+            EDITOR_LOAD.trigger(() => console.log(
+                `%cstorage-mode: ${cargodb ? 'CargoDB' : 'LocalStorage'}`, DEBUGGER_STYLE.val
+            ))
+        }, 300)
     }
 
     // Gets value
     get(id) {
-        let raw = localStorage.getItem(`${this.hash}-${id}`)
+        let raw = this.cargo.getItem(`${this.hash}-${id}`)
         if (raw === null) return null
         return JSON.parse(raw).value
     }
 
     // Creates if non-existant
     create(id, value) {
-        let raw = localStorage.getItem(`${this.hash}-${id}`)
+        let raw = this.cargo.getItem(`${this.hash}-${id}`)
         const record = { 
             name: 'Phoenix Storage', 
             version: '1.0.0', 
@@ -23,8 +28,8 @@ class Storage {
             value 
         }
         
-        if (raw === null) {
-            localStorage.setItem(`${this.hash}-${id}`, JSON.stringify(record))
+        if (raw == null) {
+            this.cargo.setItem(`${this.hash}-${id}`, JSON.stringify(record))
             return true
         }
         return false
@@ -38,12 +43,7 @@ class Storage {
             token: this.token, 
             value 
         }
-        localStorage.setItem(`${this.hash}-${id}`, JSON.stringify(record))
+        this.cargo.setItem(`${this.hash}-${id}`, JSON.stringify(record))
     }
 
 }
-
-
-return new Storage()
-
-})()

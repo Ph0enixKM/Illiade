@@ -48,14 +48,13 @@
             background-size: contain
             background-repeat: no-repeat
         &:hover
-            // opacity: 1
             background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
         &.on
             opacity: 1
             transform: scale(1)
 
 #dna-button
-    transition: 500ms
+    transition: transform 500ms
     margin-left: 5px !important
     transform-origin: bottom left
     &::after
@@ -65,14 +64,14 @@
 
 #change-dir
     transform-origin: top right
-    transition: 1500ms
+    transition: transform 1500ms
     &::after
         background-image: url('../../art/home-button-dark.svg')
     &:hover::after
         background-image: url('../../art/home-button.svg')
 #more-button
     transform-origin: bottom right
-    transition: 2000ms
+    transition: transform 2000ms
     &::after
         background-image: url('../../art/more-button-dark.svg')
     &:hover::after
@@ -80,12 +79,9 @@
         
 #terminal-button
     transform-origin: top left
-    transition: 1000ms
+    transition: transform 1000ms
     margin-right: 5px
     &::after
         background-image: url('../../art/terminal-button-dark.svg')
     &:hover::after
             background-image: url('../../art/terminal-button.svg')
-#soon
-    &::after
-        display: none !important

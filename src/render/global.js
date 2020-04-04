@@ -1,4 +1,15 @@
 import path from 'path'
+import CargoDB from 'cargodb'
+
+// Create a new global storage materia
+const storage = new Storage(
+    // CargoDB freaks him out
+    // Update FS based on given files
+    // -- Commented --
+    // global.js:11
+
+    // new CargoDB('illiade-db', path.join(__dirname, '../../'))
+)
 
 // Global Class
 class Global {

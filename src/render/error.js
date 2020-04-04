@@ -1,4 +1,4 @@
-class $Error {
+class SlikError {
     constructor() {
         this.element = $('#error')
         this.countdefine = 15
@@ -25,11 +25,11 @@ class $Error {
     }
 
     reload() {
-        this.element.style.right = '-250px'
+        this.element.style.bottom = '-250px'
         setTimeout(() => {
             if (this.queue.length) {
                 this.element.innerHTML = this.queue[0][1]
-                this.element.style.right = '30px'
+                this.element.style.bottom = '30px'
                 if (this.queue[0][2] == 'done') {
                     this.element.className = 'done'
                 }
@@ -43,7 +43,7 @@ class $Error {
     loop() {
         if (this.queue[0][0] === this.countdefine) {
             this.element.innerHTML = this.queue[0][1]
-            this.element.style.right = '30px'
+            this.element.style.bottom = '30px'
             if (this.queue[0][2] == 'done') {
                 this.element.className = 'done'
             }
@@ -63,4 +63,4 @@ class $Error {
     }
 }
 
-window.$err = new $Error()
+window.$err = new SlikError()

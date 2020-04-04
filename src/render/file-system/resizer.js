@@ -76,7 +76,7 @@ new Resizer({
     x: true,
     y: false,
     on: viewResize,
-    xLimits: [20, 500]
+    xLimits: [100, 500]
 })
 
 // Reshape Resizer to match height of tree

@@ -7,6 +7,7 @@ import { pathExists, watch } from "fs-extra"
 
 // Save State View
 setInterval(() => saveCurrentViewState(), 3000)
+
 // Save before quitting
 require('electron').remote.app.once('before-quit', () => {
     updateProjectConfig()

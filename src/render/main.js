@@ -102,13 +102,7 @@ function loadProjectConfig() {
     }
 }
 
-// Polyfill - return last element
-Array.prototype.last = function () {
-    return this[this.length - 1]
-}
-String.prototype.last = function () {
-    return this[this.length - 1]
-}
+
 
 // Update file system
 let treeNeedsUpdate = true
@@ -122,11 +116,10 @@ watcher.on('addDir', watcherUpdate)
 watcher.on('change', watcherUpdate)
 watcher.on('unlink', watcherUpdate)
 watcher.on('unlinkDir', watcherUpdate)
-watcher.on('raw', v => console.log(v))
 
 // Fix removing empty dirs
-function watcherUpdate() {
-    console.log(event, path)
+function watcherUpdate(path, event) {
+    console.log(path, event)
     treeNeedsUpdate = true
 }
 

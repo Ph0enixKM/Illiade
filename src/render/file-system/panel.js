@@ -39,3 +39,11 @@ LEFT_PANEL_SIZE.trigger(val => {
         }, 100)
     }
 })
+
+
+const mores = document.querySelectorAll('#more-button')
+for (const more of mores) {
+    more.addEventListener('click', e => {
+        $err.spawn('This feature is yet to be added in the future version')
+    })
+}

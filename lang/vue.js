@@ -174,7 +174,7 @@ const VUE_CONFIG = {
   
         jsxElement: [
             [/\s(v\-)/, {token: 'keyword', next: '@vueDirective'}],
-	    [/\s[:@]/, {token: 'keyword', next: '@vueDirective'}],
+            [/\s[:@]/, {token: 'keyword', next: '@vueDirective'}],
             [/\/>/, {token: 'delimiter', next: '@pop'}],
             [/>/, {token: 'delimiter', next: '@jsx'}],
             [/[^@<>"',:=\{\}\/]+(?=\=)/, 'number'],

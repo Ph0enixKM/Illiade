@@ -14,6 +14,8 @@ app.on('ready', () => {
     win = new BrowserWindow ({
         width: 1280,
         height: 720,
+        minWidth: 830,
+        minHeight: 430, 
         frame: false,
         backgroundColor: '#2a2522',
         webPreferences : {
