@@ -78,7 +78,7 @@ const JS_LANGUAGE = {
         
         // Functions get and set shall not be highlighted
         [/(get|set)(\s*\()/, ['function', 'default']],
-        [/(get|set)(\s*[=:]\s*function\s*\()/, ['function', 'default']],
+        [/(get|set)(\s*[=:]\s*function\s*\()/, ['function', '@rematch']],
         
         // Keywords
         [/\b(break|case|catch|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
@@ -95,7 +95,7 @@ const JS_LANGUAGE = {
         // Functions
         // [/([A-Za-z][0-9A-Za-z_]*)(\s*<[^\(\s]+>\s*)(\()/, ['function', 'type', 'default']],
         [/([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
-        [/([A-Za-z_$][0-9A-Za-z_]*)(\s*[=:]\s*function\s*\()/, ['function', 'default']],
+        [/([A-Za-z_$][0-9A-Za-z_]*)(\s*[=:]\s*)(function)(\s*\()/, ['function', 'default', 'keyword', 'default']],
         
         [/\b(null|undefined|NaN|Infinity|true|false)\b/, 'number' ],
         [/\b([A-Z_$]+[0-9A-Za-z_$]*)\b/, 'special' ],

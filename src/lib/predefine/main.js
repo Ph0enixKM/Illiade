@@ -10,9 +10,9 @@
 // ES Module requirement issue
 window.exports = {"__esModule": true}
 
-// Query Selectron Shortcut
+// Query Selector Shortcut
 // Adds some jQuery vibe
-// yet keeps things simple
+// yet keeps things lightweight
 function $(query) {
     return document.querySelector(query)
 }
@@ -26,14 +26,14 @@ const DEBUG = true
 
 // Polyfill enable arrays to easily
 // return the last element with a
-// syntathetic sugar on top
+// sintatical sugar on top
 Array.prototype.last = function () {
     return this[this.length - 1]
 }
 
 // Polyfill enable strings to easily
 // return the last element with a
-// syntathetic sugar on top
+// sintatical sugar on top
 String.prototype.last = function () {
     return this[this.length - 1]
 }
