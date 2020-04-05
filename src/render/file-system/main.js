@@ -63,9 +63,8 @@ class Directory extends FileCore {
         this.fullpath = path.join(thepath, name)
 
         // Element
-        // this.element = document.createElement('div')
         this.element.className = 'item'
-
+        this.element.setAttribute('type', 'dir')
         this.element.setAttribute('path', thepath)
         this.element.setAttribute('dir-name', name)
         this.element.setAttribute('fullpath', this.fullpath)
@@ -99,7 +98,7 @@ class Directory extends FileCore {
             let insides = fs.readdirSync(this.fullpath)
             this.element.children[0].classList.toggle('expanded')
             generateTree(this.element.children[1], insides, this.fullpath)
-            watcher.add(this.fullpath)
+            watcher.link(this.fullpath)
         }
     }
     
@@ -118,13 +117,13 @@ class Directory extends FileCore {
             let insides = fs.readdirSync(this.fullpath)
             generateTree(this.element.children[1], insides, this.fullpath)
             TREE_MAP.push(this.fullpath)
-            watcher.add(this.fullpath)
+            watcher.link(this.fullpath)
         }
 
         else {
             this.element.children[1].innerHTML = ''
             TREE_MAP.val = TREE_MAP.val.filter(v => v != this.fullpath)
-            watcher.unwatch(this.fullpath)
+            watcher.free(this.fullpath)
         }
         
     }
@@ -146,9 +145,8 @@ class File extends FileCore {
         this.name = name
 
         // Element
-        // this.element = document.createElement('div')
         this.element.className = 'item'
-
+        this.element.setAttribute('type', 'file')
         this.element.setAttribute('path', thepath)
         this.element.setAttribute('name', this.name)
         this.element.setAttribute('fullpath', this.fullpath)

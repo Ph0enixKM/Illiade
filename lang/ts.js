@@ -83,7 +83,7 @@ const TS_LANGUAGE = {
         [/(get|set)(\s*[=:]\s*\()/, ['function', 'default']],
         
         // Keywords
-        [/\b(interface|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
+        [/\b(interface|static|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // TSX

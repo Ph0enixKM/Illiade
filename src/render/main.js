@@ -1,6 +1,5 @@
 import fs from 'fs-extra'
 import path from 'path'
-import chokidar from 'chokidar'
 
 tippy('[data-tippy-content]', {
     theme: 'dark',
@@ -102,36 +101,9 @@ function loadProjectConfig() {
     }
 }
 
-
-
-// Update file system
-let treeNeedsUpdate = true
-const watcher = chokidar.watch([], {
-    depth: 0,
-    ignoreInitial: true
-})
-
-watcher.on('add', watcherUpdate)
-watcher.on('addDir', watcherUpdate)
-watcher.on('change', watcherUpdate)
-watcher.on('unlink', watcherUpdate)
-watcher.on('unlinkDir', watcherUpdate)
-
-// Fix removing empty dirs
-function watcherUpdate(path, event) {
-    console.log(path, event)
-    treeNeedsUpdate = true
-}
-
-setInterval(() => {
-    if (treeNeedsUpdate) {
-        updateTree()
-        treeNeedsUpdate = false
-    }
-}, 1000)
-
 // clear console
 EDITOR_LOAD.trigger(() => {
+    updateTree()
     console.log(
         `%cIlliade ${VERSION_LEVEL.val}`,
         `   

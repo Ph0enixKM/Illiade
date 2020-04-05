@@ -8,7 +8,7 @@ const storage = new Storage(
     // -- Commented --
     // global.js:11
 
-    // new CargoDB('illiade-db', path.join(__dirname, '../../'))
+    new CargoDB('illiade-db', path.join(__dirname, '../../'))
 )
 
 // Global Class

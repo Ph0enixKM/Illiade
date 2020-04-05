@@ -81,7 +81,7 @@ const JS_LANGUAGE = {
         [/(get|set)(\s*[=:]\s*function\s*\()/, ['function', '@rematch']],
         
         // Keywords
-        [/\b(break|case|catch|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
+        [/\b(break|case|static|catch|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // JSX

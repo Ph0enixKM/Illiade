@@ -1,6 +1,5 @@
 class Storage {
     constructor(cargodb) {
-        this.hash = '$'
         this.token = 'PHX-TKN'
         this.cargo = cargodb
         if (cargodb == null) this.cargo = window.localStorage
@@ -13,14 +12,14 @@ class Storage {
 
     // Gets value
     get(id) {
-        let raw = this.cargo.getItem(`${this.hash}-${id}`)
+        let raw = this.cargo.getItem(id.toLowerCase())
         if (raw === null) return null
         return JSON.parse(raw).value
     }
 
     // Creates if non-existant
     create(id, value) {
-        let raw = this.cargo.getItem(`${this.hash}-${id}`)
+        let raw = this.cargo.getItem(id.toLowerCase())
         const record = { 
             name: 'Phoenix Storage', 
             version: '1.0.0', 
@@ -29,7 +28,7 @@ class Storage {
         }
         
         if (raw == null) {
-            this.cargo.setItem(`${this.hash}-${id}`, JSON.stringify(record))
+            this.cargo.setItem(id.toLowerCase(), JSON.stringify(record))
             return true
         }
         return false
@@ -43,7 +42,7 @@ class Storage {
             token: this.token, 
             value 
         }
-        this.cargo.setItem(`${this.hash}-${id}`, JSON.stringify(record))
+        this.cargo.setItem(id.toLowerCase(), JSON.stringify(record))
     }
 
 }
