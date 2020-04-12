@@ -94,18 +94,38 @@ class FileCore {
                 }
             },
             {
-                name: 'open file manager',
+                name: 'run',
                 action: async () => {
                     if (process.platform == 'linux') {
                         exec('xdg-open ' + path.join(thepath, name))
                     }
 
                     else if (process.platform == 'win32') {
-                        exec('explorer ' + path.join(thepath, name))
+                        exec('start "" ' + path.join(thepath, name))
                     }
 
                     else if (process.platform == 'darwin') {
                         exec('open ' + path.join(thepath, name))
+                    }
+
+                    else $err.spawn(
+                        'This feature is not supported on your operating system'
+                    )
+                }
+            },
+            {
+                name: 'open parent folder',
+                action: async () => {
+                    if (process.platform == 'linux') {
+                        exec('xdg-open ' + thepath)
+                    }
+
+                    else if (process.platform == 'win32') {
+                        exec('explorer ' + thepath)
+                    }
+
+                    else if (process.platform == 'darwin') {
+                        exec('open ' + thepath)
                     }
 
                     else $err.spawn(
