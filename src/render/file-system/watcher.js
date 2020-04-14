@@ -50,12 +50,25 @@ class WatchTower {
     // Change File event listener
     onChange(path, event) {
         console.log('File Changed')
+        if (path == OpenedAPI.get('fullpath')) {
+            // Reload when file is saved 
+            // and it has changed in the background
+            console.log(JUST_SAVED_FILE.val)
+            if (!OPENED.val.unsaved && !JUST_SAVED_FILE.val) {
+                editor.setValue(fs.readFileSync(path, 'utf-8'))
+            }
+        }
     }
 
     // Remove File event listener
     onUnlink(path, event) {
         console.log('File Removed')
         TreeMaster.unlinkFile(path)
+        TabsManager.removeFromTabs(path)
+        if (path == OpenedAPI.get('fullpath')) {
+            $('#title').classList.add('deleted')
+            $('#editor').classList.add('deleted')
+        }
     }
     
     // Remove Dir event listener

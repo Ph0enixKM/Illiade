@@ -60,11 +60,13 @@ class Variable {
     // Sets a value just to trigger callbacks
     // Then reverts back to the default value
     // Without forcing to do any callbacks
-    tick(given) {
+    tick(given, time = 0) {
         let revert = this.value
         this.value = given
         this.change()
-        this.value = revert
+        setTimeout(() => {
+            this.value = revert
+        }, time)
     }
 
     // Observe the Variable till it's being set with a value once

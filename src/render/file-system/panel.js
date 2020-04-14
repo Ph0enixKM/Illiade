@@ -1,10 +1,9 @@
-// This file controlls the panel behavior
-// which is adapting icons to the left panel size.
-
 const panel = $('#panel')
 const panelBig = $('#panel .big')
 const panelCompact = $('#panel .compact')
 
+// This function controlls the panel behavior
+// which is adapting icons to the left panel size.
 LEFT_PANEL_SIZE.trigger(val => {
     if (val < 135) {
         for (const col of panelBig.children) {
@@ -40,10 +39,28 @@ LEFT_PANEL_SIZE.trigger(val => {
     }
 })
 
-
-const mores = document.querySelectorAll('#more-button')
-for (const more of mores) {
-    more.addEventListener('click', e => {
-        $err.spawn('This feature is yet to be added in the future version')
+// On open the apps button
+const appsButtons = document.querySelectorAll('#apps-button')
+for (const apps of appsButtons) {
+    apps.addEventListener('click', e => {
+        APPS_DOCK_SHOW.val = !APPS_DOCK_SHOW.val
+        storage.set('APPS_DOCK_SHOW', APPS_DOCK_SHOW.val)
     })
 }
+
+// On (keyboard shortcut) open the apps button
+new Shortcut('ALT A', e => {
+    APPS_DOCK_SHOW.val = !APPS_DOCK_SHOW.val
+})
+
+// Update Apps when opened or hidden
+const dock = $('#dock-apps')
+APPS_DOCK_SHOW.trigger(show => {
+    if (show) {
+        $err.spawn('This feature will be working soon')
+        dock.classList.add('on')
+    }
+    else {
+        dock.classList.remove('on')
+    }
+})

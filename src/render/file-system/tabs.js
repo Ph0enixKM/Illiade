@@ -123,9 +123,23 @@ class Tabs {
         this.items.style.transition = 'transform 0ms'
         this.items.style.transform = `translate(0, -50%)`
         $('.inputarea').focus()
+    }
 
+    removeFromTabs(path) {
+        for (const [index, file] of OPENED_LAST.val.entries()) {
+            if(path == file.fullpath) {
+                OPENED_LAST.val.splice(index, 1)
+                if (this.busy) {
+                    this.items.children[this.index].remove()
+                    if (this.index > 0) this.index--
+                    this.beforeUpdate()
+                    this.update()
+                }
+                return true
+            }
+        }
     }
     
 }
 
-new Tabs()
+let TabsManager = new Tabs()

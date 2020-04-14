@@ -37,14 +37,19 @@ html(lang="en")
         #panel
             .big
                 .col
-                    .btn#more-button(data-tippy-content="ALT + M")
+                    .btn#apps-button(data-tippy-content="ALT + A")
                     .btn#dna-button(data-tippy-content="ALT + D")
                 .col
                     .btn#change-dir(data-tippy-content="ALT + R")
                     .btn#terminal-button(data-tippy-content="ALT + T")
             .compact
                 .col
-                    .btn#more-button
+                    .btn#apps-button
+        #dock-apps
+            .dock-app.uno
+            .dock-app.dos
+            .dock-app.tres
+            
         #file-system
             #resizer
             #container
@@ -87,13 +92,13 @@ html(lang="en")
         audio(loop)
             source(src="../../art/underwater2.mp3" type="audio/mpeg")
         script(src="../lib/draggable/main.js")
-        script(src="../render/global.js")
-        script(src="../render/main.js")
-        script(src="../render/error.js")
-        script(src="../render/menu.js")
-        script(src="../render/view.js")
-        script(src="../render/monaco.js")
-        script(src="../render/audio.js")
+        script(src="../render/general/global.js")
+        script(src="../render/general/main.js")
+        script(src="../render/general/error.js")
+        script(src="../render/general/menu.js")
+        script(src="../render/general/view.js")
+        script(src="../render/general/monaco.js")
+        script(src="../render/general/audio.js")
         script(src="../render/term/main.js")
         script(src="../render/term/event.js")
         script(src="../render/file-system/watcher.js")
@@ -104,8 +109,8 @@ html(lang="en")
         script(src="../render/file-system/tree.js")
         script(src="../render/file-system/events.js")
         script(src="../render/file-system/tabs.js")
-        script(src="../render/cli.js")
-        script(src="../render/drop.js")
+        script(src="../render/general/cli.js")
+        script(src="../render/general/drop.js")
         script(src="../render/dna/events.js")
         script(src="../render/dna/main.js")
-        script(src="../render/window-controls.js")
+        script(src="../render/general/window-controls.js")

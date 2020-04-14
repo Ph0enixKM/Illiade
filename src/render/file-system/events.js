@@ -28,7 +28,9 @@ OPENED.trigger((val, last) => {
 
     let filename = obj.name
     title.innerHTML = filename
+    title.classList.remove('deleted')
     titleTip.setContent(fullpath)
+    $('#editor').classList.remove('deleted')
 })
 
 // Selecting files
@@ -232,7 +234,7 @@ async function updateChanges() {
         
         if (saved != unsaved) {
             OPENED_LAST.val[position].unsaved = true
-            savedIcon.style.visibility = 'visible'
+            savedIcon.style.visibility = 'visible'            
         }
 
         else {
@@ -284,27 +286,26 @@ window.addEventListener('keydown', async e => {
 
 // Menu "Change Directory" (init load)
 window.onload = async () => {
-    // if (ROOT.val != null && ROOT.val.length !== 0) {
-    //     updateTree()
-    // }
     OPENED.tick(OPENED.val)
 }
 
 // Save File (button)
-$('#title-cont #saved').addEventListener('click', e => {
-    const fullpath = OpenedAPI.get('fullpath')
-
-    fs.writeFileSync(fullpath, editor.getValue())
-    e.target.style.visibility = 'hidden'
-})
+$('#title-cont #saved').addEventListener('click', saveFileTitleUpdate)
 
 // Save File (keyboard shortcut)
 window.addEventListener('keydown', async e => {
     if (e.key.toLowerCase() == 's' && e.ctrlKey) {
-        const fullpath = OpenedAPI.get('fullpath')
-
-        fs.writeFileSync(fullpath, editor.getValue())
-        $('#title-cont #saved').style.visibility = 'hidden'
+        saveFileTitleUpdate()
     }
 })
 
+// Update header on file save
+function saveFileTitleUpdate() {
+    const fullpath = OpenedAPI.get('fullpath')
+
+    fs.writeFileSync(fullpath, editor.getValue())
+    $('#title-cont #saved').style.visibility = 'hidden'
+    $('#title').classList.remove('deleted')
+    $('#editor').classList.remove('deleted')
+    JUST_SAVED_FILE.tick(true, 100)
+}

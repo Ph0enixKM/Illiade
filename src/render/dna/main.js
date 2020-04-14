@@ -60,42 +60,6 @@ class DNA {
                 }
             },
 
-            // 'Quick Commands',
-
-            // {
-            //     id: 'cmd-1',
-            //     name: '(ALT + 1)',
-            //     type: 'text',
-            //     placeholder: 'compile src.code -o here.out',
-            //     attach: 'COMMAND1',
-            //     trigger(val) {
-            //         COMMAND1.val = val
-            //     },
-            //     update() {}
-            // },
-            // {
-            //     id: 'cmd-2',
-            //     name: '(ALT + 2)',
-            //     type: 'text',
-            //     placeholder: 'package-manager run build',
-            //     attach: 'COMMAND2',
-            //     trigger(val) {
-            //         COMMAND2.val = val
-            //     },
-            //     update() {}
-            // },
-            // {
-            //     id: 'cmd-3',
-            //     name: '(ALT + 3)',
-            //     type: 'text',
-            //     placeholder: 'git pull origin master',
-            //     attach: 'COMMAND3',
-            //     trigger(val) {
-            //         COMMAND3.val = val
-            //     },
-            //     update() {}
-            // },
-
             'Terminal',
 
             {
@@ -135,21 +99,22 @@ class DNA {
                     terminal or opened a new one`)
                 }
             },
-            
-            'Project File',
-            
-            {
-                id: 'save-project-config',
-                name: 'Save config of this project to a file',
-                type: 'switch',
-                attach: 'SAVE_PROJECT_CONFIG',
-                trigger() {
-                    SAVE_PROJECT_CONFIG.val = !SAVE_PROJECT_CONFIG.val
-                },
-                update: updateProjectConfig
-            },
 
-            'Illiade Startup',
+            
+            // 'Project File',
+            
+            // {
+            //     id: 'save-project-config',
+            //     name: 'Save config of this project to a file',
+            //     type: 'switch',
+            //     attach: 'SAVE_PROJECT_CONFIG',
+            //     trigger() {
+            //         SAVE_PROJECT_CONFIG.val = !SAVE_PROJECT_CONFIG.val
+            //     },
+            //     update: updateProjectConfig
+            // },
+
+            'Illiade\'s Vibe',
 
             {
                 id: 'boot-animation',
@@ -173,6 +138,39 @@ class DNA {
                     BOOT_ANIMATION_TYPE.val = e[0]
                 },
                 update() {}
+            },
+
+            {
+                id: 'colorful-jellyfish',
+                name: 'Colorful Jellyfish',
+                type: 'switch',
+                attach: 'COLORFUL_JELLIES',
+                trigger() {
+                    COLORFUL_JELLIES.val = !COLORFUL_JELLIES.val
+                },
+                update() {
+                    if (COLORFUL_JELLIES.val) {
+                        $('#bg').style.animation = 'jelly 10s infinite'
+                    }
+                    else {
+                        $('#bg').style.animation = 'none'
+                    }
+                }
+            },
+
+            {
+                id: 'background-opacity',
+                name: 'Background Opacity',
+                attach: 'BG_OPACITY',
+                type: 'range',
+                range: [0, 0.7, 0.01],
+                value: 0.5,
+                trigger(val) {
+                    BG_OPACITY.val = val
+                },
+                update() {
+                    $('#bg').style.opacity = BG_OPACITY.val
+                }
             }
         ]
     }
@@ -235,7 +233,8 @@ class DNA {
                     let setting = document.createElement('input')
                     setting.id = item.id
                     setting.className = 'text'
-                    setting.placeholder = item.placeholder
+                    setting.placeholder = item.placeholder || ''
+                    setting.value = item.value || ''
                     setting.addEventListener('change', e => {
                         item.trigger(e.target.value)
                     })
@@ -314,41 +313,65 @@ class DNA {
                     setting.id = item.id
                     setting.className = 'color'
                     control.appendChild(setting)
-
+                    
                     const pickr = Pickr.create({
                         el: setting,
                         theme: 'nano',
                         default: TERM_CURSOR_COLOR.val,
-
                         swatches: [
-                            '#CFB8AB'
+                            item.default
                         ],
-                     
                         components: {
-                     
-                            // Main components
                             preview: true,
                             opacity: true,
                             hue: true,
-
                             interaction: {
-                                // hex: true,
                                 input: true,
                                 save: true
                             }
                         }
                     })
-
                     pickr.on('save', (color, instance) => {
                         item.trigger(color.toHEXA().toString())
                         item.update()
                     })
-                    
                     window[item.attach].trigger(value => {
                         storage.set(item.attach, value)
                     })
-
                     pickr.setColor(item.default)
+                    window[item.attach].tick(window[item.attach].val)
+                    item.update('init')
+                }
+
+                // Setting type range number selector.
+                // Contains range exposed as a number.
+                // Can be changed to any number from defined range.
+                else if (item.type == 'range') {
+                    let setting = document.createElement('input')
+                    let gauge = document.createElement('div')
+                    setting.id = item.id
+                    setting.className = 'range'
+                    gauge.className = 'range-gauge'
+                    setting.type = 'range'
+                    setting.min = item.range[0] || 0
+                    setting.max = item.range[1] || 100
+                    setting.step = item.range[2] || 1
+                    setting.value = item.value || 50
+                    gauge.innerHTML = item.value || 50
+                    setting.addEventListener('input', e => {
+                        gauge.innerHTML = setting.value
+                    })
+                    setting.addEventListener('change', e => {
+                        item.trigger(setting.value)
+                    })
+                    control.appendChild(setting)
+                    control.appendChild(gauge)
+                    window[item.attach].trigger(value => {
+                        setting.value = value
+                        gauge.innerHTML = value
+                        storage.set(item.attach, value)
+                    })
+                    window[item.attach].trigger(item.update)
                     window[item.attach].tick(window[item.attach].val)
                     item.update('init')
                 }

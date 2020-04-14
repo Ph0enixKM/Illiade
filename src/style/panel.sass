@@ -5,7 +5,7 @@
     height: 100px
     z-index: 3
     backdrop-filter: blur(15px)
-    background: linear-gradient(#272424, transparent)
+    // background: linear-gradient(#272424, transparent)
     border-bottom: 1px #302B29 solid
     overflow-x: hidden
     opacity: 0
@@ -53,6 +53,51 @@
             opacity: 1
             transform: scale(1)
 
+
+#dock-apps
+    position: absolute
+    display: inline-block
+    background: #111
+    transform: translate(0, -50%)
+    top: calc(28px + 50vh)
+    right: -150px
+    width: 70px
+    height: 210px
+    border-radius: 999px
+    z-index: 3
+    backdrop-filter: blur(10px)
+    transition: right 200ms
+    &.on
+        right: 20px
+    .dock-app
+        display: inline-block
+        width: 50px
+        height: 50px
+        border: 5px solid #111
+        border-radius: 50%
+        margin: 5px 0 0 5px
+        transition: 100ms
+        cursor: pointer
+        &:hover
+            border: 5px solid #222
+            background-color: #222
+        &.uno
+            background-image: url('../../art/PHX-Logo.png')
+            background-size: contain
+            background-repeat: no-repeat
+            background-position: center
+        &.dos
+            background-image: url('../../art/portal2.png')
+            background-size: contain
+            background-repeat: no-repeat
+            background-position: center
+        &.tres
+            background-image: url('../../art/icons/png-icon.svg')
+            background-size: 70%
+            background-repeat: no-repeat
+            background-position: center
+
+
 #dna-button
     transition: transform 500ms
     margin-left: 5px !important
@@ -69,7 +114,7 @@
         background-image: url('../../art/home-button-dark.svg')
     &:hover::after
         background-image: url('../../art/home-button.svg')
-#more-button
+#apps-button
     transform-origin: bottom right
     transition: transform 2000ms
     &::after

@@ -12,6 +12,21 @@ $monaco-color: #463e39
     transition: opacity 300ms
     opacity: 0
     filter: saturate(0.9)
+    &.deleted::after
+        display: inline-block
+        content: ""
+        width: calc(100% - 100px)
+        height: 100%
+        top: 0
+        left: 0
+        position: absolute
+        z-index: -1
+        background-image: url('../../art/cross-button.svg')
+        background-position: center
+        background-repeat: no-repeat
+        background-size: contain
+        opacity: 0.1
+
     .current-line
         border: none
         background-color: #3333

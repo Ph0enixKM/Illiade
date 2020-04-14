@@ -6,7 +6,7 @@
     backdrop-filter: blur(5px)
     width: 100vw
     z-index: 3
-    background-color: rgba(0, 0, 0, 0.6)
+    background-color: rgba(29, 25, 19, 0.8) 
     opacity: 0
     transition: opacity 200ms
     #dna-bg
@@ -141,3 +141,33 @@
                 &.on
                     transform: scale(1.5)
                     background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
+            
+            .range
+                display: inline-block
+                vertical-align: middle
+                -webkit-appearance: none
+                width: 200px
+                height: 30px
+                background: transparent
+                outline: none
+                &::-webkit-slider-thumb
+                    -webkit-appearance: none
+                    height: 30px
+                    width: 16px
+                    border-radius: 5px
+                    background: #CA006B
+                    cursor: pointer
+                &::-webkit-slider-thumb 
+                    -webkit-appearance: none
+                &::-webkit-slider-runnable-track
+                    background: rgba(70, 70, 70, 0.5)
+                    border-radius: 999px
+            .range-gauge
+                display: inline-block
+                margin-left: 30px
+                vertical-align: middle
+                color: #aaa
+                font-family: Lato
+                padding: 10px
+                background: rgba(70, 70, 70, 0.3)
+                border-radius: 50px

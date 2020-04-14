@@ -9,6 +9,13 @@
 @import 'error.sass'
 @import 'drop.sass'
 
+@keyframes jelly
+    0%
+        filter: hue-rotate(-30deg) contrast(0.7) brightness(0.6)
+    50%
+        filter: hue-rotate(20deg) contrast(0.7) brightness(0.6)
+    100%
+        filter: hue-rotate(-30deg) contrast(0.7) brightness(0.6)
 
 html
     scroll-behavior: smooth
@@ -26,6 +33,7 @@ body
     top: 0
     opacity: 0.5
     filter: grayscale(100%) contrast(0.7) brightness(0.6)
+    // animation: jelly 10s infinite
 
 @keyframes bg-hue
     0%
@@ -65,7 +73,7 @@ header
             cursor: pointer
             font-size: 15px
             line-height: 15px
-            .deleted
+            &.deleted
                 text-decoration: line-through
                 color: #555
             &:hover
