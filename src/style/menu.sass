@@ -3,21 +3,32 @@
     top: 28px
     height: calc(100vh - 28px)
     width: 100vw
-    backdrop-filter: blur(0px)
+    backdrop-filter: blur(5px)
     background-color: rgba(29, 25, 19, 0.8)
     z-index: 3
     visibility: hidden
     transition: transform 300ms, opacity 300ms
+    opacity: 0
+    &.on
+        visibility: visible
+        opacity: 1
+        #container
+            transition-timing-function: cubic-bezier(0, .97, .51, .99)
+            transition-duration: 500ms
+            transform: translate(-50%, -50%)
+            opacity: 1
+
     #container
-        will-change: transform, bacdrop-filter
+        will-change: transform, backdrop-filter
         position: absolute
         top: 50vh
         left: 50vw
-        transform: translate(-50%, -50vh)
         opacity: 0
-        transition: transform 300ms, opacity 300ms
-        transition-timing-function: cubic-bezier(0, .97, .51, .99)
+        transform: translate(-50%, -50vh)
+        transition-duration: 200ms
+        transition-timing-function: cubic-bezier(.84, 0, 0.96, .42)
         user-select: none
+        // backdrop-filter: blur(5px)
         #title
             font-size: 50px
             color: white

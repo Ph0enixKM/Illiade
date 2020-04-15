@@ -1,0 +1,55 @@
+#decision
+    z-index: 4
+    position: absolute
+    top: -300px
+    left: calc(50vw - 125px)
+    transition: top 300ms
+    &.on
+        top: calc(28px + 20px)
+    #message
+        width: 225px
+        height: 75px
+        overflow-y: scroll
+        overflow-x: hidden
+        // position: absolute
+        will-change: border
+        background: linear-gradient(rgba(255, 33, 180, 0.3), rgba(142, 0, 189, 0.2))
+        backdrop-filter: blur(5px)
+        border-radius: 20px
+        opacity: 1
+        padding: 25px
+        color: rgb(255, 170, 170)
+        font-family: Lato
+        transition: 200ms
+        word-wrap: break-word
+        box-shadow: 0 5px 10px #1a1a1a
+        &::-webkit-scrollbar
+            background-color: transparent
+        &::-webkit-scrollbar-track
+            background-color: transparent
+        &::-webkit-scrollbar-thumb
+            background-color: rgba(255, 0, 0, 0.5)
+            border-radius: 20px
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5)
+    .choice
+        text-align: center
+        position: absolute
+        display: inline-block
+        width: 100px
+        height: 20px
+        background: #443a469e
+        bottom: -45px
+        padding: 5px
+        border-radius: 5px
+        font-family: Lato
+        box-shadow: 0 5px 5px #1a1a1a
+        cursor: pointer
+        transform: scale(1)
+        transition: transform 200ms, background 200ms
+        &:hover
+            background: #443a46
+            transform: scale(0.95)
+    #yes
+        left: 20px
+    #no
+        right: 20px

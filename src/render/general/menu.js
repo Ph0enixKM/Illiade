@@ -102,11 +102,7 @@ class Menu{
         this.ui.input.value = this.input
         this.ui.input.placeholder = this.placeholder
         
-        this.element.style.visibility = 'visible'
-        this.element.style.opacity = '0'
-        this.element.style.backdropFilter = 'blur(0px) brightness(1)'
-        this.ui.container.style.transitionTimingFunction = 'cubic-bezier(0, .97, .51, .99)'
-        this.ui.container.style.transitionDuration = '500ms'
+        this.element.classList.add('on')
 
         if (options.wide === true) {
             this.element.style.textAlign = 'center'
@@ -116,20 +112,16 @@ class Menu{
             this.ui.input.style.width = 'calc(80vw - 200px)'
         }
         
+        this.ready = true
+        this.tries = 0
+        this.busy = true
+        
         setTimeout(() => {
-            this.element.style.opacity = '1'
-            this.ui.container.style.transform = 'translate(-50%, -50%)'
-            this.element.style.backdropFilter = 'blur(5px)'
-            this.ui.container.style.opacity = '1'
-            this.ready = true
-            this.tries = 0
-            this.busy = true
-            this.ui.input.focus()
-
             // Set Options if existing
             this.ui.options[2].innerHTML = (this.hints[1] == null) ? '' : this.hints[1]
             this.ui.options[3].innerHTML = (this.hints[2] == null) ? '' : this.hints[2]
-        }, 300)
+            this.ui.input.focus()
+        }, 10)
     }
 
     async get() {
@@ -164,12 +156,7 @@ class Menu{
         }
         else throw 'BAD CODE'
 
-        this.element.style.backdropFilter = 'blur(0px) brightness(1)'
-        this.element.style.opacity = '0'
-        this.ui.container.style.transform = 'translate(-50%, -50vh)'
-        this.ui.container.style.transitionTimingFunction = 'cubic-bezier(.84, 0, 0.96, .42)'
-        this.ui.container.style.opacity = '0'
-        this.ui.container.style.transitionDuration = '200ms'
+        this.element.classList.remove('on')
         this.index = 0
 
         for (const option of this.ui.options) {
@@ -177,7 +164,6 @@ class Menu{
         }
         
         setTimeout(() => {
-            this.element.style.visibility = 'hidden'
             this.ready = true
             this.tries = 0
             this.busy = false

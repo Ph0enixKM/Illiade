@@ -31,6 +31,7 @@ EDITOR_LOAD.trigger(() => {
     }, 500)
 })
 
+// On DOM Load
 window.addEventListener('DOMContentLoaded', () => {
     let version = document.querySelector('#version')
     version.innerHTML = VERSION_LEVEL.val
@@ -53,44 +54,6 @@ fs.readdir(ROOT.val, (err, files) => {
         }
     })
 })
-
-// Update project config file (.illiade)
-function updateProjectConfig() {
-    const projectPath = path.join(ROOT.val, '.illiade')
-    
-    // Overwrite changes
-    if (SAVE_PROJECT_CONFIG.val) {
-        
-        // Remove models and ensurance of existance
-        const openedLast = OPENED_LAST.val.slice()
-        for(let index = 0; index < openedLast.length; index++) {
-            delete openedLast[index].model
-            delete openedLast[index].exists
-        }
-        
-        fs.writeFileSync(projectPath, JSON.stringify({
-            TREE_MAP: TREE_MAP.val,
-            OPENED_LAST: openedLast,
-            VIEWS_LAST: VIEWS_LAST.val,
-            COMMAND1: COMMAND1.val,
-            COMMAND2: COMMAND2.val,
-            COMMAND3: COMMAND3.val,
-            OPENED: {
-                isVirtual: true,
-                name: OpenedAPI.get('name'),
-                fullpath: OpenedAPI.get('fullpath'),
-                extension: OpenedAPI.get('extension'),
-                welcome: OPENED.val.welcome
-            }
-        }))
-    }
-    
-    // Remove is should be non-existant
-    else {
-        if (fs.pathExistsSync(projectPath))
-        fs.removeSync(projectPath)
-    }
-}
 
 function loadProjectConfig() {
     const projectPath = path.join(ROOT.val, '.illiade')

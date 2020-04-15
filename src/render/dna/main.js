@@ -100,20 +100,6 @@ class DNA {
                 }
             },
 
-            
-            // 'Project File',
-            
-            // {
-            //     id: 'save-project-config',
-            //     name: 'Save config of this project to a file',
-            //     type: 'switch',
-            //     attach: 'SAVE_PROJECT_CONFIG',
-            //     trigger() {
-            //         SAVE_PROJECT_CONFIG.val = !SAVE_PROJECT_CONFIG.val
-            //     },
-            //     update: updateProjectConfig
-            // },
-
             'Illiade\'s Vibe',
 
             {
@@ -151,9 +137,11 @@ class DNA {
                 update() {
                     if (COLORFUL_JELLIES.val) {
                         $('#bg').style.animation = 'jelly 10s infinite'
+                        monaco.editor.setTheme('blaze-colorful')
                     }
                     else {
                         $('#bg').style.animation = 'none'
+                        monaco.editor.setTheme('blaze-grayscale')
                     }
                 }
             },
