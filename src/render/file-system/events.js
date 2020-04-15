@@ -110,7 +110,7 @@ function saveCurrentViewState() {
 function saveViewState(fullpath) {
     let found = false
     // Save Last element's view state
-    for (const [index, obj] of VIEWS_LAST.val.entries()) {        
+    for (const [index, obj] of VIEWS_LAST.val.entries()) {
         if (obj.fullpath == fullpath) {
             VIEWS_LAST.val[index].viewState = editor.saveViewState()
             VIEWS_LAST.val[index].time = new Date().getTime()

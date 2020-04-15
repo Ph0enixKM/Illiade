@@ -50,14 +50,19 @@ class WatchTower {
     // Change File event listener
     onChange(path, event) {
         console.log('File Changed')
-        if (path == OpenedAPI.get('fullpath')) {
-            // Reload when file is saved 
-            // and it has changed in the background
-            console.log(JUST_SAVED_FILE.val)
-            if (!OPENED.val.unsaved && !JUST_SAVED_FILE.val) {
-                editor.setValue(fs.readFileSync(path, 'utf-8'))
+        // Reload when file is saved 
+        // and it has changed in the background
+        OPENED_LAST.val.find(item => {
+            if (item.fullpath != path) return null
+            if (!item.unsaved && !JUST_SAVED_FILE.val) {
+                item.model.setValue(fs.readFileSync(path, 'utf-8'))
+                // Restore view state to put the cursor
+                // In the right position
+                if (path == OpenedAPI.get('fullpath')) {
+                    restoreViewState(path)
+                }
             }
-        }
+        })
     }
 
     // Remove File event listener
