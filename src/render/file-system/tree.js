@@ -51,7 +51,19 @@ class TreeMaster {
 
         // If there are some 
         // files already
-        if (index > 0) {
+        if (files.length > 1) {
+            // If it's a first file
+            // Insert it after the last
+            // directory and before
+            // the gui-wise first file
+            if (index == 0) {
+                parent.prepend()
+                const sibling = document.querySelector(
+                    `[fullpath="${path.join(base, files[index + 1])}"]`
+                )
+                return parent.insertBefore(file, sibling) 
+            }
+
             // Get a sibling of desired 
             // file in the correct order
             const sibling = document.querySelector(

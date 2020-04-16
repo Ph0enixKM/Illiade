@@ -6,7 +6,7 @@
     transition: top 300ms
     &.on
         top: calc(28px + 20px)
-    #message
+    .message
         width: 225px
         height: 75px
         overflow-y: scroll
@@ -28,9 +28,15 @@
         &::-webkit-scrollbar-track
             background-color: transparent
         &::-webkit-scrollbar-thumb
-            background-color: rgba(255, 0, 0, 0.5)
+            background-color: rgba(251, 0, 255, 0.05)
             border-radius: 20px
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5)
+        &:hover
+            cursor: pointer
+            transform: scale(0.95)
+        &:active
+            transform: scale(0.9)
+            opacity: 0.9
     .choice
         text-align: center
         position: absolute
@@ -51,5 +57,7 @@
             transform: scale(0.95)
     #yes
         left: 20px
+        user-select: none
     #no
         right: 20px
+        user-select: none

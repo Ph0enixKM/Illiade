@@ -12,7 +12,7 @@ document.addEventListener('drop', e => {
     
     // You can't drag more than one file
     if (e.dataTransfer.files.length > 1) {
-        $err.spawn('You can drag only one file or directory at once')
+        msg.error('You can drag only one file or directory at once')
         dropElem.style.visibility = 'hidden'
         return null
     }
@@ -26,7 +26,7 @@ document.addEventListener('drop', e => {
     // Check whether the file really exists
     const fullpath = e.dataTransfer.files[0].path
     if (!fs.existsSync(fullpath)) {
-        $err.spawn(`Requested file or directory '${fullpath}' does not exist`)
+        msg.error(`Requested file or directory '${fullpath}' does not exist`)
         dropElem.style.visibility = 'hidden'
     }
     

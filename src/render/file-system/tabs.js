@@ -4,8 +4,10 @@ class Tabs {
         this.tabs = $('#tabs')
         this.cont = $('#tabs #container')
         this.items = $('#tabs #items')
+        this.path = $('#tabs #path')
         this.index = 0
-        this.delta = 30
+        this.delta = 15
+        this.paths = []
         
         // Hold
         window.addEventListener('keydown', e => {
@@ -17,14 +19,18 @@ class Tabs {
         // Release
         window.addEventListener('keyup', e => {
             if (e.key === 'q' && this.busy) {
+                this.paths = []
                 this.enter()
+                updateChanges()
             }
         })
         
+        // Remove
         window.addEventListener('keydown', e => {
             if (e.key === 'Delete' && this.busy) {
                 if (OPENED_LAST.val.length <= 1) return
                 OPENED_LAST.val.splice(this.index, 1)
+                this.paths.splice(this.index, 1)
                 this.items.children[this.index].remove()
                 if (this.index > 0) this.index--
                 this.beforeUpdate()
@@ -52,6 +58,13 @@ class Tabs {
                     this.update()
                 }
             }
+        })
+
+        // Copy message
+        this.path.addEventListener('click', e => {
+            navigator.clipboard.writeText(this.paths[this.index]).then(() => {}, (error) => {
+                err.spawn('Couldn\'t copy to clipboard: ' + error)
+            })
         })
     }
     
@@ -90,6 +103,8 @@ class Tabs {
                 img.style.backgroundImage = `url('../../art/icons/${obj.extension}-icon.svg')`
             }
             
+            // Add path
+            this.paths.push(obj.fullpath)
             
             el.appendChild(title)
             el.appendChild(img)
@@ -98,6 +113,7 @@ class Tabs {
         }
         this.items.style.transition = 'transform 300ms'
         this.items.children[0].style.transform = `scale(1.3)`
+        this.path.innerHTML = this.renderPathHTML(this.paths[0])
     }
     
     // Before updating the menu
@@ -109,6 +125,18 @@ class Tabs {
     update() {
         this.items.style.transform = `translate(${-this.index * this.delta}vw, -50%) scale(1)`
         this.items.children[this.index].style.transform = `scale(1.3)`
+        this.path.innerHTML = this.renderPathHTML(this.paths[this.index])
+    }
+
+    renderPathHTML(loc) {
+        const uno = path.basename(loc)
+        const dos = path.basename(path.dirname(loc))
+        const tres = path.basename(path.dirname(path.dirname(loc)))
+        const cuatro = path.dirname(path.dirname(path.dirname(loc)))
+        return `<div class="loc cuatro">${cuatro.replace(/[\\\/]/g, ' ')}</div>
+                <div class="loc tres">${tres}</div>
+                <div class="loc dos">${dos}</div>
+                <div class="loc uno">${uno}</div>`
     }
     
     // Enter the item

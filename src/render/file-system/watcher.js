@@ -54,6 +54,7 @@ class WatchTower {
         // and it has changed in the background
         OPENED_LAST.val.find(item => {
             if (item.fullpath != path) return null
+            // If it's a saved file
             if (!item.unsaved && !JUST_SAVED_FILE.val) {
                 item.model.setValue(fs.readFileSync(path, 'utf-8'))
                 // Restore view state to put the cursor
@@ -61,6 +62,32 @@ class WatchTower {
                 if (path == OpenedAPI.get('fullpath')) {
                     restoreViewState(path)
                 }
+                return
+            }
+            console.log('unsaved')
+            // If it's an unsaved file
+            if (item.unsaved && !JUST_SAVED_FILE.val) {
+                let obj = OpenedAPI.extract(path)
+                decision.spawn(`
+                    File ${obj.name} has changed in the background, 
+                    but you have applied some changes to it.
+                    Do you want to reload and wipe the changes?<br>
+                    (Answering 'no' will overwrite with changes appied in Illiade)
+                    <br><br>Detailed path: (${path})
+                `, answer => {
+                    if (answer) {
+                        item.model.setValue(fs.readFileSync(path, 'utf-8'))
+                    }
+                    else {
+                        setTimeout(() => saveFileTitleUpdate(path), 10)
+                    }
+                    // Restore view state to put the cursor
+                    // In the right position
+                    if (path == OpenedAPI.get('fullpath')) {
+                        setTimeout(saveFileTitleUpdate, 10)
+                        restoreViewState(path)
+                    }
+                })
             }
         })
     }

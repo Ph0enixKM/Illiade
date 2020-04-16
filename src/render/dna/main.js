@@ -60,47 +60,7 @@ class DNA {
                 }
             },
 
-            'Terminal',
-
-            {
-                id: 'term-cursor-style',
-                name: 'Terminal cursor style',
-                type: 'select',
-                attach: 'TERM_CURSOR_STYLE',
-                options: ['Block', 'Underline', 'Bar'],
-                by: 'value',
-                trigger(e) {
-                    TERM_CURSOR_STYLE.val = e[1]
-                },
-                update() {
-                    for (const term of TERMINALS.val) {
-                        if (term == null) continue
-                        term.xterm.setOption(
-                            'cursorStyle', 
-                            TERM_CURSOR_STYLE.val.toLowerCase()
-                        )
-                    }
-                }
-            },
-
-            {
-                id: 'term-cursor-color',
-                name: 'Terminal cursor color',
-                type: 'color',
-                attach: 'TERM_CURSOR_COLOR',
-                default: '#CFB8AB',
-                trigger(e) {
-                    TERM_CURSOR_COLOR.val = e
-                },
-                update(info) {
-                    if (info != 'init')
-                    $err.done(`Changes will be 
-                    visible once killed current 
-                    terminal or opened a new one`)
-                }
-            },
-
-            'Illiade\'s Vibe',
+            'Vibe',
 
             {
                 id: 'boot-animation',
@@ -158,6 +118,66 @@ class DNA {
                 },
                 update() {
                     $('#bg').style.opacity = BG_OPACITY.val
+                }
+            },
+
+            'Terminal',
+
+            {
+                id: 'term-cursor-style',
+                name: 'Terminal cursor style',
+                type: 'select',
+                attach: 'TERM_CURSOR_STYLE',
+                options: ['Block', 'Underline', 'Bar'],
+                by: 'value',
+                trigger(e) {
+                    TERM_CURSOR_STYLE.val = e[1]
+                },
+                update() {
+                    for (const term of TERMINALS.val) {
+                        if (term == null) continue
+                        term.xterm.setOption(
+                            'cursorStyle', 
+                            TERM_CURSOR_STYLE.val.toLowerCase()
+                        )
+                    }
+                }
+            },
+
+            {
+                id: 'term-cursor-color',
+                name: 'Terminal cursor color',
+                type: 'color',
+                attach: 'TERM_CURSOR_COLOR',
+                default: '#CFB8AB',
+                trigger(e) {
+                    TERM_CURSOR_COLOR.val = e
+                },
+                update(info) {
+                    if (info != 'init')
+                    msg.done(`Changes will be 
+                    visible once killed current 
+                    terminal or opened a new one`)
+                }
+            },
+
+            'Code Editor',
+            
+            {
+                id: 'editor-ligatures',
+                name: 'Font Ligatures',
+                type: 'switch',
+                attach: 'CODE_EDITOR_LIGATURES',
+                trigger(e) {
+                    CODE_EDITOR_LIGATURES.val = !CODE_EDITOR_LIGATURES.val
+                },
+                update() {
+                    if (CODE_EDITOR_LIGATURES.val) {
+                        editor.updateOptions({ fontLigatures: true })
+                    }
+                    else {
+                        editor.updateOptions({ fontLigatures: false })
+                    }
                 }
             }
         ]
@@ -246,7 +266,7 @@ class DNA {
                     setting.id = item.id
                     setting.className = 'select'
 
-                    if (!item.options) return $err.spawn(`
+                    if (!item.options) return msg.error(`
                         DNA: 
                         Badly parsed setting of type 'select' of id '${item.id}'
                         Missing option 'options'
@@ -282,7 +302,7 @@ class DNA {
                         }
 
                         // If type is unrelated
-                        else $err.spawn(`DNA: You must specify are you storing selection by index or by value '${item.attach}'`)
+                        else msg.error(`DNA: You must specify are you storing selection by index or by value '${item.attach}'`)
                         storage.set(item.attach, value)
                     })
 
@@ -364,7 +384,7 @@ class DNA {
                     item.update('init')
                 }
 
-                else $err.spawn(`DNA: Bad DNA item type '${item.type}'`)
+                else msg.error(`DNA: Bad DNA item type '${item.type}'`)
             }
         }
     }

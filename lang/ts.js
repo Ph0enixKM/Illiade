@@ -79,8 +79,8 @@ const TS_LANGUAGE = {
         [/(\.)([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['default', 'function', 'default']],
 
         // Functions get and set shall not be highlighted
-        [/(get|set)(\s*\()/, ['function', 'default']],
-        [/(get|set)(\s*[=:]\s*\()/, ['function', 'default']],
+        [/(get|in|set)(\s*\()/, ['function', 'default']],
+        [/(get|in|set)(\s*[=:]\s*\()/, ['function', 'default']],
         
         // Keywords
         [/\b(interface|declare|static|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
@@ -100,8 +100,7 @@ const TS_LANGUAGE = {
         
         
         // Directives
-        [/(^\s*)(#include)(\s+)(\S+)/, ['default', 'keyword', 'default', 'string']],
-        [/^\s*#\S+/, 'keyword'],
+        [/^\s*#\S+/, 'special'],
         
         
         [/\b(null|undefined|NaN|Infinity|true|false)\b/, 'number' ],

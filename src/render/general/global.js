@@ -71,9 +71,10 @@ new Global('always', 'WINDOW_SIZE', [1280, 720], 'Boot init window size')
 new Global('always', 'WINDOW_POS', [null, null], 'Boot init window position')
 new Global('always', 'COLORFUL_JELLIES', false, 'Determines if jellies should be colored')
 new Global('always', 'BG_OPACITY', 0.5, 'Determines the opacity of jellies')
+new Global('always', 'CODE_EDITOR_LIGATURES', true, 'Use ligatures?')
+new Global('always', 'OPENED_LAST', [], 'Opened file - holds Objects')
 
 
-new Global('brief', 'OPENED_LAST', [], 'Opened file - holds Objects')
 new Global('brief', 'EDITOR_LOAD', false, 'Editor Loaded')
 new Global('brief', 'TERMINAL_OPEN', false, 'If terminal is opened')
 new Global('brief', 'VERSION', [1, 1], 'Illiade version')

@@ -21,7 +21,7 @@ const titleTip = tippy(title, {
 async function changeDirectory(inputDir, container = fsCont) {
     fs.readdir(inputDir, (error, files) => {
         if (error) {
-            $err.spawn(`Such directory like '${inputDir}' does not exist`)
+            msg.error(`Such directory like '${inputDir}' does not exist`)
         }
 
         else {

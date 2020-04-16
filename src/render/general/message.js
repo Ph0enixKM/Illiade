@@ -1,6 +1,6 @@
-class SlikError {
+class Message {
     constructor() {
-        this.element = $('#error')
+        this.element = $('#message')
         this.countdefine = 30
         this.countdown = 0
         this.queue = []
@@ -9,18 +9,20 @@ class SlikError {
             if (this.queue.length) this.loop()
         }, 200)
 
+        // Copy message
         this.element.addEventListener('click', e => {
-            navigator.clipboard.writeText($err.element.innerText).then(() => {}, (error) => {
+            navigator.clipboard.writeText(msg.element.innerText).then(() => {}, (error) => {
                 err.spawn('Couldn\'t copy to clipboard: ' + error)
             })
         })
 
+        // Remove the message
         this.element.addEventListener('contextmenu', e => {
             this.queue[0][0] = 0
         })
     }
 
-    spawn(title) {
+    error(title) {
         this.queue.push([this.countdefine, title, 'error'])
     }
 
@@ -67,4 +69,4 @@ class SlikError {
     }
 }
 
-window.$err = new SlikError()
+window.msg = new Message()

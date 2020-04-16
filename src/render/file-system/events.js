@@ -212,7 +212,7 @@ function updateOpenedFiles(element, lastElPath) {
 }
 
 // Check if file content changed
-$('#editor').addEventListener('keyup', async e => updateChanges())
+$('#editor').addEventListener('keyup', updateChanges)
 
 async function updateChanges() {
     const extension = OpenedAPI.get('extension')
@@ -240,6 +240,7 @@ async function updateChanges() {
             OPENED_LAST.val[position].unsaved = false
             savedIcon.style.visibility = 'hidden'
         }
+        
     })
 }
 
@@ -299,12 +300,11 @@ window.addEventListener('keydown', async e => {
 })
 
 // Update header on file save
-function saveFileTitleUpdate() {
-    const fullpath = OpenedAPI.get('fullpath')
-
+// Takes current opened filepath as default
+function saveFileTitleUpdate(fullpath = OpenedAPI.get('fullpath')) {
     fs.writeFileSync(fullpath, editor.getValue())
     $('#title-cont #saved').style.visibility = 'hidden'
     $('#title').classList.remove('deleted')
     $('#editor').classList.remove('deleted')
-    JUST_SAVED_FILE.tick(true, 100)
+    JUST_SAVED_FILE.tick(true, 100, false)
 }

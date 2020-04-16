@@ -28,7 +28,7 @@ function cliInit() {
         
         // Check if file exists
         if (!fs.existsSync(thePath)) {
-            $err.spawn(`Requested file or directory '${thePath}' does not exist`)
+            msg.error(`Requested file or directory '${thePath}' does not exist`)
             return null
         }
         

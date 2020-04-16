@@ -59,13 +59,13 @@ class Variable {
 
     // Sets a value just to trigger callbacks
     // Then reverts back to the default value
-    // Without forcing to do any callbacks
-    tick(given, time = 0) {
-        let revert = this.value
+    // (or the provided one) without forcing
+    // to do any callbacks
+    tick(given, time = 0, def = this.value) {
         this.value = given
         this.change()
         setTimeout(() => {
-            this.value = revert
+            this.value = def
         }, time)
     }
 
@@ -138,15 +138,15 @@ class Variable {
         this.callbacks.push(callback)
     }
 
-       // Observe the Variable till it changes once
-       diversesOnce(given) {
+    // Observe the Variable till it changes once
+    diversesOnce(given) {
         let callback = (_value, _before) => {}
         let index = {
             once: true,
             value: null,
             mustChange: true
         }
-
+ 
         if (typeof given === 'function') {
             callback = given
         } else throw triggerWarn

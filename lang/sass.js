@@ -61,11 +61,12 @@ const SASS_LANGUAGE = {
         [/\b\d*\.\d+([eE][\-+]?\d+)?\b/, 'number.float'],
         [/\b0[xX][0-9a-fA-F]+\b/, 'number.hex'],
         [/\b\d+\b/, 'number'],
-        [/\b(\d+)(em|ex|ch|rem|vmin|vmax|vw|vh|vm|cm|mm|in|px|pt|pc|deg|grad|rad|turn|s|ms|Hz|kHz|[%])\b/, ['number', 'keyword']],
+        [/\b(\d+)(em|ex|ch|rem|vmin|vmax|vw|vh|vm|cm|mm|in|px|pt|pc|deg|grad|rad|turn|s|ms|Hz|kHz)\b/, ['number', 'keyword']],
+        [/%/, 'keyword'],
         
         // identifiers
         [/\$[A-Za-z0-9_$\-]*\b/, 'identifier'],
-	[/\-\-[0-9a-zA-Z\-\$]+\b/, 'identifier'],
+        [/\-\-[0-9a-zA-Z\-\$]+\b/, 'identifier'],
 
         [/\b(a|article|aside|body|br|details|div|h1|h2|h3|h4|h5|h6|head|header|hgroup|hr|footer|nav|p|section|span|summary|link|meta|style|title|button|fieldset|input|label|keygen|select|option|ul|li|ol|textarea|iframe|b|u|i|code|script|progress|img)\b/, 'identifier'],
         [/\b\S+(?=:)\b/, 'default'],

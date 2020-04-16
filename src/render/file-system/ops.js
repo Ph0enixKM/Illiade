@@ -108,7 +108,7 @@ class FileCore {
                         exec('open ' + path.join(thepath, name))
                     }
 
-                    else $err.spawn(
+                    else msg.error(
                         'This feature is not supported on your operating system'
                     )
                 }
@@ -128,7 +128,7 @@ class FileCore {
                         exec('open ' + thepath)
                     }
 
-                    else $err.spawn(
+                    else msg.error(
                         'This feature is not supported on your operating system'
                     )
                 }
@@ -136,14 +136,9 @@ class FileCore {
             {
                 name: 'delete',
                 action: async () => {
-                    menu.on({
-                        title: 'Delete directory',
-                        subtitle: `Are you sure you want to delete <br>${name}?`,
-                        placeholder: `[Y/n]`
-                    })
+                    let answer = await decision.ask(`Are you sure you want to delete <br>${name}?`)
 
-                    let answer = await menu.get()
-                    if (answer.toLowerCase() == 'y') {
+                    if (answer) {
                         fs.removeSync(this.element.getAttribute('fullpath'))
                     }
                 }

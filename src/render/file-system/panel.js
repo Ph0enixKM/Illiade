@@ -57,7 +57,7 @@ new Shortcut('ALT A', e => {
 const dock = $('#dock-apps')
 APPS_DOCK_SHOW.trigger(show => {
     if (show) {
-        $err.spawn('This feature will be working soon')
+        msg.error('This feature will be working soon')
         dock.classList.add('on')
     }
     else {

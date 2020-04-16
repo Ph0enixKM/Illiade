@@ -77,8 +77,8 @@ const JS_LANGUAGE = {
         [/(\.)([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['default', 'function', 'default']],
         
         // Functions get and set shall not be highlighted
-        [/(get|set)(\s*\()/, ['function', 'default']],
-        [/(get|set)(\s*[=:]\s*function\s*\()/, ['function', '@rematch']],
+        [/(get|in|set)(\s*\()/, ['function', 'default']],
+        [/(get|in|set)(\s*[=:]\s*function\s*\()/, ['function', '@rematch']],
         
         // Keywords
         [/\b(break|case|static|catch|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
@@ -88,8 +88,7 @@ const JS_LANGUAGE = {
         [/(\s*<)([^/=<>\s]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
 
         // Directives
-        [/(^\s*)(#include)(\s+)(\S+)/, ['default', 'keyword', 'default', 'string']],
-        [/^\s*#\S+/, 'keyword'],
+        [/^\s*#\S+/, 'special'],
         
         
         // Functions
@@ -102,7 +101,7 @@ const JS_LANGUAGE = {
         
         // whitespace
         { include: '@whitespace' },
-	[/\$[0-9a-zA-Z\$_]*\b/, 'special'],
+	      [/\$[0-9a-zA-Z\$_]*\b/, 'special'],
         
         // delimiters and operators
         [/@symbols/, { cases: { '@operators': 'operator',

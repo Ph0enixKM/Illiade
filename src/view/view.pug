@@ -85,12 +85,13 @@ html(lang="en")
         #tabs
             #container
                 #items
+                #path /home/phoenix/Desktop/Projects/Illiade/node_modules/monaco-editor-textmate/dist/typings
         #paralels
-        #error Error: Oopsie
+        #message Error: Oopsie
         #decision
-            #message Do you like pancakes?
-            .choice#yes Yes
-            .choice#no No
+            .message Do you like pancakes?
+            .choice#yes(data-tippy-content="ALT + Y") Yes
+            .choice#no(data-tippy-content="ALT + N") No
         #drop
             #drop-icon.no-file
         audio(loop)
@@ -98,7 +99,8 @@ html(lang="en")
         script(src="../lib/draggable/main.js")
         script(src="../render/general/global.js")
         script(src="../render/general/main.js")
-        script(src="../render/general/error.js")
+        script(src="../render/general/message.js")
+        script(src="../render/general/decision.js")
         script(src="../render/general/menu.js")
         script(src="../render/general/view.js")
         script(src="../render/general/monaco.js")

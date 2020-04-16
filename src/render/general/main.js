@@ -1,13 +1,21 @@
 import fs from 'fs-extra'
 import path from 'path'
 import { remote } from 'electron'
+import watchdog from 'native-watchdog'
+
+// Watch this process.
+// When Illiade freezez
+// dog's gonna kill it.
+watchdog.start(process.pid)
 
 // Resize window to the lastly saved dimensions
 const win = remote.getCurrentWindow()
 win.setSize(...WINDOW_SIZE.val, true)
 
+
 // Position window to the last place
 if(!WINDOW_POS.val.includes(null))  {
+    const win = remote.getCurrentWindow()
     win.setPosition(...WINDOW_POS.val)
 }
 
@@ -18,9 +26,6 @@ tippy('[data-tippy-content]', {
     appendTo: document.body,
     placement: 'bottom'
 })
-
-// Load config project files
-loadProjectConfig()
 
 // Set focus on editor
 EDITOR_LOAD.trigger(() => {
@@ -54,25 +59,6 @@ fs.readdir(ROOT.val, (err, files) => {
         }
     })
 })
-
-function loadProjectConfig() {
-    const projectPath = path.join(ROOT.val, '.illiade')
-    
-    // Load if file exists
-    if (fs.pathExistsSync(projectPath)) {
-        let config = JSON.parse(fs.readFileSync(projectPath, 'utf-8'))
-        TREE_MAP.val = config.TREE_MAP
-        OPENED_LAST.val = config.OPENED_LAST
-        VIEWS_LAST.val = config.VIEWS_LAST
-        COMMAND1.val = config.COMMAND1
-        COMMAND2.val = config.COMMAND2
-        COMMAND3.val = config.COMMAND3
-        OPENED.val = config.OPENED
-        
-        console.log(config.OPENED_LAST);
-        console.log(OPENED_LAST.val);
-    }
-}
 
 // clear console
 EDITOR_LOAD.trigger(() => {

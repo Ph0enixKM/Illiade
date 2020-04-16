@@ -14,7 +14,33 @@
         height: inherit
         display: inline-block
         align-items: center
-        padding-left: 35vw
+        padding-left: calc(50vw - 7.5vw)
+        #path
+            position: absolute
+            bottom: 20px
+            width: 100vw
+            text-align: center
+            color: #aaa
+            left: 0
+            font-family: Lato
+            font-size: 1.5vw
+            cursor: pointer
+            transition: transform 200ms
+            &:hover
+                transform: scale(0.95)
+            &:active
+                transform: scale(0.9)
+            .loc
+                display: inline-block
+                &.cuatro
+                    color: #555
+                &.tres
+                    color: #777
+                &.dos
+                    color: #aaa
+                &.uno
+                    color: white
+                
         #items
             display: inline-block
             position: absolute
@@ -25,21 +51,21 @@
             .item
                 position: relative
                 display: inline-block
-                background-color: rgba(0, 0, 0, 0.1)
+                background-color: rgba(50, 50, 50, 0.5)
                 backdrop-filter: blur(10px)
                 border-radius: 30px
-                width: 20vw
-                height: 20vw
-                margin: 5vw
+                width: 10vw
+                height: 10vw
+                margin: 2.5vw
                 will-change: tranform
-                transition: transform 100ms 
+                transition: transform 100ms
                 .unsaved
                     visibility: hidden
                     display: inline-block
-                    width: 2vw
-                    height: 2vw
-                    bottom: -2vw
-                    left: 9vw
+                    width: 1vw
+                    height: 1vw
+                    bottom: -1vw
+                    left: 4.5vw
                     position: relative
                     border-radius: 50%
                     &.on
@@ -48,16 +74,16 @@
                         
                     
                 .title
-                    height: 5vw
+                    height: 2.5vw
                     font-family: Lato
                     vertical-align: middle
-                    line-height: 5vw
+                    line-height: 2.5vw
                     text-align: center
                     overflow: hidden
-                    font-size: 2vw
+                    font-size: 1vw
                 .image
-                    background-size: 10vw 10vw
+                    background-size: 5vw 5vw
                     background-position: center
                     background-repeat: no-repeat
-                    height: 15vw
+                    height: 7.5vw
                     background-image: url('../../art/icons/file-icon.svg')

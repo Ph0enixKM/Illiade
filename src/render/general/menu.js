@@ -120,7 +120,9 @@ class Menu{
             // Set Options if existing
             this.ui.options[2].innerHTML = (this.hints[1] == null) ? '' : this.hints[1]
             this.ui.options[3].innerHTML = (this.hints[2] == null) ? '' : this.hints[2]
-            this.ui.input.focus()
+            setTimeout(() => {
+                this.ui.input.focus()
+            }, 300)
         }, 10)
     }
 
@@ -128,8 +130,8 @@ class Menu{
         return new Promise(res => {
             this.ui.input.addEventListener('keydown', function _ (e) {
                 if (e.key === 'Enter') {
-                    menu.ui.input.removeEventListener('keydown',_ , false)
                     menu.off('DONE')
+                    menu.ui.input.removeEventListener('keydown',_ , false)
                     return res(menu.ui.input.value)
                 }
             }, false)

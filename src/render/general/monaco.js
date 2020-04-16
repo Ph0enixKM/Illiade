@@ -235,6 +235,8 @@ amdRequire(['vs/editor/editor.main'], () => {
         accessibilitySupport: 'auto',
         smoothScrolling: true,
         cursorSmoothCaretAnimation: true,
+        fontLigatures: false,
+        fontFamily: 'Ligatures',
         scrollbar: {
             useShadows: false,
             verticalHasArrows: false,
@@ -276,6 +278,5 @@ amdRequire(['vs/editor/editor.main'], () => {
         style.remove()
         EDITOR_LOAD.val = true
     }, 1000)
-
 
 })

@@ -45,4 +45,15 @@ class Storage {
         this.cargo.setItem(id.toLowerCase(), JSON.stringify(record))
     }
 
+    // Updates the Global Observable to the storage
+    update(id) {
+        const record = { 
+            name: 'Phoenix Storage', 
+            version: '1.0.0', 
+            token: this.token, 
+            value: window[id].val, 
+        }
+        this.cargo.setItem(id.toLowerCase(), JSON.stringify(record))
+    }
+
 }
