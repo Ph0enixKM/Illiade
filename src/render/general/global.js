@@ -88,6 +88,7 @@ new Global('brief', 'TERMINAL_EDIT', false, 'Tells whether terminal is in edit m
 new Global('brief', 'DEBUGGER_STYLE', 'color: #9a0187', 'Set the debugger style')
 new Global('brief', 'APPS_DOCK_SHOW', false, 'If apps dock should be shown on boot')
 new Global('brief', 'JUST_SAVED_FILE', false, 'If file was just saved')
+new Global('brief', 'FS_SCOPE', false, 'If we are operating on fs')
 
 
 

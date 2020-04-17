@@ -27,14 +27,22 @@ body
     overflow: hidden
     color: white !important
 #bg
+    // filter: blur(10px)
     object-fit: cover
     width: 100vw
     height: 100vh
     position: absolute
     top: 0
-    opacity: 0.5
-    filter: grayscale(100%) contrast(0.7) brightness(0.6)
+    opacity: 0
+    transition: opacity 1s
+    filter: grayscale(100%) contrast(0.7) brightness(0.6) 
     // animation: jelly 10s infinite
+    &::after
+        content: ''
+        display: inline-block
+        width: 100vw
+        height: 100vh
+        backdrop-filter: blur(10px)
 
 @keyframes bg-hue
     0%

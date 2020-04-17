@@ -97,6 +97,7 @@ class Directory extends FileCore {
         if (isExpanded) {
             let insides = fs.readdirSync(this.fullpath)
             this.element.children[0].classList.toggle('expanded')
+            this.element.classList.toggle('expanded')
             generateTree(this.element.children[1], insides, this.fullpath)
             watcher.link(this.fullpath)
         }
@@ -111,6 +112,7 @@ class Directory extends FileCore {
 
         this.tree = !this.tree
         this.element.children[0].classList.toggle('expanded')
+        this.element.classList.toggle('expanded')
                 
         // Expand
         if (this.tree) {

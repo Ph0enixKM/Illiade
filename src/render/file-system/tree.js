@@ -9,10 +9,187 @@ TREE_MAP.diverses(val => {
 
 class TreeMaster {
     constructor() {
+        this.pointer = [0]
         
+        // Go to file system
+        new Shortcut('ALT F', e => {
+            FS_SCOPE.val = !FS_SCOPE.val
+            
+        })
 
+        // Button to get out of the edit mode
+        $('#fs-scope-lock .close').addEventListener('click', e => {
+            FS_SCOPE.val = false
+        })
+
+        // On FS_SCOPE change
+        FS_SCOPE.trigger(val => {
+            if (val) {
+                this.selectFile()
+                $('.inputarea').blur()
+                $('#fs-scope-lock').classList.add('on')
+                fsCont.children[0].focus()
+            }
+            else {
+                this.deselectFile()
+                $('#fs-scope-lock').classList.remove('on')
+                $('.inputarea').focus()
+            }
+        })
+        
+        // Keyboard manipulate fs
+        window.addEventListener('keydown', e => {
+            // Prevent default when in FS mode
+            if (FS_SCOPE.val) {
+                if([32, 37, 38, 39, 40].indexOf(e.keyCode) >= 0)
+                    e.preventDefault()
+            }
+            // Run on next frame paint
+            setImmediate(() => {
+                if (FS_SCOPE.val) {
+
+                    // Entering directories
+                    if (e.key === 'ArrowRight' && !e.altKey) {
+                        const file = this.getFile()
+                        if (!file.classList.contains('expanded')) {
+                            TreeMaster.clickEvent(this.getFile())
+                            if (file.getAttribute('type') === 'file') {
+                                FS_SCOPE.val = false
+                            }
+                        }
+                        setTimeout(() => { this.enterDir() }, 100)
+                    }
+
+                    // Leaving directories
+                    else if (e.key === 'ArrowLeft' 
+                    && !e.altKey) {
+                        this.leaveDir()
+                    }
+
+                    // Move down
+                    else if (e.key === 'ArrowDown' 
+                    && !e.altKey) {
+                        this.moveDown()
+                    }
+
+                    // Move up
+                    else if (e.key === 'ArrowUp' 
+                    && !e.altKey) {
+                        this.moveUp()
+                    }
+                    
+                    // Fold directory
+                    else if (e.key.toLowerCase() === 'f' && !e.altKey) {
+                        const file = this.getFile()
+                        if (file.getAttribute('type') === 'dir')
+                            TreeMaster.clickEvent(this.getFile())
+                    }
+                }
+            })
+        })
     }
 
+    // --> Keyboard Movement Methods <--
+
+    // Enter directory
+    enterDir() {
+        const file = this.getFile()
+        const type = file.getAttribute('type')
+        if (type === 'dir') {
+            if (file.children[1].children.length > 0) {
+                this.deselectFile()
+                this.pointer.push(0)
+                this.selectFile()
+            }
+        }
+    }
+
+    // Leave directory
+    leaveDir() {
+        const file = this.getFile()
+        const type = file.getAttribute('type')
+        if (this.pointer.length > 1) {
+            this.deselectFile()
+            this.pointer.pop()
+            this.selectFile()
+        }
+    }
+
+    // Move up a file
+    moveUp() {
+        const file = this.getFile()
+        if (this.pointer.last() > 0) {
+            this.deselectFile()
+            this.pointer[this.pointer.length-1]--
+            this.selectFile()
+        }
+    }
+
+    // Move down a file
+    moveDown() {
+        const file = this.getFile()
+        if (file.nextSibling) {
+            this.deselectFile()
+            this.pointer[this.pointer.length-1]++
+            this.selectFile()
+        }
+    }
+
+    selectFile() {
+        const file = this.getFile()
+        const pos = file.offsetTop - (window.innerHeight / 2)
+        file.style.color = 'rgb(255, 51, 106)'
+        fileSystem.scrollTop = pos
+    }
+
+    deselectFile() {
+        this.getFile().style.color = '#888'
+    }
+
+
+    // Get currently selected file
+    getFile() {
+        let i = 1
+        let failed = false
+        let file = fsCont.children[this.pointer[0]]
+        // Main loop
+        for (const index of this.pointer.slice(1)) {
+            if(file.classList.contains('expanded')) {
+                const parent = file.children[1].children[index]
+                // If someone removed the file
+                if (parent === undefined) {
+                    failed = true
+                    break
+                }
+                file = parent
+                i++
+            }
+            // Go up a directory
+            // If current dir has folded up
+            else {
+                failed = true
+                break
+            }
+        }
+        // Once failed to open the file
+        if (failed) this.pointer = this.pointer.slice(0, i)
+        return file
+    }
+
+
+    // Click event simulator
+    static clickEvent(element) {
+        const clickEvent = document.createEvent("MouseEvents")
+        clickEvent.initMouseEvent(
+            "click", true, true, window, 
+            1, 0, 0, 0, 0, false, false, 
+            false, false, 0, null
+        )
+        element.dispatchEvent(clickEvent)
+    }
+
+
+    // --> Static Watcher Methods <--
 
     // Updates for a file if it was added
     // given the specified path
@@ -22,10 +199,8 @@ class TreeMaster {
         const file = new File(base, addedName).getElement()
         const items = fs.readdirSync(base)
         const files = []
-        
         // Get parent if possible
         let parent = document.querySelector(`[fullpath="${base}"]`)
-
         // Scream and shout
         if (parent == null) {
             console.warn(
@@ -34,21 +209,17 @@ class TreeMaster {
             )
             return null
         }
-
         // Get the files element 
         // which holds all the files
         parent = parent.children[1]
-
         // Get only files from all items
         for (const item of items) {
             if (!await checkFileStats(base, item)) {
                 files.push(item)
             }
         }
-        
         // Get index of the desired file
         const index = files.indexOf(addedName)
-
         // If there are some 
         // files already
         if (files.length > 1) {
@@ -63,32 +234,29 @@ class TreeMaster {
                 )
                 return parent.insertBefore(file, sibling) 
             }
-
             // Get a sibling of desired 
             // file in the correct order
             const sibling = document.querySelector(
                 `[fullpath="${path.join(base, files[index - 1])}"]`
             )
-
             // If there is not next file
             // It's the last file
             if (sibling.nextSibling == null) {
                 parent.append(file)    
             }
-
             // Otherwise add before
             // the next file
             else {
                 parent.insertBefore(file, sibling.nextSibling)
             }
         }
-
         // No files?
         // Add to the end
         else {
             parent.append(file)
         }
     }
+
 
     // Updates for a directory if it 
     // was added given the specified path
@@ -98,10 +266,8 @@ class TreeMaster {
         const dir = new Directory(base, addedName).getElement()
         const items = fs.readdirSync(base)
         const dirs = []
-        
         // Get parent if possible
         let parent = document.querySelector(`[fullpath="${base}"]`)
-
         // Scream and shout
         if (parent == null) {
             console.warn(
@@ -110,21 +276,17 @@ class TreeMaster {
             )
             return null
         }
-
         // Get the files element 
         // which holds all the files
         parent = parent.children[1]
-
         // Get only directories from all items
         for (const item of items) {
             if (await checkFileStats(base, item)) {
                 dirs.push(item)
             }
         }
-        
         // Get index of the desired dir
         const index = dirs.indexOf(addedName)
-
         // If there are some 
         // directories already
         if (index > 0) {
@@ -133,20 +295,17 @@ class TreeMaster {
             const sibling = document.querySelector(
                 `[fullpath="${path.join(base, dirs[index - 1])}"]`
             )
-
             // If there is not next dir
             // It's the last dir (and there are no files)
             if (sibling.nextSibling == null) {
                 parent.prepend(dir)    
             }
-
             // Otherwise add before
             // the next directory
             else {
                 parent.insertBefore(dir, sibling.nextSibling)
             }
         }
-
         // No dirs?
         // Add to the beginning
         else {
@@ -159,7 +318,6 @@ class TreeMaster {
     // (removed) with given specified path
     static async unlinkFile(txtPath) {
         const file = document.querySelector(`[fullpath="${txtPath}"]`)
-
         // Scream and shout
         if (file == null) {
             console.warn(
@@ -168,7 +326,6 @@ class TreeMaster {
             )
             return null
         }
-
         // The main topic here
         file.remove()
     }
@@ -177,7 +334,6 @@ class TreeMaster {
     // (removed) with given specified path
     static async unlinkDir(txtPath) {
         const dir = document.querySelector(`[fullpath="${txtPath}"]`)
-
         // Scream and shout
         if (dir == null) {
             console.warn(
@@ -186,13 +342,17 @@ class TreeMaster {
             )
             return null
         }
-
         // The main topic here
         dir.remove()
     }
 
 }
 
+EDITOR_LOAD.trigger(() => {
+    setTimeout(() => {
+        new TreeMaster()
+    }, 1000)
+})
 
 // This function regenerated the whole FileSystem
 function updateTree() {

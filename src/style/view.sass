@@ -1,11 +1,13 @@
 #view
     position: relative
-    backdrop-filter: blur(10px)
     display: inline-block
     vertical-align: top
     width: calc(100vw - 100px)
     height: 100vh
+    & #fs-scope-lock.on ~ div
+        backdrop-filter: none
     #image
+        backdrop-filter: blur(10px)
         transition: opacity 200ms 
         visibility: hidden
         position: absolute
@@ -34,6 +36,7 @@
 
 
     #welcome
+        backdrop-filter: blur(10px)
         transition: opacity 300ms
         position: absolute
         top: 0
@@ -70,7 +73,40 @@
                 background: -webkit-linear-gradient( 45deg, #DD0039, #CA00B9)
                 -webkit-background-clip: text
                 -webkit-text-fill-color: transparent
-
+        
+    #fs-scope-lock
+        position: absolute
+        top: 0
+        left: 0
+        user-select: none
+        width: inherit
+        height: inherit
+        backdrop-filter: blur(1px)
+        z-index: 2
+        visibility: hidden
+        opacity: 0
+        transition: opacity 300ms
+        &.on
+            visibility: visible
+            opacity: 1
+        .close
+            cursor: pointer
+            content: ''
+            display: inline-block
+            position: absolute
+            top: 20px
+            right: 20px
+            width: 50px
+            height: 50px
+            background-image: url('../../art/cross-button.svg')
+            background-size: cover
+            opacity: 0.5
+            color: rgba(250, 250, 250, 0.3)
+            font-size: 5vw
+            font-family: Lato
+            transition: transform 200ms
+            &:hover
+                transform: scale(0.9)
 @keyframes welcome
     0%
         filter: hue-rotate(-30deg)
@@ -78,3 +114,5 @@
         filter: hue-rotate(20deg)
     100%
         filter: hue-rotate(-30deg)
+        
+

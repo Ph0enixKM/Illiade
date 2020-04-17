@@ -64,7 +64,6 @@ class WatchTower {
                 }
                 return
             }
-            console.log('unsaved')
             // If it's an unsaved file
             if (item.unsaved && !JUST_SAVED_FILE.val) {
                 let obj = OpenedAPI.extract(path)

@@ -1,6 +1,16 @@
 import fs from 'fs-extra'
 import { exec } from 'child_process'
 
+// FS Events
+window.events = {
+    unlink: new Event('fs-unlink'),
+    rename: new Event('fs-rename'),
+    move: new Event('fs-move'),
+    duplicate: new Event('fs-duplicate'),
+    newFile: new Event('fs-new-file'),
+    newDir: new Event('fs-new-dir'),
+}
+
 // Core of Directory and File
 class FileCore {
     constructor(element, thepath, name) {
@@ -136,14 +146,20 @@ class FileCore {
             {
                 name: 'delete',
                 action: async () => {
-                    let answer = await decision.ask(`Are you sure you want to delete <br>${name}?`)
-
-                    if (answer) {
-                        fs.removeSync(this.element.getAttribute('fullpath'))
-                    }
+                    unlink()
                 }
             }
         ])
+
+        // Give ability to remove the file from the outside
+        this.element.addEventListener('unlink', unlink.bind(this))
+        async function unlink() {
+            let answer = await decision.ask(`Are you sure you want to delete <br>${name}?`)
+
+            if (answer) {
+                fs.removeSync(this.element.getAttribute('fullpath'))
+            }
+        }
     }    
 }
 
