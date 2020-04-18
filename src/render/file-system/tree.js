@@ -36,6 +36,14 @@ class TreeMaster {
                 $('.inputarea').focus()
             }
         })
+
+        // Menu hooks
+        menu.turnedOn(val => {
+            this.deselectFile()
+        })
+        menu.turnedOff(val => {
+            if (FS_SCOPE.val) this.selectFile()
+        })
         
         // Keyboard manipulate fs
         window.addEventListener('keydown', e => {
@@ -84,6 +92,88 @@ class TreeMaster {
                         if (file.getAttribute('type') === 'dir')
                             TreeMaster.clickEvent(this.getFile())
                     }
+
+                    // Remove directory or file
+                    else if (e.key === 'Delete' && !e.altKey) {
+                        const file = this.getFile()
+                        const name = OpenedAPI.get('name', file)
+                        decision.spawn(
+                            `Are you sure you want to delete <br>${name}?`,
+                        answer => {
+                            // Attempt removing
+                            if (answer) {
+                                this.getFile().dispatchEvent(events.unlink)
+                                if (this.pointer.last() > 0) {
+                                    this.deselectFile()
+                                    this.pointer[this.pointer.length-1]--
+                                    this.selectFile()
+                                }
+                                else {
+                                    this.leaveDir()
+                                }
+                            }
+                        })
+                    }
+
+                    // Create directory
+                    else if (e.key.toLowerCase() === 'q' && !e.altKey) {
+                        this.getFile().dispatchEvent(events.newDir)
+                    }
+
+                    // Create file
+                    else if (e.key.toLowerCase() === 'e' && !e.altKey) {
+                        this.getFile().dispatchEvent(events.newFile)
+                    }
+
+                    // Duplicate directory or file
+                    else if (e.key.toLowerCase() === 'd' && !e.altKey) {
+                        const file = this.getFile()
+                        const name = OpenedAPI.get('name', file)
+                        decision.spawn(`Do you want to duplicate file '${name}'?`, answer => {
+                            if (answer) {
+                                this.deselectFile()
+                                this.getFile().dispatchEvent(events.duplicate)
+                                setTimeout(() => {
+                                    this.selectFile()
+                                }, 100)
+                            }
+                        })
+                    }
+
+                    // Move directory or file
+                    else if (e.key.toLowerCase() === 'm' && !e.altKey) {
+                        // Start moving file
+                        if (FS_MOVE.val === null) {
+                            this.getFile().dispatchEvent(events.move)
+                        }
+                        // End Moving file
+                        else {
+                            const file = this.getFile()
+                            const ptr = this.pointer
+                            let isFile = false
+                            // Paste to the parent
+                            if (file.getAttribute('type') === 'file') {
+                                this.deselectFile()
+                                this.pointer = ptr.slice(0, -1)
+                                isFile = true
+                            }
+                            // Move the file
+                            FS_SCOPE_MOVE.val = true
+                            TreeMaster.clickEvent(this.getFile())
+                            FS_SCOPE_MOVE.val = false
+                            // Move back to the file
+                            if (isFile) {
+                                this.pointer = ptr
+                                this.selectFile()
+                            }
+                        }
+                    }
+
+                    // Rename directory or file
+                    else if (e.key === 'F2' && !e.altKey) {
+                        this.getFile().dispatchEvent(events.rename)
+                    }
+
                 }
             })
         })
@@ -228,7 +318,6 @@ class TreeMaster {
             // directory and before
             // the gui-wise first file
             if (index == 0) {
-                parent.prepend()
                 const sibling = document.querySelector(
                     `[fullpath="${path.join(base, files[index + 1])}"]`
                 )
@@ -287,9 +376,14 @@ class TreeMaster {
         }
         // Get index of the desired dir
         const index = dirs.indexOf(addedName)
+        console.log(dirs.length, index)
         // If there are some 
         // directories already
         if (index > 0) {
+            // If it's the last directory file
+            if (index + 1 == dirs.length) {
+                parent.append(dir)
+            }
             // Get a sibling of desired 
             // file in the correct order
             const sibling = document.querySelector(

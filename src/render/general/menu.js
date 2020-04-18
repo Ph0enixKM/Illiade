@@ -18,6 +18,12 @@ class Menu{
         this.tryInterval = 200
         this.hints = ['']
         this.index = 0
+        this.fsScope = false
+
+        this.hooks = {
+            off : [],
+            on : []
+        }
 
         this.title = ''
         this.subtitle = ''
@@ -79,8 +85,11 @@ class Menu{
     }
 
     async on(options) {
-
         if (this.busy) return null
+
+        this.fsScope = FS_SCOPE.val
+        FS_SCOPE.quiet = false
+        this.value = null
 
         // Set values
         if (options) {
@@ -122,8 +131,22 @@ class Menu{
             this.ui.options[3].innerHTML = (this.hints[2] == null) ? '' : this.hints[2]
             setTimeout(() => {
                 this.ui.input.focus()
+                // Run all the hooks
+                for (const fun of this.hooks.on) {
+                    fun()
+                }
             }, 300)
         }, 10)
+    }
+
+    // Off event hook
+    turnedOff(callback) {
+        this.hooks.off.push(callback)
+    }
+
+    // On event hook
+    turnedOn(callback) {
+        this.hooks.on.push(callback)
     }
 
     async get() {
@@ -132,6 +155,7 @@ class Menu{
                 if (e.key === 'Enter') {
                     menu.off('DONE')
                     menu.ui.input.removeEventListener('keydown',_ , false)
+                    this.value = menu.ui.input.value
                     return res(menu.ui.input.value)
                 }
             }, false)
@@ -143,6 +167,7 @@ class Menu{
     }
 
     async off(code) {
+        FS_SCOPE.quiet = this.fsScope
         // Wait for animation to end
         while(!this.ready) {
             if (this.tries >= this.maxTries) return null
@@ -183,17 +208,21 @@ class Menu{
             }
             this.ui.input.style.width = 'auto'
 
-
-            $('.inputarea').focus()
+            if (!FS_SCOPE.val) {
+                $('.inputarea').focus()
+            }
+            // Run all the hooks
+            for (const fun of this.hooks.off) {
+                fun(this.value)
+            }
         }, 300)
     }
 }
 
 window.menu = new Menu()
-
-window.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
+new Shortcut('Escape', e => {
+    if (menu.busy) {
         menu.off('ABORT')
+        e.stopPropagation()
     }
-    e.stopPropagation()
 })

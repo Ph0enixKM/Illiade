@@ -81,6 +81,8 @@ class Directory extends FileCore {
             if (![this.element, this.element.children[0]].includes(event.target)) return false
 
             if (FS_MOVE.val) {
+                // Don't proceed if was not intented to move in FS mode
+                if (FS_SCOPE.val && !FS_SCOPE_MOVE.val) return null
                 let src = path.join(FS_MOVE.val.path, FS_MOVE.val.name)
                 let dest = path.join(this.fullpath, FS_MOVE.val.name)
                 fs.move(src, dest, err => {
@@ -90,7 +92,7 @@ class Directory extends FileCore {
                 })
             }
             
-        })
+        }, false)
 
 
         // Expend by default if needed
@@ -105,7 +107,9 @@ class Directory extends FileCore {
     
 
     click(event) {
-        if (FS_MOVE.val) return null
+        
+        if (FS_MOVE.val && !FS_SCOPE) return null
+        if (FS_MOVE.val && FS_SCOPE && FS_SCOPE_MOVE) return null
 
         // Prevent from children capturing event
         if (![this.element, this.element.children[0]].includes(event.target)) return false

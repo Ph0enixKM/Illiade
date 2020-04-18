@@ -18,90 +18,23 @@ class FileCore {
         new TinyMenu(this.element, [
             {
                 name: 'rename',
-                action: async () => {
-                    menu.on({
-                        title: 'Rename',
-                        subtitle: 'Choose a new name',
-                        placeholder: name
-                    })
-
-                    let newName = await menu.get()
-
-                    if (newName === null) return false
-                    let newPath = path.join(thepath, newName)
-                    let oldPath = path.join(thepath, name)
-                    
-                    fs.renameSync(oldPath, newPath)
-
-                    // If currently in the file - open it
-                    if (OpenedAPI.get('fullpath') == oldPath) {
-                        const newFile = OpenedAPI.extract(newPath)
-                        OPENED.val = newFile
-                    }
-                }
+                action: rename.bind(this)
             },
             {
                 name: 'move',
-                action: () => {
-                    fsMove.on(thepath, name)
-                }
+                action: move.bind(this)
             },
             {
                 name: 'duplicate',
-                action: async () => {
-                    let newName = name
-                    while (await pathExists(path.join(thepath, newName))) {
-                        newName = '_' + newName
-                    }
-                    fs.copyFile(
-                        path.join(thepath, name), 
-                        path.join(thepath, newName),
-                        (err) => {
-                            if (err) throw err;
-                    })
-                }
+                action: duplicate.bind(this)
             },
             {
                 name: 'create file',
-                action: async () => {
-                    let targetDir = path.join(thepath, name)
-
-                    // Get parent path if it's a file
-                    if (this.isFile) {
-                        targetDir = thepath
-                    }
-
-                    menu.on({
-                        title: 'Create New File',
-                        subtitle: 'Choose a filename (with extension)',
-                        placeholder: 'name.ext'
-                    })
-
-                    let newName = await menu.get()
-                    let newPath = path.join(targetDir, newName)
-                    fs.writeFileSync(newPath, '')
-                }
+                action: createFile.bind(this)
             },
             {
                 name: 'create directory',
-                action: async () => {
-                    let targetDir = path.join(thepath, name)
-
-                    // Get parent path if it's a file
-                    if (this.isFile) {
-                        targetDir = thepath
-                    }
-
-                    menu.on({
-                        title: 'Create New Directory',
-                        subtitle: 'Choose a folder name',
-                        placeholder: 'name'
-                    })
-
-                    let newName = await menu.get()
-                    let newPath = path.join(targetDir, newName)
-                    fs.mkdirSync(newPath)
-                }
+                action: createDir.bind(this)
             },
             {
                 name: 'run',
@@ -146,20 +79,117 @@ class FileCore {
             {
                 name: 'delete',
                 action: async () => {
-                    unlink()
+                    decision.spawn(
+                        `Are you sure you want to delete <br>${name}?`,
+                    answer => {
+                        if (answer) {
+                            unlink.bind(this)()
+                        }
+                    })
                 }
             }
         ])
 
-        // Give ability to remove the file from the outside
-        this.element.addEventListener('unlink', unlink.bind(this))
-        async function unlink() {
-            let answer = await decision.ask(`Are you sure you want to delete <br>${name}?`)
+        // Give ability to do operations remotely
+        this.element.addEventListener('fs-unlink', unlink.bind(this))
+        this.element.addEventListener('fs-new-dir', createDir.bind(this))
+        this.element.addEventListener('fs-new-file', createFile.bind(this))
+        this.element.addEventListener('fs-duplicate', duplicate.bind(this))
+        this.element.addEventListener('fs-rename', rename.bind(this))
+        this.element.addEventListener('fs-move', move.bind(this))
 
-            if (answer) {
-                fs.removeSync(this.element.getAttribute('fullpath'))
+
+        // Unlink Directory or File
+        function unlink() {
+            fs.removeSync(this.element.getAttribute('fullpath'))
+        }
+
+
+        // Create Directory 
+        async function createDir() {
+            let targetDir = path.join(thepath, name)
+            // Get parent path if it's a file
+            if (this.isFile) {
+                targetDir = thepath
+            }
+            // Create menu
+            menu.on({
+                title: 'Create New Directory',
+                subtitle: 'Choose a folder name',
+                placeholder: 'name'
+            })
+            // Create the directory
+            let newName = await menu.get()
+            let newPath = path.join(targetDir, newName)
+            fs.mkdirSync(newPath)
+        }
+
+
+        // Create File
+        async function createFile() {
+            let targetDir = path.join(thepath, name)
+            // Get parent path if it's a file
+            if (this.isFile) {
+                targetDir = thepath
+            }
+            // Create menu
+            menu.on({
+                title: 'Create New File',
+                subtitle: 'Choose a filename (with extension)',
+                placeholder: 'name.ext'
+            })
+            // Create the file
+            let newName = await menu.get()
+            let newPath = path.join(targetDir, newName)
+            fs.writeFileSync(newPath, '')
+        }
+
+
+        // Duplicate Directory or File
+        async function duplicate() {
+            let newName = name
+            while (await pathExists(path.join(thepath, newName))) {
+                newName = '_' + newName
+            }
+            fs.copyFile(
+                path.join(thepath, name), 
+                path.join(thepath, newName),
+                (err) => {
+                    if (err) throw err
+            })
+        }
+
+
+        // Rename Directory or File
+        async function rename() {
+            menu.on({
+                title: 'Rename',
+                subtitle: 'Choose a new name',
+                placeholder: name
+            })
+            // Create menu
+            let newName = await menu.get()
+            // Don't rename if escaped menu
+            if (newName === null) return false
+            let newPath = path.join(thepath, newName)
+            let oldPath = path.join(thepath, name)
+            // Do rename the file
+            fs.renameSync(oldPath, newPath)
+            // If currently in the file - open it
+            if (OpenedAPI.get('fullpath') == oldPath) {
+                const newFile = OpenedAPI.extract(newPath)
+                OPENED.val = newFile
             }
         }
+
+
+        // Move Directory or File
+        async function move() {
+            fsMove.on(thepath, name)
+        }
+
+
+
     }    
 }
 
@@ -200,7 +230,6 @@ class Move {
 }
 
 window.fsMove = new Move()
-window.addEventListener('keydown', e => {
-    if (e.key == 'Escape')
+new Shortcut('Escape', e => {
     fsMove.off()
 })
