@@ -147,6 +147,297 @@ amdRequire(['vs/editor/editor.main'], () => {
                         ].join('\n'),
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
                     },
+                    {
+                        label: 'function',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'function ${1:name}(${2:params}) {',
+                            '\t$0',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }
+                ] 
+            }
+        },
+    })
+
+    monaco.languages.registerCompletionItemProvider('$ts', {
+        provideCompletionItems: () => {
+            return { suggestions: [
+                    {
+                        label: 'log',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'console.log($0)',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'if',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'if (${1:condition}) {',
+                            '\t$0',
+                            '}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'for',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'for (const ${1:item} of ${2:array}) {',
+                            '\t$0',
+                            '}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'class',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'class ${1:name} {',
+                            '\tconstructor() {',
+                            '\t\t$0',
+                            '\t}',
+                            '}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'qs',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'document.querySelector(\'$0\')',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'qsa',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'document.querySelectorAll(\'$0\')',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'addEvent',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'addEventListener(\'${1:event}\', e => {',
+                            '\t$0',
+                            '})',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'setTimeout',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'setTimeout(() => {',
+                            '\t$0',
+                            '}, ${1:time})',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'setInterval',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'setInterval(() => {',
+                            '\t$0',
+                            '}, ${1:time})',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'function',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'function ${1:name}(${2:params}) {',
+                            '\t$0',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }
+                ] 
+            }
+        },
+    })
+
+    monaco.languages.registerCompletionItemProvider('$vue', {
+        provideCompletionItems: () => {
+            return { suggestions: [
+                    {
+                        label: 'log',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'console.log($0)',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'if',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'if (${1:condition}) {',
+                            '\t$0',
+                            '}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'for',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'for (const ${1:item} of ${2:array}) {',
+                            '\t$0',
+                            '}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'class',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'class ${1:name} {',
+                            '\tconstructor() {',
+                            '\t\t$0',
+                            '\t}',
+                            '}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'qs',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'document.querySelector(\'$0\')',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'qsa',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'document.querySelectorAll(\'$0\')',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'addEvent',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'addEventListener(\'${1:event}\', e => {',
+                            '\t$0',
+                            '})',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'setTimeout',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'setTimeout(() => {',
+                            '\t$0',
+                            '}, ${1:time})',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'setInterval',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'setInterval(() => {',
+                            '\t$0',
+                            '}, ${1:time})',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'function',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'function ${1:name}(${2:params}) {',
+                            '\t$0',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'div',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            '<div>$0</div>',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'scaffold',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            '<template>',
+                            '\t',
+                            '</template>',
+                            '',
+                            '<script>',
+                            '\texport default {',
+                            '\t\t$0',
+                            '\t}',
+                            '</script>',
+                            '',
+                            '<style ${1:scoped}>',
+                            '\t',
+                            '</style>',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }
+                ] 
+            }
+        },
+    })
+
+    monaco.languages.registerCompletionItemProvider('$py', {
+        provideCompletionItems: () => {
+            return { suggestions: [
+                    {
+                        label: 'print',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'print($0)',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'if',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'if ${1:condition}:',
+                            '\t${2:pass}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'for',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'for ${1:item} in ${2:array}:',
+                            '\t$0',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'class',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'class ${1:name}:',
+                            '\t__init__(self):',
+                            '\t\t${2:pass}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'input',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'input($0)',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    }, 
+                    {
+                        label: 'def',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'def ${1:name}(${2:params}):',
+                            '\t${3:pass}',
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
                 ] 
             }
         },
@@ -168,6 +459,10 @@ amdRequire(['vs/editor/editor.main'], () => {
     monaco.languages.register({ id: '$vue', mimetypes: ['text/$vue'] })
     monaco.languages.setMonarchTokensProvider('$vue', VUE_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$vue', VUE_CONFIG)
+
+    monaco.languages.register({ id: '$py', mimetypes: ['text/$py'] })
+    monaco.languages.setMonarchTokensProvider('$py', PY_LANGUAGE)
+    monaco.languages.setLanguageConfiguration('$py', PY_CONFIG)
 	
     window.editorThemes = {}
     // Grayscale theme

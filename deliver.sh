@@ -13,6 +13,8 @@ echo -e $cmddim 'Let us start!' $cmdcls
 echo
 echo
 
+rm -rf illiade-db/
+
 # Run build for any distro: <distro_name> <npm_script_name> <platform>
 function package {
     echo -e 'Running '$1' Packager 📦 ' $cmddim

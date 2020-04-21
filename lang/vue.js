@@ -26,11 +26,11 @@ const VUE_CONFIG = {
         offSide: true
     }
   }
-  
+
   const VUE_LANGUAGE = {
       // Set defaultToken to invalid to see what you do not tokenize yet
       // defaultToken: 'invalid',
-    
+
       keywords: [
         'break', 'case', 'catch', 'class', 'continue', 'const',
         'constructor', 'debugger', 'default', 'delete', 'do', 'else',
@@ -40,7 +40,7 @@ const VUE_CONFIG = {
         'try', 'typeof', 'var', 'void', 'while', 'with', 'yield',
         'async', 'await', 'of'
       ],
-    
+
       operators: [
         '<=', '>=', '==', '!=', '===', '!==', '=>', '+', '-', '**',
         '*', '/', '%', '++', '--', '<<', '</', '>>', '>>>', '&',
@@ -48,19 +48,19 @@ const VUE_CONFIG = {
         '*=', '**=', '/=', '%=', '<<=', '>>=', '>>>=', '&=', '|=',
         '^=', '@',
       ],
-      
+
       brackets: [
         { open: '{', close: '}', token: 'delimiter.curly' },
         { open: '[', close: ']', token: 'delimiter.bracket' },
         { open: '(', close: ')', token: 'delimiter.parenthesis' }
       ],
-    
+
       // Common expressions
       symbols:  /[=><!~?:&|+\-*\/\^%]+/,
-    
+
       // Escapes
       escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
-    
+
       // The main tokenizer for our languages
       tokenizer: {
         root: [
@@ -158,7 +158,7 @@ const VUE_CONFIG = {
         // ],
 
 
-    
+
         comment: [
           [/[^\/*]+/, 'comment' ],
           [/\/\*/,    'comment', '@push' ],    // nested comment
@@ -171,7 +171,7 @@ const VUE_CONFIG = {
             [/[^:\s="'\>]/, 'keyword'],
             [/['"\s\>]/, '@rematch', '@pop']
         ],
-  
+
         jsxElement: [
             [/\s(v\-)/, {token: 'keyword', next: '@vueDirective'}],
             [/\s[:@]/, {token: 'keyword', next: '@vueDirective'}],
@@ -194,10 +194,11 @@ const VUE_CONFIG = {
             [/"/, 'string', '@string_double'],
             [/'/, 'string', '@string_single']
         ],
-  
+
         jsx: [
             [/(<)(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)/, ['delimiter', {token: 'identifier', next: '@jsxSelfClosingElement'}]],
             [/[^{}<>]+/, 'default'],
+            [/<!--.*-->/, 'comment'],
             [/(<)([^/<>\s]+)/, ['delimiter', { token: 'identifier', next: '@jsxElement' }]],
             [/\{/, { token: 'default', next: '@eval', nextEmbedded: 'text/$ts' }],
             [/(<\/)(template\s*)(>)/, [{token: 'delimiter'}, {token: 'special', next: '@pop'}, {token: 'delimiter', next: '@pop'}]],
@@ -212,7 +213,7 @@ const VUE_CONFIG = {
             [/\}/, 'delimiter.bracket', '@pop'],
             // { include: 'root' }
         ],
-    
+
         string_double: [
           [/[^\\"]+/, 'string'],
           [/@escapes/, 'type'],
@@ -232,25 +233,24 @@ const VUE_CONFIG = {
           [/\\./, 'string.escape.invalid'],
           [/`/, 'string', '@pop']
         ],
-        
+
         typeBracket: [
           [/\</, { token: 'type', next: '@typeCounting' }],
           [/[^>]+/, 'type'],
           [/\>/, 'type', '@pop']
         ],
-        
+
         typeCounting: [
           [/\</, 'type', '@typeCounting'],
           [/\>/, 'type', '@pop'],
         ],
-    
+
         whitespace: [
           [/[ \t\r\n]+/, 'white'],
           [/\/\*/,       'comment', '@comment' ],
           [/\/\/.*$/,    'comment'],
         ],
-  
-        
+
+
       },
   }
-    

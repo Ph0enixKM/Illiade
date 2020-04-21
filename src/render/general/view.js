@@ -96,7 +96,7 @@ class View {
         }   
         
         else if (['py', 'python', 'pyx'].includes(extension)) {
-            language = 'python'
+            language = '$py'
         }
         
         else if (['kt', 'kotlin'].includes(extension)) {

@@ -44,7 +44,7 @@ class Global {
 // ---
 
 
-new Global('always', 'ROOT', '', 'Current root diretory')
+new Global('always', 'ROOT', require('os').homedir(), 'Current root diretory')
 new Global('always', 'ROOTS', [], 'Used root directories')
 
 new Global('always', 'OPENED', {

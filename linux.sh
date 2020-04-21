@@ -1,7 +1,7 @@
 # This Script installs you a new Illiade version
 
 # Global variables
-debian_download=https://github.com/Ph0enixKM/Illiade/releases/download/1.2.0b/illiade_1.2.0_64.deb
+debian_download=https://github.com/Ph0enixKM/Illiade/releases/download/1.3.0b/illiade_1.3.0_64.deb
 
 cmddim="\e[2m"
 cmdbold="\e[1m"

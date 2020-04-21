@@ -1,6 +1,5 @@
 import fs from 'fs-extra'
 import Pickr from '@simonwep/pickr'
-import { ListFormat } from 'typescript'
 
 /**
  * DNA Class that is responsible
