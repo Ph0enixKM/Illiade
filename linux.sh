@@ -3,6 +3,7 @@
 # Global variables
 debian_download=https://github.com/Ph0enixKM/Illiade/releases/download/1.3.0b/illiade_1.3.0_64.deb
 
+# Colors of the terminal
 cmddim="\e[2m"
 cmdbold="\e[1m"
 cmdcls="\e[0m"
