@@ -11,7 +11,7 @@ cmdok="\e[32m"
 os_type=''
 
 echo
-echo -e $cmdbold 'Installing your Illiade (Drizzle)' $cmdcls
+echo -e $cmdbold 'Installing your Illiade (Pillar)' $cmdcls
 echo -e $cmddim 'Let us start!' $cmdcls
 echo
 echo
