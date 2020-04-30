@@ -67,7 +67,7 @@ If you want to get Illiade working on MacOS then below I have written what must 
 _Solution would be to run this "zip" version of installer:_
 
 ```bash
-curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/linux.sh | bash
+curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/linux.sh zip | bash
 ```
 
 ## Upcomming changes
