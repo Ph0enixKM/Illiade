@@ -62,12 +62,12 @@ if [[ $use_deb == 'NO' || $1 == 'zip' ]]; then
 fi
 
 
-if [[ -f '/etc/debian_version' ]]; then
+if [[ -f '/etc/debian_version' && deb -eq 1 ]]; then
     printf ${cmddim}${cmdok}
     echo 'It is a Debian-based OS - proceeding to the .deb instalation'
     printf $cmdcls
 else
-    if [[ deb -eq '1' ]]; then
+    if [[ deb -eq 1 ]]; then
         printf ${cmddim}${cmdok}
         echo 'proceeding to the .deb instalation'
         printf $cmdcls
@@ -92,7 +92,7 @@ if [[ $? -ne '0' ]]; then
     exit 1
 fi
 
-if [[ ! deb ]]; then
+if [[ deb -eq 0 ]]; then
     unzip -v &> /dev/null
     if [[ $? -ne '0' ]]; then
         printf $cmderr
@@ -115,7 +115,7 @@ cd ~
 rm $warename.deb &> /dev/null
 
 # Downloading Script
-if [[ deb ]]; then
+if [[ deb -eq 1 ]]; then
     echo -n ''
     wget -O ${warename}.deb $deb_download &> /dev/null
 else
@@ -140,7 +140,7 @@ spinner &
 # Installing Script
 
 
-if [[ deb ]]; then
+if [[ deb -eq 1 ]]; then
     echo -n ''
     sudo dpkg -i ~/$warename.deb &> /dev/null
 else
