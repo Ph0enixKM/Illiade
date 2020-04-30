@@ -17,7 +17,7 @@ you can easily run it with `illiade` or shortname `illi`
 Illiade can be easily installed on linux via this command:
 
 ```bash
-curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/linux.sh zip | bash
+curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/linux.sh | bash
 ```
 
 And that's it. The terminal will install Illiade for you!
@@ -30,10 +30,10 @@ And that's it. The terminal will install Illiade for you!
 
 ## CLI
 
-- Open current directory `illie .`
-- Open current directory as a separate process `illie . &`
-- Open custom directory `illie ./my-cool-project`
-- Open custom file `illie /home/user/file.md`
+- Open current directory `illi .`
+- Open current directory as a separate process `illi . &`
+- Open custom directory `illi ./my-cool-project`
+- Open custom file `illi /home/user/file.md`
 
 ## Compiling (MacOS/Windows)
 
@@ -67,7 +67,7 @@ If you want to get Illiade working on MacOS then below I have written what must 
 _Solution would be to run this "zip" version of installer:_
 
 ```bash
-curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/linux.sh zip | bash
+curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/linux.sh | bash -s zip
 ```
 
 ## Upcomming changes
