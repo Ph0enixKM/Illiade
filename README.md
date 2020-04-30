@@ -17,7 +17,7 @@ you can easily run it with `illiade` or shortname `illi`
 Illiade can be easily installed on linux via this command:
 
 ```bash
-curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/linux.sh | bash
+curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/installer.sh | bash
 ```
 
 And that's it. The terminal will install Illiade for you!
@@ -68,7 +68,7 @@ If you want to get Illiade working on MacOS then below I have written what must 
 _Solution would be to run this "zip" version of installer:_
 
 ```bash
-curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/linux.sh | bash -s zip
+curl -s https://raw.githubusercontent.com/Ph0enixKM/Illiade/master/installer.sh | bash -s zip
 ```
 
 ## Upcomming changes
