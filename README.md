@@ -64,6 +64,7 @@ If you want to get Illiade working on MacOS then below I have written what must 
 ## Troubleshooting
 
 **Installer can't install Illiade with dpkg**
+
 _Solution would be to run this "zip" version of installer:_
 
 ```bash
