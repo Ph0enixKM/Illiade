@@ -3,13 +3,13 @@
 </div>
 
 # Illiade
-> Current stable version: Illiade Drizzle
+> Current stable version: Illiade Pillar
 
 The official Phoenix Arts IDE.
 Download newest release [here](https://github.com/Ph0enixKM/Illiade/releases/latest)
 Once installed you can run the executable
 or if you have **Ubuntu | Debian | Lava** operating system
-you can easily run it with `illiade` or shortname `illie`
+you can easily run it with `illiade` or shortname `illi`
 
 
 ## Installation (Linux)
