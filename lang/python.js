@@ -94,9 +94,6 @@ const PY_LANGUAGE = {
         'enumerate',
         'eval',
         'execfile',
-        'file',
-        'filter',
-        'format',
         'frozenset',
         'getattr',
         'globals',
@@ -143,19 +140,7 @@ const PY_LANGUAGE = {
         'xrange',
         'zip',
         'async',
-        'await',
-        'True',
-        'False',
-        '__dict__',
-        '__methods__',
-        '__members__',
-        '__class__',
-        '__bases__',
-        '__name__',
-        '__mro__',
-        '__subclasses__',
-        '__init__',
-        '__import__'
+        'await'
     ],
     brackets: [
         { open: '{', close: '}', token: 'delimiter.curly' },
@@ -167,7 +152,9 @@ const PY_LANGUAGE = {
             [/(^\s*)(class)(\s*)([A-Za-z0-9_\-$]+)/, ['default', 'keyword', 'default', 'special']],
             [/([a-z0-9_\-$][A-Za-z0-9_\-$]*)(?=\()/, 'function'],
             [/\b(self)\b/, 'special'],
-            [/\b(True)\b/, 'number' ],
+            [/\b(True|False|None)\b/, 'number' ],
+            [/^(\s*''')/, 'comment', '@endDocStringCom'],
+            [/^(\s*""")/, 'comment', '@endDocStringCom'],
             { include: '@whitespace' },
             { include: '@numbers' },
             { include: '@strings' },
@@ -201,6 +188,18 @@ const PY_LANGUAGE = {
             [/\\"/, 'string'],
             [/"""/, 'string', '@popall'],
             [/"/, 'string']
+        ],
+        endDocStringCom: [
+            [/[^']+/, 'comment'],
+            [/\\'/, 'comment'],
+            [/'''/, 'comment', '@popall'],
+            [/'/, 'comment']
+        ],
+        endDblDocStringCom: [
+            [/[^"]+/, 'comment'],
+            [/\\"/, 'comment'],
+            [/"""/, 'comment', '@popall'],
+            [/"/, 'comment']
         ],
         // Recognize hex, negatives, decimals, imaginaries, longs, and scientific notation
         numbers: [

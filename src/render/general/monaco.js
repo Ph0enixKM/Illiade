@@ -21,12 +21,12 @@ self.module = undefined
 
 
 amdRequire(['vs/editor/editor.main'], () => {
-    
+
     // Register a new language
     monaco.languages.register({ id: '$cpp' })
     monaco.languages.setMonarchTokensProvider('$cpp', CPP_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$cpp', CPP_CONFIG)
-    
+
     // Register a completion item provider for the new language
     monaco.languages.registerCompletionItemProvider('$cpp', {
         provideCompletionItems: () => {
@@ -35,13 +35,13 @@ amdRequire(['vs/editor/editor.main'], () => {
                         label: 'string',
                         kind: monaco.languages.CompletionItemKind.Text,
                         insertText: 'string'
-                    }, 
+                    },
                     {
                         label: 'cout',
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'cout << ${1:condition} << \'\\n\';$0',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'ifelse',
                         kind: monaco.languages.CompletionItemKind.Snippet,
@@ -54,11 +54,11 @@ amdRequire(['vs/editor/editor.main'], () => {
                         ].join('\n'),
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
                     }
-                ] 
+                ]
             }
         },
     })
-    
+
     monaco.languages.register({ id: '$js', mimetypes: ['text/$js'] })
     monaco.languages.setMonarchTokensProvider('$js', JS_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$js', JS_CONFIG)
@@ -72,7 +72,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'console.log($0)',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'if',
                         kind: monaco.languages.CompletionItemKind.Snippet,
@@ -110,13 +110,13 @@ amdRequire(['vs/editor/editor.main'], () => {
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'document.querySelector(\'$0\')',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'qsa',
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'document.querySelectorAll(\'$0\')',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'addEvent',
                         kind: monaco.languages.CompletionItemKind.Snippet,
@@ -157,7 +157,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         ].join('\n'),
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
                     }
-                ] 
+                ]
             }
         },
     })
@@ -170,7 +170,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'console.log($0)',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'if',
                         kind: monaco.languages.CompletionItemKind.Snippet,
@@ -208,13 +208,13 @@ amdRequire(['vs/editor/editor.main'], () => {
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'document.querySelector(\'$0\')',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'qsa',
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'document.querySelectorAll(\'$0\')',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'addEvent',
                         kind: monaco.languages.CompletionItemKind.Snippet,
@@ -255,7 +255,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         ].join('\n'),
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
                     }
-                ] 
+                ]
             }
         },
     })
@@ -268,7 +268,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'console.log($0)',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'if',
                         kind: monaco.languages.CompletionItemKind.Snippet,
@@ -306,13 +306,13 @@ amdRequire(['vs/editor/editor.main'], () => {
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'document.querySelector(\'$0\')',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'qsa',
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'document.querySelectorAll(\'$0\')',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'addEvent',
                         kind: monaco.languages.CompletionItemKind.Snippet,
@@ -381,7 +381,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         ].join('\n'),
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
                     }
-                ] 
+                ]
             }
         },
     })
@@ -394,7 +394,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'print($0)',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'if',
                         kind: monaco.languages.CompletionItemKind.Snippet,
@@ -418,7 +418,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         kind: monaco.languages.CompletionItemKind.Snippet,
                         insertText: [
                             'class ${1:name}:',
-                            '\t__init__(self):',
+                            '\tdef __init__(self):',
                             '\t\t${2:pass}'
                         ].join('\n'),
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
@@ -428,7 +428,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         kind: monaco.languages.CompletionItemKind.Keyword,
                         insertText: 'input($0)',
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    }, 
+                    },
                     {
                         label: 'def',
                         kind: monaco.languages.CompletionItemKind.Snippet,
@@ -438,21 +438,21 @@ amdRequire(['vs/editor/editor.main'], () => {
                         ].join('\n'),
                         insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
                     },
-                ] 
+                ]
             }
         },
     })
-    
-    
+
+
     monaco.languages.register({ id: '$sass', mimetypes: ['text/$sass'] })
     monaco.languages.setMonarchTokensProvider('$sass', SASS_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$sass', SASS_CONFIG)
-    
+
     monaco.languages.register({ id: '$json', mimetypes: ['text/$json'] })
     monaco.languages.setMonarchTokensProvider('$json', JSON_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$json', JSON_CONFIG)
-    
-    monaco.languages.register({ id: '$ts', mimetypes: ['text/$ts'] })
+
+    monaco.languages.register({ id: '$ts', mimetypes: ['text/$ts'], extensions: [".ts", ".tsx"], aliases: ["$TypeScript", "$ts", "$typescript"]})
     monaco.languages.setMonarchTokensProvider('$ts', TS_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$ts', TS_CONFIG)
 
@@ -463,7 +463,11 @@ amdRequire(['vs/editor/editor.main'], () => {
     monaco.languages.register({ id: '$py', mimetypes: ['text/$py'] })
     monaco.languages.setMonarchTokensProvider('$py', PY_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$py', PY_CONFIG)
-	
+
+    monaco.languages.register({ id: '$elevate', mimetypes: ['text/$elavate'] })
+    monaco.languages.setMonarchTokensProvider('$elevate', ELEVATE_LANGUAGE)
+    monaco.languages.setLanguageConfiguration('$elevate', ELEVATE_CONFIG)
+
     window.editorThemes = {}
     // Grayscale theme
     window.editorThemes.BLAZE_GRAYSCALE = {
@@ -487,7 +491,7 @@ amdRequire(['vs/editor/editor.main'], () => {
             { token: 'attribute.value', foreground: '79c534' },
             { token: 'metatag', foreground: 'ec5a5d' },
             { token: 'metatag.content', foreground: 'ec5a5d' },
-            
+
         ]
     }
 
@@ -513,7 +517,7 @@ amdRequire(['vs/editor/editor.main'], () => {
             { token: 'attribute.value', foreground: '79c534' },
             { token: 'metatag', foreground: 'ec5a5d' },
             { token: 'metatag.content', foreground: 'ec5a5d' },
-            
+
         ]
     }
 
@@ -523,7 +527,7 @@ amdRequire(['vs/editor/editor.main'], () => {
 
     window.editor = monaco.editor.create($('#editor'), {
         value: '',
-        language: '$cpp',
+        language: '$ts',
         theme: 'blaze-grayscale',
         contextmenu: false,
         renderIndentGuides: false,
@@ -567,11 +571,11 @@ amdRequire(['vs/editor/editor.main'], () => {
     //     menuOpts: {
     //     }
     // });
-    
+
     setTimeout(() => {
+        EDITOR_LOAD.val = true
         let style = $('.monaco-list style')
         style.remove()
-        EDITOR_LOAD.val = true
     }, 1000)
 
 })

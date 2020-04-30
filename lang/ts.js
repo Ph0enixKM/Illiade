@@ -31,7 +31,7 @@ const TS_CONFIG = {
 const TS_LANGUAGE = {
     // Set defaultToken to invalid to see what you do not tokenize yet
     // defaultToken: 'invalid',
-  
+
     keywords: [
       'break', 'case', 'catch', 'class', 'continue', 'const',
       'constructor', 'debugger', 'default', 'delete', 'do', 'else',
@@ -41,7 +41,7 @@ const TS_LANGUAGE = {
       'try', 'typeof', 'var', 'void', 'while', 'with', 'yield',
       'async', 'await', 'of'
     ],
-  
+
     operators: [
       '<=', '>=', '==', '!=', '===', '!==', '=>', '+', '-', '**',
       '*', '/', '%', '++', '--', '<<', '</', '>>', '>>>', '&',
@@ -49,25 +49,25 @@ const TS_LANGUAGE = {
       '*=', '**=', '/=', '%=', '<<=', '>>=', '>>>=', '&=', '|=',
       '^=', '@',
     ],
-    
+
     brackets: [
       { open: '{', close: '}', token: 'delimiter.curly' },
       { open: '[', close: ']', token: 'delimiter.bracket' },
       { open: '(', close: ')', token: 'delimiter.parenthesis' }
     ],
-  
+
     // Common expressions
     symbols:  /[=><!~?:&|+\-*\/\^%]+/,
-  
+
     // Escapes
     escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
     regexpctl: /[(){}\[\]\$\^|\-*+?\.]/,
     regexpesc: /\\(?:[bBdDfnrstvwWn0\\\/]|@regexpctl|c[A-Z]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})/,
-  
+
     // The main tokenizer for our languages
     tokenizer: {
       root: [
-        
+
         // regular expression: ensure it is terminated before beginning (otherwise it is an opeator)
         [/\/(?=([^\\\/]|\\.)+\/([gimsuy]*)(\s*)(\.|;|\/|,|\)|\]|\}|$))/, { token: 'regexp', bracket: '@open', next: '@regexp' }],
         // Structure declarations
@@ -81,74 +81,74 @@ const TS_LANGUAGE = {
         // Functions get and set shall not be highlighted
         [/(get|in|set)(\s*\()/, ['function', 'default']],
         [/(get|in|set)(\s*[=:]\s*\()/, ['function', 'default']],
-        
+
         // Keywords
         [/\b(interface|declare|static|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // TSX
-        [/(\s*<)([^/=<>\s\{\}\[\]\(\^)]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
-        
+        [/^(\s*<)([^/=<>\s\{\}\[\]\(\^)]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
+
         // Functions
         [/([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
         [/([A-Za-z_$][0-9A-Za-z_]*)(\s*[=:]\s*\()/, ['function', 'default']],
-        
+
         // Types
         [/(\)\s*:\s*)([A-Za-z_][0-9A-Za-z_:<>]*)/, ['default', 'type']],
         [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]\/]+)(<[^=]*>)/, ['identifier', 'default', 'type', 'type']],
         [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]\/]+)/, ['identifier', 'default', 'type']],
-        
-        
+
+
         // Directives
         [/^\s*#\S+/, 'special'],
-        
-        
+
+
         [/\b(null|undefined|NaN|Infinity|true|false)\b/, 'number' ],
         [/\b([A-Z_$]+[0-9A-Za-z_$]*)\b/, 'special' ],
-        
+
         // whitespace
         { include: '@whitespace' },
-        
+
         // delimiters and operators
         // [/@symbols/, { cases: { '@operators': 'operator',
         // '@default'  : 'default' } } ],
-        
+
         // numbers
         [/\b\d*\.\d+([eE][\-+]?\d+)?\b/, 'number.float'],
         [/\b0[xX][0-9a-fA-F]+\b/, 'number.hex'],
         [/\b\d+\b/, 'number'],
-        
+
         // booleans
         [/\b(true|false)\b/, 'number'],
 
         // delimiter: after number because of .\d floats
         [/[;,.:]/, 'delimiter'],
 	[/\$[0-9a-zA-Z\$_]*\b/, 'special'],
-        
+
         // identifiers
         // [/([A-Za-z_$][A-Za-z0-9_$]*)(\<\S*\>)/, ['identifier', 'type']],
         [/\b[A-Za-z_$][A-Za-z0-9_$]*\b/, 'identifier'],
-        
+
         // strings
         [/"([^"\\]|\\.)*$/, 'string.invalid'],
         [/'([^'\\]|\\.)*$/, 'string.invalid'],
         [/"/, 'string', '@string_double'],
         [/'/, 'string', '@string_single'],
         [/`/, 'string', '@string_backtick'],
-  
+
         // characters
         [/'[^\\']'/, 'string'],
         [/(')(@escapes)(')/, ['string','string.escape','string']],
         [/'/, 'string.invalid']
       ],
-  
+
       comment: [
         [/[^\/*]+/, 'comment' ],
         [/\/\*/,    'comment', '@push' ],    // nested comment
         ['\\*/',    'comment', '@pop'  ],
         [/[\/*]/,   'comment' ]
       ],
-  
+
       string_double: [
         [/[^\\"]+/, 'string'],
         [/@escapes/, 'type'],
@@ -173,13 +173,13 @@ const TS_LANGUAGE = {
         [/\}/, 'delimiter.bracket', '@pop'],
         { include: 'root' }
       ],
-      
+
       typeBracket: [
         [/\</, { token: 'type', next: '@typeCounting' }],
         [/[^>]+/, 'type'],
         [/\>/, 'type', '@pop']
       ],
-      
+
       typeCounting: [
         [/\</, 'type', '@typeCounting'],
         [/\>/, 'type', '@pop'],
@@ -203,7 +203,7 @@ const TS_LANGUAGE = {
         [/"/, 'string', '@string_double'],
         [/'/, 'string', '@string_single']
       ],
-      
+
       jsx: [
         [/(<)(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)/, ['delimiter', {token: 'identifier', next: '@jsxSelfClosingElement'}]],
         [/[^{}<>]+/, 'default'],
@@ -231,7 +231,7 @@ const TS_LANGUAGE = {
           [/[^\]]/, 'regexp'],
           [/\]/, { token: 'regexp.escape.control', next: '@pop', bracket: '@close' }]
       ],
-  
+
       whitespace: [
         [/[ \t\r\n]+/, 'white'],
         [/\/\*/,       'comment', '@comment' ],
@@ -239,4 +239,3 @@ const TS_LANGUAGE = {
       ],
     },
 }
-  

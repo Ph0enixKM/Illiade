@@ -1,5 +1,5 @@
 
-const VUE_CONFIG = {
+const ELEVATE_CONFIG = {
     comments: {
       lineComment: '//',
     },
@@ -27,27 +27,27 @@ const VUE_CONFIG = {
     }
   }
 
-  const VUE_LANGUAGE = {
+  const ELEVATE_LANGUAGE = {
       // Set defaultToken to invalid to see what you do not tokenize yet
       // defaultToken: 'invalid',
 
-      keywords: [
-        'break', 'case', 'catch', 'class', 'continue', 'const',
-        'constructor', 'debugger', 'default', 'delete', 'do', 'else',
-        'export', 'extends', 'finally', 'for', 'from', 'function',
-        'get', 'if', 'import', 'in', 'instanceof', 'let', 'new',
-        'return', 'set', 'switch', 'symbol', 'throw',
-        'try', 'typeof', 'var', 'void', 'while', 'with', 'yield',
-        'async', 'await', 'of'
-      ],
-
-      operators: [
-        '<=', '>=', '==', '!=', '===', '!==', '=>', '+', '-', '**',
-        '*', '/', '%', '++', '--', '<<', '</', '>>', '>>>', '&',
-        '|', '^', '!', '~', '&&', '||', '?', ':', '=', '+=', '-=',
-        '*=', '**=', '/=', '%=', '<<=', '>>=', '>>>=', '&=', '|=',
-        '^=', '@',
-      ],
+      // keywords: [
+      //   'break', 'case', 'catch', 'class', 'continue', 'const',
+      //   'constructor', 'debugger', 'default', 'delete', 'do', 'else',
+      //   'export', 'extends', 'finally', 'for', 'from', 'function',
+      //   'get', 'if', 'import', 'in', 'instanceof', 'let', 'new',
+      //   'return', 'set', 'switch', 'symbol', 'throw',
+      //   'try', 'typeof', 'var', 'void', 'while', 'with', 'yield',
+      //   'async', 'await', 'of'
+      // ],
+      //
+      // operators: [
+      //   '<=', '>=', '==', '!=', '===', '!==', '=>', '+', '-', '**',
+      //   '*', '/', '%', '++', '--', '<<', '</', '>>', '>>>', '&',
+      //   '|', '^', '!', '~', '&&', '||', '?', ':', '=', '+=', '-=',
+      //   '*=', '**=', '/=', '%=', '<<=', '>>=', '>>>=', '&=', '|=',
+      //   '^=', '@',
+      // ],
 
       brackets: [
         { open: '{', close: '}', token: 'delimiter.curly' },
@@ -64,78 +64,48 @@ const VUE_CONFIG = {
       // The main tokenizer for our languages
       tokenizer: {
         root: [
-            [/(<)(style)/, ['delimiter', { token: 'special', next: '@style' }]],
-            [/(<)(script\s*)(lang\s*)(=\s*)("typescript"|"ts")/, ['delimiter', 'special', 'number', 'delimiter', { token: 'string', next: '@scriptTS' }]],
-            [/(<)(script)/, ['delimiter', { token: 'special', next: '@script' }]],
-
-            [/(<)(template )(lang)(=)("pug")/, ['delimiter', 'special', 'number', 'default', { token: 'string', next: '@templatePug' }]],
-            [/(<)(template )(lang)(=)("jade")/, ['delimiter', 'special', 'number', 'default', { token: 'string', next: '@templatePug' }]],
-            [/(<)(template)/, ['delimiter', { token: 'special', next: '@template' }]],
+            [/<?-->?/, 'delimiter'],
+            [/(\s*CLIENT\s*)/, { token: 'special', next: '@bash' }],
+            [/(\s*SERVER\s*)/, { token: 'special', next: '@bash' }],
+            [/(\s*CONFIG\s*)/, { token: 'special', next: '@json' }],
+            // [/(<--)(\s*CLIENT\s*)/, ['delimiter', { token: 'special', nextEmbedded: 'text/bash', next: '@shell' }]],
+            // [/(<)(script)/, ['delimiter', { token: 'special', next: '@script' }]],
+            //
+            // [/(<)(template )(lang)(=)("pug")/, ['delimiter', 'special', 'number', 'default', { token: 'string', next: '@templatePug' }]],
+            // [/(<)(template )(lang)(=)("jade")/, ['delimiter', 'special', 'number', 'default', { token: 'string', next: '@templatePug' }]],
+            // [/(<)(template)/, ['delimiter', { token: 'special', next: '@template' }]],
         ],
 
-        style: [
-            [/"([^"]*)"/, 'attribute.value'],
-            [/'([^']*)'/, 'attribute.value'],
-            [/[\w\-]+/, 'attribute.name'],
-            [/=/, 'delimiter'],
-            [/>/, { token: 'delimiter', next: '@styleEmbedded', nextEmbedded: 'text/$sass' }],
-            [/[ \t\r\n]+/],
-            [/(<\/)(style\s*)(>)/, ['delimiter', 'special', { token: 'delimiter', next: '@pop' }]]
+        bash: [
+            [/\b(echo|read|set|unset|readonly|shift|export|if|fi|else|while|do|done|for|until|case|esac|break|continue|exit|return|trap|wait|eval|exec|ulimit|umask)\b/, 'keyword'],
+            [/"/, 'string', '@string_double'],
+            [/'/, 'string', '@string_single'],
+            [/[0-9\.]+\b/, 'number'],
+            [/[\-]+[A-Z-a-z0-9_\-$]+\b/, 'number'],
+            [/^\s*[A-Za-z0-9_\-$]+/, 'identifier'],
+            [/#.*$/, 'comment'],
+            [/-->/, 'delimiter'],
+            [/<--/, {token: 'delimiter', next: '@pop'}]
         ],
-        // After <style ... type
-        styleAfterType: [
-            [/=/, 'delimiter', '@styleAfterTypeEquals'],
-            [/>/, { token: 'delimiter', next: '@styleEmbedded', nextEmbedded: 'text/$sass' }],
-            [/[ \t\r\n]+/],
-            [/<\/style\s*>/, { token: '@rematch', next: '@pop' }]
+
+        json: [
+            [/(-->)/, { token: 'delimiter', next: '@jsonEmbedded', nextEmbedded: 'text/$json' }],
+            [/<--/, {token: 'delimiter', next: '@pop'}]
         ],
-        // After <style ... type =
-        styleAfterTypeEquals: [
-            [/"([^"]*)"/, { token: 'attribute.value', switchTo: '@styleWithCustomType.$1' }],
-            [/'([^']*)'/, { token: 'attribute.value', switchTo: '@styleWithCustomType.$1' }],
-            [/>/, { token: 'delimiter', next: '@styleEmbedded', nextEmbedded: 'text/$sass' }],
-            [/[ \t\r\n]+/],
-            [/<\/style\s*>/, { token: '@rematch', next: '@pop' }]
-        ],
-        // After <style ... type = $S2
-        styleWithCustomType: [
-            [/>/, { token: 'delimiter', next: '@styleEmbedded.$S2', nextEmbedded: '$S2' }],
-            [/"([^"]*)"/, 'attribute.value'],
-            [/'([^']*)'/, 'attribute.value'],
-            [/[\w\-]+/, 'attribute.name'],
-            [/=/, 'delimiter'],
-            [/[ \t\r\n]+/],
-            [/<\/style\s*>/, { token: '@rematch', next: '@pop' }]
-        ],
-        styleEmbedded: [
-            [/<\/style/, { token: '@rematch', next: '@pop', nextEmbedded: '@pop' }],
-            [/[^<]+/, '']
+        jsonEmbedded: [
+            [/<--/, { token: '@rematch', next: '@pop', nextEmbedded: '@pop' }],
         ],
 
 
-        scriptTS: [
-            [/"([^"]*)"/, 'attribute.value'],
-            [/'([^']*)'/, 'attribute.value'],
-            [/[\w\-]+/, 'attribute.name'],
-            [/=/, 'delimiter'],
-            [/>/, { token: 'delimiter', next: '@scriptTSEmbedded', nextEmbedded: 'text/$ts' }],
-            [/[ \t\r\n]+/],
-            [/(<\/)(script\s*)(>)/, ['delimiter', 'special', { token: 'delimiter', next: '@pop' }]]
-        ],
-        scriptTSEmbedded: [
-            [/<\/script/, { token: '@rematch', next: '@pop', nextEmbedded: '@pop' }],
-            [/[^<]+/, '']
-        ],
-
-        script: [
-            [/"([^"]*)"/, 'attribute.value'],
-            [/'([^']*)'/, 'attribute.value'],
-            [/[\w\-]+/, 'attribute.name'],
-            [/=/, 'delimiter'],
-            [/>/, { token: 'delimiter', next: '@scriptEmbedded', nextEmbedded: 'text/$js' }],
-            [/[ \t\r\n]+/],
-            [/(<\/)(script\s*)(>)/, ['delimiter', 'special', { token: 'delimiter', next: '@pop' }]]
-        ],
+        // json: [
+        //     [/"([^"]*)"/, 'attribute.value'],
+        //     [/'([^']*)'/, 'attribute.value'],
+        //     [/[\w\-]+/, 'attribute.name'],
+        //     [/=/, 'delimiter'],
+        //     [/>/, { token: 'delimiter', next: '@scriptEmbedded', nextEmbedded: 'text/$ts' }],
+        //     [/[ \t\r\n]+/],
+        //     [/(<\/)(script\s*)(>)/, ['delimiter', 'special', { token: 'delimiter', next: '@pop' }]]
+        // ],
         scriptEmbedded: [
             [/<\/script/, { token: '@rematch', next: '@pop', nextEmbedded: '@pop' }],
             [/[^<]+/, '']

@@ -111,6 +111,10 @@ class View {
         else if (['css', 'less'].includes(extension)) {
             language = 'css'
         }
+
+        else if (['elevate', 'vate'].includes(extension)) {
+            language = '$elevate'
+        }
         
         else if (['pug', 'scss', 'java', 'coffee', 'less', 'kotlin', 'markdown', 'rust', 'sql', 'xml'].includes(extension)) {
             language = extension

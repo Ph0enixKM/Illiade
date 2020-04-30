@@ -24,13 +24,13 @@ function package {
     printf $cmdcls
     if [[ $? == 0 ]]; then
         echo -e $cmdok '- Packaging done 👌' $cmdcls
-    else 
+        cp run_illi.sh dist-app/Illiade-${3}-x64/run_illi.sh
+    else
         echo -e $cmderr '- Could not package... ' $cmdcls
     fi
     echo
 }
 
-package "Linux 🐧" package
-package "Windows 🖼️ " package-win
-package "Mac 🍎" package-mac
-
+package "Linux 🐧" package linux
+package "Windows 🖼️ " package-win win32
+package "Mac 🍎" package-mac darwin

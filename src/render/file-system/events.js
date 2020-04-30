@@ -150,7 +150,7 @@ function restoreViewState(fullpath) {
     })
 }
 
-function updateOpenedFiles(element, lastElPath) {
+function updateOpenedFiles(element, lastElPath) {    
     let isNonText = EXT_UNSAVABLE.val.includes(element.extension)
     let model = {exists: false}
     

@@ -157,10 +157,12 @@ class File extends FileCore {
         this.element.setAttribute('name', this.name)
         this.element.setAttribute('fullpath', this.fullpath)
         
-        let format = new RegExp('\\.(.*)').exec(this.name)
-        this.extension = (format) ? format[1].toLowerCase() : ""
-        this.element.setAttribute('extension', this.extension)
-        
+        this.extension = path.extname(this.name).slice(1)
+        if (!this.extension.length) {
+            this.extension = this.name.slice(1)
+        }
+
+        this.element.setAttribute('extension', this.extension)        
         
         let ext = document.createElement('span')
         ext.className = 'icon'
