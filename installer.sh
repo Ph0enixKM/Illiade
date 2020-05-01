@@ -181,8 +181,9 @@ spinner &
 echo -n ''
 sudo rm ~/${warename}.deb &> /dev/null
 cd /ware/${org_name}/${warename}/
-sudo chown root chrome-sandbox
-sudo chmod 4755 chrome-sandbox
+# If it's an Electron app - just in case
+sudo chown root chrome-sandbox &> /dev/null
+sudo chmod 4755 chrome-sandbox &> /dev/null
 
 # -- TMP --
 sleep 0.5
