@@ -64,16 +64,16 @@ fi
 
 if [[ -f '/etc/debian_version' && deb -eq 1 ]]; then
     printf ${cmddim}${cmdok}
-    echo 'It is a Debian-based OS - proceeding to the .deb instalation'
+    echo 'It is a Debian-based OS - proceeding to the .deb installation'
     printf $cmdcls
 else
     if [[ deb -eq 1 ]]; then
         printf ${cmddim}${cmdok}
-        echo 'proceeding to the .deb instalation'
+        echo 'proceeding to the .deb installation'
         printf $cmdcls
     else
         printf ${cmddim}${cmdok}
-        echo 'proceeding to the .zip instalation'
+        echo 'proceeding to the .zip installation'
         printf $cmdcls
     fi
 fi
