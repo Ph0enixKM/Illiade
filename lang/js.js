@@ -31,7 +31,7 @@ const JS_CONFIG = {
 const JS_LANGUAGE = {
     // Set defaultToken to invalid to see what you do not tokenize yet
     // defaultToken: 'invalid',
-  
+
     keywords: [
       'break', 'case', 'catch', 'class', 'continue', 'const',
       'constructor', 'debugger', 'default', 'delete', 'do', 'else',
@@ -41,7 +41,7 @@ const JS_LANGUAGE = {
       'try', 'typeof', 'var', 'void', 'while', 'with', 'yield',
       'async', 'await', 'of'
     ],
-  
+
     operators: [
       '<=', '>=', '==', '!=', '===', '!==', '=>', '+', '-', '**',
       '*', '/', '%', '++', '--', '<<', '</', '>>', '>>>', '&',
@@ -49,21 +49,21 @@ const JS_LANGUAGE = {
       '*=', '**=', '/=', '%=', '<<=', '>>=', '>>>=', '&=', '|=',
       '^=', '@',
     ],
-    
+
     brackets: [
       { open: '{', close: '}', token: 'delimiter.curly' },
       { open: '[', close: ']', token: 'delimiter.bracket' },
       { open: '(', close: ')', token: 'delimiter.parenthesis' }
     ],
-  
+
     // Common expressions
     symbols:  /[=><!~?:&|+\-*\/\^%]+/,
-  
+
     // Escapes
     escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
     regexpctl: /[(){}\[\]\$\^|\-*+?\.]/,
     regexpesc: /\\(?:[bBdDfnrstvwWn0\\\/]|@regexpctl|c[A-Z]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})/,
-  
+
     // The main tokenizer for our languages
     tokenizer: {
       root: [
@@ -72,14 +72,14 @@ const JS_LANGUAGE = {
         // Structure declarations
         [/\b(class|enum|struct|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
         [/\b(new)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special'] ],
-        [/\b(this)/, 'special' ],
+        [/\b(this|super)\b/, 'special' ],
         [/\b(super)(\s*\()/, ['special', 'default'] ],
         [/(\.)([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['default', 'function', 'default']],
-        
+
         // Functions get and set shall not be highlighted
-        [/(get|in|set)(\s*\()/, ['function', 'default']],
-        [/(get|in|set)(\s*[=:]\s*function\s*\()/, ['function', '@rematch']],
-        
+        [/(get|in|of|set)(\s*\()/, ['function', 'default']],
+        [/(get|in|of|set)(\s*[=:]\s*\()/, ['function', 'default']],
+
         // Keywords
         [/\b(break|case|static|catch|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
@@ -89,52 +89,52 @@ const JS_LANGUAGE = {
 
         // Directives
         [/^\s*#\S+/, 'special'],
-        
-        
+
+
         // Functions
         // [/([A-Za-z][0-9A-Za-z_]*)(\s*<[^\(\s]+>\s*)(\()/, ['function', 'type', 'default']],
         [/([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
         [/([A-Za-z_$][0-9A-Za-z_]*)(\s*[=:]\s*)(function)(\s*\()/, ['function', 'default', 'keyword', 'default']],
-        
+
         [/\b(null|undefined|NaN|Infinity|true|false)\b/, 'number' ],
         [/\b([A-Z_$]+[0-9A-Za-z_$]*)\b/, 'special' ],
-        
+
         // whitespace
         { include: '@whitespace' },
 	      [/\$[0-9a-zA-Z\$_]*\b/, 'special'],
-        
+
         // delimiters and operators
         [/@symbols/, { cases: { '@operators': 'operator',
         '@default'  : 'default' } } ],
-        
+
         // numbers
         [/\b\d*\.\d+([eE][\-+]?\d+)?\b/, 'number.float'],
         [/\b0[xX][0-9a-fA-F]+\b/, 'number.hex'],
         [/\b\d+\b/, 'number'],
-        
+
         // booleans
         [/\b(true|false)\b/, 'number'],
-        
+
         // delimiter: after number because of .\d floats
         [/[;,.:]/, 'delimiter'],
-        
+
         // identifiers
         // [/([A-Za-z_$][A-Za-z0-9_$]*)(\<\S*\>)/, ['identifier', 'type']],
         [/\b[A-Za-z_$][A-Za-z0-9_$]*\b/, 'identifier'],
-        
+
         // strings
         [/"([^"\\]|\\.)*$/, 'string.invalid'],
         [/'([^'\\]|\\.)*$/, 'string.invalid'],
         [/"/, 'string', '@string_double'],
         [/'/, 'string', '@string_single'],
         [/`/, 'string', '@string_backtick'],
-  
+
         // characters
         [/'[^\\']'/, 'string'],
         [/(')(@escapes)(')/, ['string','type','string']],
         [/'/, 'string.invalid']
       ],
-  
+
       comment: [
         [/[^\/*]+/, 'comment' ],
         [/\/\*/,    'comment', '@push' ],    // nested comment
@@ -187,7 +187,7 @@ const JS_LANGUAGE = {
           [/[^\]]/, 'regexp'],
           [/\]/, { token: 'regexp.escape.control', next: '@pop', bracket: '@close' }]
       ],
-  
+
       string_double: [
         [/[^\\"]+/, 'string'],
         [/@escapes/, 'type'],
@@ -212,25 +212,24 @@ const JS_LANGUAGE = {
         [/\}/, 'delimiter.bracket', '@pop'],
         { include: 'root' }
       ],
-      
+
       typeBracket: [
         [/\</, { token: 'type', next: '@typeCounting' }],
         [/[^>]+/, 'type'],
         [/\>/, 'type', '@pop']
       ],
-      
+
       typeCounting: [
         [/\</, 'type', '@typeCounting'],
         [/\>/, 'type', '@pop'],
       ],
-  
+
       whitespace: [
         [/[ \t\r\n]+/, 'white'],
         [/\/\*/,       'comment', '@comment' ],
         [/\/\/.*$/,    'comment'],
       ],
 
-      
+
     },
 }
-  

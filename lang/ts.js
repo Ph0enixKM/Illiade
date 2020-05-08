@@ -74,17 +74,16 @@ const TS_LANGUAGE = {
         [/\b(class|enum|struct|namespace)(\s+)([A-Za-z0-9_$]+)/, ['keyword', 'default', 'special']],
         [/\b(new)(\s+)([A-Za-z0.-9_$]+)(<[^(]*>)/, ['keyword', 'default', 'special', 'type'] ],
         [/\b(new)(\s+)([A-Za-z0.-9_$]+)/, ['keyword', 'default', 'special'] ],
-        [/\b(this)/, 'special' ],
+        [/\b(this|super)\b/, 'special' ],
         [/\b(super)(\s*\()/, ['special', 'default'] ],
         [/(\.)([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['default', 'function', 'default']],
 
         // Functions get and set shall not be highlighted
-        [/(get|in|set)(\s*\()/, ['function', 'default']],
-        [/(get|in|set)(\s*[=:]\s*\()/, ['function', 'default']],
+        [/(get|in|of|set)(\s*\()/, ['function', 'default']],
+        [/(get|in|of|set)(\s*[=:]\s*\()/, ['function', 'default']],
 
         // Keywords
-        [/\b(interface|declare|static|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of)\b/, "keyword"],
-        [/(\*|&)(?=[^&])/, 'keyword'],
+        [/\b(interface|declare|static|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of|module|as|implements|package|type)\b/, "keyword"],
 
         // TSX
         [/^(\s*<)([^/=<>\s\{\}\[\]\(\^)]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],
@@ -94,10 +93,10 @@ const TS_LANGUAGE = {
         [/([A-Za-z_$][0-9A-Za-z_]*)(\s*[=:]\s*\()/, ['function', 'default']],
 
         // Types
-        [/(\)\s*:\s*)([A-Za-z_][0-9A-Za-z_:<>]*)/, ['default', 'type']],
-        [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]\/]+)(<[^=]*>)/, ['identifier', 'default', 'type', 'type']],
-        [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]\/]+)/, ['identifier', 'default', 'type']],
-
+        // [/(\)\s*:\s*)([A-Za-z_][0-9A-Za-z_:<>]*)/, ['default', 'type']],
+        // [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]\/]+)(<[^=]*>)/, ['identifier', 'default', 'type', 'type']],
+        // [/([A-Za-z0-9_$]+)(\s*:\s*)([^'"`\{\(\[\s,\)\}\]\/]+)/, ['identifier', 'default', 'type']],
+        [/\b(string|number|boolean|void|any|object|symbol|never)\b/, 'special'],
 
         // Directives
         [/^\s*#\S+/, 'special'],
