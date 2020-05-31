@@ -83,7 +83,8 @@ const TS_LANGUAGE = {
         [/(get|in|of|set)(\s*[=:]\s*\()/, ['function', 'default']],
 
         // Keywords
-        [/\b(interface|declare|static|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of|module|as|implements|package|type)\b/, "keyword"],
+        [/\b(interface|declare|static|namespace|struct|enum|static|break|case|catch|public|private|protected|class|continue|const|constructor|debugger|default|delete|do|else|export|extends|finally|for|from|function|get|if|import|in|instanceof|let|new|return|set|switch|symbol|throw|try|typeof|var|while|with|yield|async|await|of|module|as|implements|package)\s/, "keyword"],
+        [/^(\s*type\s+)/, 'keyword'],
 
         // TSX
         [/^(\s*<)([^/=<>\s\{\}\[\]\(\^)]+)/, ['default', { token: 'identifier', next: '@jsxElement' }]],

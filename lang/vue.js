@@ -216,7 +216,7 @@ const VUE_CONFIG = {
             [/<!--.*-->/, 'comment'],
             [/(<)([^/<>\s]+)/, ['delimiter', { token: 'identifier', next: '@jsxElement' }]],
             [/\{/, { token: 'default', next: '@eval', nextEmbedded: 'text/$ts' }],
-            [/(<\/)(template\s*)(>)/, [{token: 'delimiter'}, {token: 'special', next: '@pop'}, {token: 'delimiter', next: '@pop'}]],
+            [/^(\s*<\/)(template\s*)(>)/, [{token: 'delimiter'}, {token: 'special', next: '@pop'}, {token: 'delimiter', next: '@pop'}]],
             [/(<\/)([^<>]+)(>)/, [{token: 'delimiter'}, {token: 'identifier', next: '@pop'}, {token: 'delimiter', next: '@pop'}]]
         ],
 

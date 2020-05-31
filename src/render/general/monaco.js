@@ -575,7 +575,7 @@ amdRequire(['vs/editor/editor.main'], () => {
     setTimeout(() => {
         EDITOR_LOAD.val = true
         let style = $('.monaco-list style')
-        style.remove()
+        if (style) style.remove()
     }, 1000)
 
 })
