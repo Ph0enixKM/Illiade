@@ -96,7 +96,6 @@ class TreeMaster {
                     // Remove directory or file
                     else if (e.key === 'Delete' && !e.altKey) {
                         const file = this.getFile()
-                        console.log(file)
                         const name = OpenedAPI.get('name', file)
                         decision.spawn(
                             `Are you sure you want to delete <br>${name}?`,

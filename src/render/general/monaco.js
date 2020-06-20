@@ -443,6 +443,13 @@ amdRequire(['vs/editor/editor.main'], () => {
         },
     })
 
+    monaco.languages.register({ id: '$mg', mimetypes: ['text/$mg'] })
+    monaco.languages.setMonarchTokensProvider('$mg', MAGMA_LANGUAGE)
+    monaco.languages.setLanguageConfiguration('$mg', MAGMA_CONFIG)
+
+    monaco.languages.register({ id: '$tree', mimetypes: ['text/$tree'] })
+    monaco.languages.setMonarchTokensProvider('$tree', TREE_LANGUAGE)
+    monaco.languages.setLanguageConfiguration('$tree', TREE_CONFIG)
 
     monaco.languages.register({ id: '$sass', mimetypes: ['text/$sass'] })
     monaco.languages.setMonarchTokensProvider('$sass', SASS_LANGUAGE)
@@ -572,10 +579,20 @@ amdRequire(['vs/editor/editor.main'], () => {
     //     }
     // });
 
-    setTimeout(() => {
-        EDITOR_LOAD.val = true
-        let style = $('.monaco-list style')
-        if (style) style.remove()
-    }, 1000)
+    if(document.readyState == "complete") {
+        setTimeout(() => {
+            EDITOR_LOAD.val = true
+            let style = $('.monaco-list style')
+            if (style) style.remove()
+        }, 1000)
+    }
+    else window.addEventListener("DOMContentLoaded", () => {
+        setTimeout(() => {
+            EDITOR_LOAD.val = true
+            let style = $('.monaco-list style')
+            if (style) style.remove()
+        }, 1000)
+    })
+
 
 })

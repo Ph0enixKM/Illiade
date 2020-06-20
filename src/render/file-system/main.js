@@ -66,7 +66,7 @@ class Directory extends FileCore {
         this.element.className = 'item'
         this.element.setAttribute('type', 'dir')
         this.element.setAttribute('path', thepath)
-        this.element.setAttribute('name', name)
+        this.element.setAttribute('dir-name', name)
         this.element.setAttribute('fullpath', this.fullpath)
 
         this.element.innerHTML = `

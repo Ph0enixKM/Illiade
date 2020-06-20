@@ -68,7 +68,7 @@ const CPP_LANGUAGE = {
         [/this/, 'special'],
 
         // Keywords
-        [/\b(friend|virtual|operator|long|template|typename|using|typedef|namespace|abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop)\b/, "keyword"],
+        [/\b(friend|virtual|operator|long|template|typename|using|typedef|namespace|abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop|loopFT|loopIV)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // Directives
@@ -81,7 +81,7 @@ const CPP_LANGUAGE = {
         [/([A-Za-z_][0-9A-Za-z_:<>]*)(\s*operator)(\s+)(?=[A-Za-z_])/, ['type', 'keyword', 'default']],
 
         // Types
-        [/([A-Za-z_$][A-Za-z0-9_:<>$]*)(\<\S*\>)(?=\s*[A-Za-z_0-9$]+\s*[=;])/, ['type', 'type']],
+        [/([A-Za-z_$][A-Za-z0-9_:<>$]*)(\<\S*\>)(?=\s*[A-Za-z_0-9$]+\s*[=;,])/, ['type', 'type']],
         [/([A-Za-z_][0-9A-Za-z_:<>]*)(\s+)(?=[A-Za-z_$])/, ['type', 'default']],
         [/([A-Za-z_][0-9A-Za-z_:<>]*)(\s+)(?=[*&][^\s])/, ['type', 'default']],
         [/([A-Za-z_][0-9A-Za-z_:<>]*)([*&]+)(\s+)(?=[A-Za-z_$])/, ['type', 'keyword', 'default']],
@@ -107,7 +107,7 @@ const CPP_LANGUAGE = {
         [/\b\d+\b/, 'number'],
 
         // booleans
-        [/\b(true|false)\b/, 'number'],
+        [/\b(true|false|on|off)\b/, 'number'],
 
         // delimiter: after number because of .\d floats
         [/[;,.:]/, 'delimiter'],
