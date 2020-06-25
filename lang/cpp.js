@@ -68,7 +68,7 @@ const CPP_LANGUAGE = {
         [/this/, 'special'],
 
         // Keywords
-        [/\b(friend|virtual|operator|long|template|typename|using|typedef|namespace|abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop|loopFT|loopIV)\b/, "keyword"],
+        [/\b(friend|virtual|operator|long|template|typename|using|typedef|namespace|abstract|continue|for|new|switch|goto|do|if|private|this|break|protected|throw|else|public|enum|return|catch|try|static|class|finally|virtual|const|while|loop|loopWith|loopFromTo|export)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // Directives
