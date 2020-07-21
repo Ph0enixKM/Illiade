@@ -51,8 +51,8 @@ class View {
     textConstruct(extension, path) {
         let language = 'plaintext'
 
-        if (['mg'].includes(extension)) {
-            language = '$mg'
+        if (['flame', 'fl'].includes(extension)) {
+            language = '$flame'
         }
 
         else if (['tree'].includes(extension)) {

@@ -1,5 +1,5 @@
 
-const MAGMA_CONFIG = {
+const FLAME_CONFIG = {
   comments: {
     lineComment: '//',
     blockComment: ['/*', '*/'],
@@ -28,7 +28,7 @@ const MAGMA_CONFIG = {
   }
 }
 
-const MAGMA_LANGUAGE = {
+const FLAME_LANGUAGE = {
     // Set defaultToken to invalid to see what you do not tokenize yet
     // defaultToken: 'invalid',
 

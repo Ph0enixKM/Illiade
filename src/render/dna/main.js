@@ -120,6 +120,32 @@ class DNA {
                 }
             },
 
+            {
+                id: 'bg-dark',
+                name: 'Dark Background',
+                type: 'switch',
+                attach: 'BG_DARK',
+                trigger() {
+                    BG_DARK.val = !BG_DARK.val
+                },
+                update() {
+                    if (BG_DARK.val) {
+                        document.body.style.backgroundColor = '#000'
+                        $('#terminal').style.backgroundColor = 'rgba(16, 16, 16, 0.6)'
+                        if (!COLORFUL_JELLIES.val) {
+                            monaco.editor.setTheme('blaze-dark')
+                        }
+                    }
+                    else {
+                        document.body.style.backgroundColor = '#2a2522'
+                        $('#terminal').style.backgroundColor = 'rgba(49, 46, 38, 0.7)'
+                        if (!COLORFUL_JELLIES.val) {
+                            monaco.editor.setTheme('blaze-grayscale')
+                        }
+                    }
+                }
+            },
+
             'Terminal',
 
             {

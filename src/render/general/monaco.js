@@ -443,9 +443,9 @@ amdRequire(['vs/editor/editor.main'], () => {
         },
     })
 
-    monaco.languages.register({ id: '$mg', mimetypes: ['text/$mg'] })
-    monaco.languages.setMonarchTokensProvider('$mg', MAGMA_LANGUAGE)
-    monaco.languages.setLanguageConfiguration('$mg', MAGMA_CONFIG)
+    monaco.languages.register({ id: '$flame', mimetypes: ['text/$flame'] })
+    monaco.languages.setMonarchTokensProvider('$flame', FLAME_LANGUAGE)
+    monaco.languages.setLanguageConfiguration('$flame', FLAME_CONFIG)
 
     monaco.languages.register({ id: '$tree', mimetypes: ['text/$tree'] })
     monaco.languages.setMonarchTokensProvider('$tree', TREE_LANGUAGE)
@@ -502,6 +502,32 @@ amdRequire(['vs/editor/editor.main'], () => {
         ]
     }
 
+    // Dark Theme
+    window.editorThemes.BLAZE_DARK = {
+        base: 'vs-dark', // can also be vs-dark or hc-black
+        inherit: true, // can also be false to completely replace the builtin rules
+        rules: [
+            { token: 'comment', foreground: '555555', fontStyle: 'italic' },
+            { token: 'keyword', foreground: 'cc6bc4' },
+            { token: 'identifier', foreground: 'ec5656' },
+            { token: 'number', foreground: 'ff851a' },
+            { token: 'string', foreground: '79c534' },
+            { token: 'type', foreground: '00d66b' },
+            { token: 'function', foreground: '5DA3F2' },
+            { token: 'delimiter', foreground: '888888' },
+            { token: 'special', foreground: 'E09C4F' },
+            { token: 'regexp', foreground: '7971e2' },
+            { background : '111111'},
+            // { background : '271C25'},
+            { token: 'tag', foreground: 'ec5a5d' },
+            { token: 'attribute.name', foreground: 'FF7700' },
+            { token: 'attribute.value', foreground: '79c534' },
+            { token: 'metatag', foreground: 'ec5a5d' },
+            { token: 'metatag.content', foreground: 'ec5a5d' },
+
+        ]
+    }
+
     // Colorful theme
     window.editorThemes.BLAZE_COLORFUL = {
         base: 'vs-dark', // can also be vs-dark or hc-black
@@ -530,6 +556,7 @@ amdRequire(['vs/editor/editor.main'], () => {
 
     // Config Theme
     monaco.editor.defineTheme('blaze-grayscale', editorThemes.BLAZE_GRAYSCALE)
+    monaco.editor.defineTheme('blaze-dark', editorThemes.BLAZE_DARK)
     monaco.editor.defineTheme('blaze-colorful', editorThemes.BLAZE_COLORFUL)
 
     window.editor = monaco.editor.create($('#editor'), {
