@@ -3,7 +3,7 @@
 ###
 
 # Link to debian package download
-deb_download='https://github.com/Ph0enixKM/Illiade/releases/download/1.3.5b/illiade_1.3.5_x64.deb'
+deb_download='https://github.com/Ph0enixKM/Illiade/releases/download/1.3.6b/illiade_1.3.6_x64.deb'
 # Link to zip download
 zip_download='https://github.com/Ph0enixKM/Illiade/releases/download/1.3.1b/illiade-linux-1.3.1_64.zip'
 # Ware name
