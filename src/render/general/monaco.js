@@ -476,7 +476,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         label: 'impl',
                         kind: monaco.languages.CompletionItemKind.Snippet,
                         insertText: [
-                            'impl ${1:name}:',
+                            'impl ${1:name} {',
                             '\t$0',
                             '}'
                         ].join('\n'),
@@ -486,7 +486,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         label: 'enum',
                         kind: monaco.languages.CompletionItemKind.Snippet,
                         insertText: [
-                            'enum ${1:name}:',
+                            'enum ${1:name} {',
                             '\t$0',
                             '}'
                         ].join('\n'),
@@ -496,7 +496,7 @@ amdRequire(['vs/editor/editor.main'], () => {
                         label: 'struct',
                         kind: monaco.languages.CompletionItemKind.Snippet,
                         insertText: [
-                            'struct ${1:name}:',
+                            'struct ${1:name} {',
                             '\t$0',
                             '}'
                         ].join('\n'),

@@ -106,6 +106,7 @@ const RUST_LANGUAGE = {
         [/[;,.:]/, 'delimiter'],
 
         // identifiers
+        [/[A-Za-z_$][0-9A-Za-z_]*\!/, 'function'],
         [/([A-Za-z_$][A-Za-z0-9_$]*)(\<\S*\>)(\()/, ['function', 'type', 'default']],
         [/([A-Za-z_$][A-Za-z0-9_$]*)(\<\S*\>)/, ['identifier', 'type']],
         [/([A-Z_$][A-Za-z0-9_$]*)(\<\S*\>)/, ['special', 'type']],
