@@ -447,6 +447,10 @@ amdRequire(['vs/editor/editor.main'], () => {
     monaco.languages.setMonarchTokensProvider('$flame', FLAME_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$flame', FLAME_CONFIG)
 
+    monaco.languages.register({ id: '$rust', mimetypes: ['text/$rust'] })
+    monaco.languages.setMonarchTokensProvider('$rust', RUST_LANGUAGE)
+    monaco.languages.setLanguageConfiguration('$rust', RUST_CONFIG)
+
     monaco.languages.register({ id: '$tree', mimetypes: ['text/$tree'] })
     monaco.languages.setMonarchTokensProvider('$tree', TREE_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$tree', TREE_CONFIG)

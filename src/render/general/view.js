@@ -120,6 +120,10 @@ class View {
             language = '$elevate'
         }
 
+        else if (['rust', 'rs'].includes(extension)) {
+            language = '$rust'
+        }
+
         else if (['pug', 'scss', 'java', 'coffee', 'less', 'kotlin', 'markdown', 'rust', 'sql', 'xml'].includes(extension)) {
             language = extension
         }
