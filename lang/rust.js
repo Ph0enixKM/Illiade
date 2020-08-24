@@ -81,7 +81,7 @@ const RUST_LANGUAGE = {
         [/\b(bool|u8|u16|u32|u64|u128|i8|i16|i32|i64|i128|char|str|f32|f64|usize|isize)\b/, "type"],
 
         // Functions
-        [/([A-Za-z_$][0-9A-Za-z_]*)(\s*\()/, ['function', 'default']],
+        [/([A-Za-z_$][0-9A-Za-z_!]*)(\s*\()/, ['function', 'default']],
         // [/([A-Za-z][0-9A-Za-z_]*)(\s*<[^\(\s]+>\s*)(\()/, ['function', 'type', 'default']],
 
         [/\b([A-Z_$]+[0-9A-Za-z_$]*)\b/, 'special' ],

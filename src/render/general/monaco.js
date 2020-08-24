@@ -443,6 +443,81 @@ amdRequire(['vs/editor/editor.main'], () => {
         },
     })
 
+        monaco.languages.registerCompletionItemProvider('$rust', {
+        provideCompletionItems: () => {
+            return { suggestions: [
+                    {
+                        label: 'print',
+                        kind: monaco.languages.CompletionItemKind.Keyword,
+                        insertText: 'println!(${0:""});',
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'if',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'if ${1:condition} {',
+                            '\t${2:pass}',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'for',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'for ${1:item} in ${2:array} {',
+                            '\t$0',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'impl',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'impl ${1:name}:',
+                            '\t$0',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'enum',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'enum ${1:name}:',
+                            '\t$0',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'struct',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'struct ${1:name}:',
+                            '\t$0',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                    {
+                        label: 'fn',
+                        kind: monaco.languages.CompletionItemKind.Snippet,
+                        insertText: [
+                            'fn ${1:name}(${2:params})${3: -> } {',
+                            '\t$0',
+                            '}'
+                        ].join('\n'),
+                        insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                    },
+                ]
+            }
+        },
+    })
+
+    
     monaco.languages.register({ id: '$flame', mimetypes: ['text/$flame'] })
     monaco.languages.setMonarchTokensProvider('$flame', FLAME_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$flame', FLAME_CONFIG)
@@ -450,7 +525,11 @@ amdRequire(['vs/editor/editor.main'], () => {
     monaco.languages.register({ id: '$rust', mimetypes: ['text/$rust'] })
     monaco.languages.setMonarchTokensProvider('$rust', RUST_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$rust', RUST_CONFIG)
-
+    
+    monaco.languages.register({ id: '$toml', mimetypes: ['text/$toml'] })
+    monaco.languages.setMonarchTokensProvider('$toml', TOML_LANGUAGE)
+    monaco.languages.setLanguageConfiguration('$toml', TOML_CONFIG)
+    
     monaco.languages.register({ id: '$tree', mimetypes: ['text/$tree'] })
     monaco.languages.setMonarchTokensProvider('$tree', TREE_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$tree', TREE_CONFIG)

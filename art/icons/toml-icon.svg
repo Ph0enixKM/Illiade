@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 400 400"
+   style="enable-background:new 0 0 400 400;"
+   xml:space="preserve"
+   sodipodi:docname="toml-icon.svg"
+   inkscape:version="1.0 (b51213c273, 2020-08-10)"><metadata
+   id="metadata17"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs15" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1920"
+   inkscape:window-height="1033"
+   id="namedview13"
+   showgrid="false"
+   inkscape:zoom="1.7875"
+   inkscape:cx="157.20441"
+   inkscape:cy="207.17495"
+   inkscape:window-x="0"
+   inkscape:window-y="24"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+<style
+   type="text/css"
+   id="style2">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#7E7F7F;}
+</style>
+
+<g
+   id="XMLID_2_">
+	<g
+   id="XMLID_11_">
+		<path
+   id="XMLID_12_"
+   class="st1"
+   d="M28.6,30.5h75.1v37.3H69v262.7h34.7V368H28.6V30.5z" />
+	</g>
+	<g
+   id="XMLID_4_"
+   style="fill:#d8cece;fill-opacity:1">
+		<path
+   id="XMLID_6_"
+   d="M276.4,101.5v39.1h-60.1v181.9H174V140.6h-60.4v-39.1H276.4z"
+   style="fill:#d8cece;fill-opacity:1" />
+	</g>
+	<g
+   id="XMLID_3_">
+		<path
+   id="XMLID_5_"
+   class="st1"
+   d="M365.7,368h-75.1v-37.3h34.7V68h-34.7V30.5h75.1V368z" />
+	</g>
+</g>
+</svg>

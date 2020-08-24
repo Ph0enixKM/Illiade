@@ -123,6 +123,10 @@ class View {
         else if (['rust', 'rs'].includes(extension)) {
             language = '$rust'
         }
+        
+        else if (['toml'].includes(extension)) {
+            language = '$toml'
+        }
 
         else if (['pug', 'scss', 'java', 'coffee', 'less', 'kotlin', 'markdown', 'rust', 'sql', 'xml'].includes(extension)) {
             language = extension
