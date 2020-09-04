@@ -16,7 +16,7 @@ TERMINAL_OPEN.trigger(val => {
     else {
         termElem.style.visibility = 'visible'
         termElem.style.transform = 'scale(0)'
-        
+
         setTimeout(() => {
             termElem.style.visibility = 'hidden'
             $('.inputarea').focus()
@@ -58,10 +58,10 @@ window.addEventListener('DOMContentLoaded', () => {
             ]
         }
     })
-    
+
     // Set initial position
     drag.set(...calcTermPixels(...TERM_POS.val))
-    
+
     // Listen to window resizal
     window.addEventListener('resize', e => {
         drag.set(...calcTermPixels(...TERM_POS.val))
@@ -75,4 +75,3 @@ TERM_POS.trigger(val => {
     drag.set(...calcTermPixels(...TERM_POS.val))
     storage.set('TERM_POS', TERM_POS.val)
 })
-

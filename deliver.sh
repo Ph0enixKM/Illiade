@@ -25,6 +25,7 @@ function package {
     if [[ $? == 0 ]]; then
         echo -e $cmdok '- Packaging done 👌' $cmdcls
         cp run_illi.sh dist-app/Illiade-${3}-x64/run_illi.sh
+        echo 'const DEBUG = false' > dist-app/Illiade-${3}-x64/resources/app/dist/debug.js
     else
         echo -e $cmderr '- Could not package... ' $cmdcls
     fi

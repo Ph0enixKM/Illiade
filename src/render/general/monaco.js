@@ -517,7 +517,7 @@ amdRequire(['vs/editor/editor.main'], () => {
         },
     })
 
-    
+
     monaco.languages.register({ id: '$flame', mimetypes: ['text/$flame'] })
     monaco.languages.setMonarchTokensProvider('$flame', FLAME_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$flame', FLAME_CONFIG)
@@ -525,11 +525,11 @@ amdRequire(['vs/editor/editor.main'], () => {
     monaco.languages.register({ id: '$rust', mimetypes: ['text/$rust'] })
     monaco.languages.setMonarchTokensProvider('$rust', RUST_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$rust', RUST_CONFIG)
-    
+
     monaco.languages.register({ id: '$toml', mimetypes: ['text/$toml'] })
     monaco.languages.setMonarchTokensProvider('$toml', TOML_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$toml', TOML_CONFIG)
-    
+
     monaco.languages.register({ id: '$tree', mimetypes: ['text/$tree'] })
     monaco.languages.setMonarchTokensProvider('$tree', TREE_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$tree', TREE_CONFIG)
@@ -674,6 +674,26 @@ amdRequire(['vs/editor/editor.main'], () => {
         id: 'hello-world',
         label: 'Hello World',
         run() {console.log('Hello World!')}
+    })
+
+    window.addEventListener('keydown', e => {
+        const speed = 5
+        if (!FS_SCOPE.val && !TERMINAL_OPEN.val) {
+            if (e.ctrlKey && e.altKey & !e.shiftKey) {
+                if (e.key == "ArrowUp") {
+                    editor.getPosition()
+                    let {column, lineNumber: line} = editor.getPosition()
+                    editor.revealLineInCenter(line - speed)
+                    editor.setPosition({column, lineNumber: line - speed})
+                }
+                if (e.key == "ArrowDown") {
+                    editor.getPosition()
+                    let {column, lineNumber: line} = editor.getPosition()
+                    editor.revealLineInCenter(line + speed)
+                    editor.setPosition({column, lineNumber: line + speed})
+                }
+            }
+        }
     })
 
     // super(nls.localize('quickCommandActionInput', "Type the name of an action you want to execute"), {

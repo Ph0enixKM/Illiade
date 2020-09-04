@@ -162,7 +162,7 @@ class DNA {
                     for (const term of TERMINALS.val) {
                         if (term == null) continue
                         term.xterm.setOption(
-                            'cursorStyle', 
+                            'cursorStyle',
                             TERM_CURSOR_STYLE.val.toLowerCase()
                         )
                     }
@@ -180,14 +180,14 @@ class DNA {
                 },
                 update(info) {
                     if (info != 'init')
-                    msg.done(`Changes will be 
-                    visible once killed current 
+                    msg.done(`Changes will be
+                    visible once killed current
                     terminal or opened a new one`)
                 }
             },
 
             'Code Editor',
-            
+
             {
                 id: 'editor-ligatures',
                 name: 'Font Ligatures',
@@ -221,7 +221,7 @@ class DNA {
             }
             // If it's a setting
             else {
-                
+
                 const el = document.createElement('div')
                 const name = document.createElement('div')
                 const control = document.createElement('div')
@@ -238,7 +238,7 @@ class DNA {
                 EDITOR_LOAD.trigger(() => console.log(
                     `%c${item.id}: ${window[item.attach].val}`, DEBUGGER_STYLE.val
                 ))
-                
+
                 // Setting type switch.
                 // Contains a boolean value.
                 // Can be turned on or off.
@@ -272,7 +272,7 @@ class DNA {
                         item.trigger(e.target.value)
                     })
                     control.appendChild(setting)
-                    
+
                     window[item.attach].trigger(value => {
                         setting.value = value
                         storage.set(item.attach, value)
@@ -292,18 +292,18 @@ class DNA {
                     setting.className = 'select'
 
                     if (!item.options) return msg.error(`
-                        DNA: 
+                        DNA:
                         Badly parsed setting of type 'select' of id '${item.id}'
                         Missing option 'options'
                     `)
                     for (const [index, opt] of item.options.entries()) {
                         let el = document.createElement('div')
                         el.className = 'item'
-                        
+
                         el.innerHTML = opt
                         el.setAttribute('index', index)
                         setting.appendChild(el)
-                        
+
                         el.addEventListener('click', e => {
                             item.trigger([e.target.getAttribute('index'), e.target.innerText])
                         })
@@ -311,7 +311,7 @@ class DNA {
 
                     window[item.attach].trigger(value => {
                         for (const el of setting.children) {
-                            el.classList.remove('on')                            
+                            el.classList.remove('on')
                         }
 
                         // Get selected item by index
@@ -322,7 +322,7 @@ class DNA {
                         // Get selected item by value
                         else if (item.by == 'value') {
                             const index = item.options.indexOf(window[item.attach].val)
-                            
+
                             setting.children[index].classList.add('on')
                         }
 
@@ -332,12 +332,12 @@ class DNA {
                     })
 
                     control.appendChild(setting)
-                    
+
                     window[item.attach].trigger(item.update)
                     window[item.attach].tick(window[item.attach].val)
-                    item.update('init')                    
+                    item.update('init')
                 }
-                
+
                 // Setting type color picker.
                 // Contains color exposed as a string.
                 // Can be changed to any other color.
@@ -346,7 +346,7 @@ class DNA {
                     setting.id = item.id
                     setting.className = 'color'
                     control.appendChild(setting)
-                    
+
                     const pickr = Pickr.create({
                         el: setting,
                         theme: 'nano',
@@ -424,4 +424,3 @@ window.addEventListener('keydown', e => {
         dna.off()
     }
 })
-

@@ -34,7 +34,7 @@ class Global {
             window[name] = new Variable(value)
         }
         else throw 'Invalid kind'
-    
+
     }
 }
 
@@ -43,14 +43,13 @@ class Global {
 // Global variables
 // ---
 
-
 new Global('always', 'ROOT', require('os').homedir(), 'Current root diretory')
 new Global('always', 'ROOTS', [], 'Used root directories')
 
 new Global('always', 'OPENED', {
-    name: 'welcome', 
-    fullpath: path.join(__dirname, '../../illiade.welcome'), 
-    extension: 'welcome', 
+    name: 'welcome',
+    fullpath: path.join(__dirname, '../../illiade.welcome'),
+    extension: 'welcome',
     welcome: true,
     isVirtual: true
 }, 'Opened file - holds HTML/Object Element')
@@ -78,7 +77,7 @@ new Global('always', 'OPENED_LAST', [], 'Opened file - holds Objects')
 
 new Global('brief', 'EDITOR_LOAD', false, 'Editor Loaded')
 new Global('brief', 'TERMINAL_OPEN', false, 'If terminal is opened')
-new Global('brief', 'VERSION', [1, 1], 'Illiade version')
+new Global('brief', 'VERSION', [3, 10], 'Illiade version')
 new Global('brief', 'VERSION_LEVEL', 'Pillar', 'Illiade version')
 new Global('brief', 'FS_MOVE', null, 'Current Moving File')
 new Global('brief', 'ICONS', [], 'Icons Array')
@@ -90,8 +89,4 @@ new Global('brief', 'DEBUGGER_STYLE', 'color: #9a0187', 'Set the debugger style'
 new Global('brief', 'APPS_DOCK_SHOW', false, 'If apps dock should be shown on boot')
 new Global('brief', 'JUST_SAVED_FILE', false, 'If file was just saved')
 new Global('brief', 'FS_SCOPE', false, 'If we are operating on fs')
-new Global('brief', 'FS_SCOPE_MOVE', false, 'If we are operating on fs')
-
-
-
-
+new Global('brief', 'FS_SCOPE_MOVE', false, 'If we are moving file in fs mode')

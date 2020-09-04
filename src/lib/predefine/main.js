@@ -17,13 +17,6 @@ function $(query) {
     return document.querySelector(query)
 }
 
-// Determines if code is
-// being run in debug mode
-// which enables devtools
-// and reload shortcut
-const DEBUG = true
-
-
 // Polyfill enable arrays to easily
 // return the last element with a
 // sintatical sugar on top

@@ -13,8 +13,8 @@ function cliInit() {
     EDITOR_LOAD.trigger(() => console.log(
         `%ccli-path: ${cliPath}`, DEBUGGER_STYLE.val
     ))
-    
-    
+
+
     if (cliPath != null) {
         let thePath = ''
 
@@ -25,24 +25,24 @@ function cliInit() {
         else {
             thePath = cliPath
         }
-        
+
         // Check if file exists
         if (!fs.existsSync(thePath)) {
             msg.error(`Requested file or directory '${thePath}' does not exist`)
             return null
         }
-        
+
         const data = fs.statSync(thePath)
         const isFile = data.isFile()
-        
-        
+
+
         // Open here
         if (cliPath.trim() == '.') {
             ROOT.val = thePath
             changeDirectory(ROOT.val)
         }
-        
-        
+
+
         // Open file case
         if(isFile) {
             setTimeout(() => {
@@ -50,14 +50,14 @@ function cliInit() {
                 storage.set('OPENED', OPENED.val)
             }, 550)
         }
-        
+
         // Open ROOT directory case
         else {
             ROOT.val = thePath
             fsCont.innerHTML = ''
             changeDirectory(ROOT.val)
         }
-        
-        
+
+
     }
 }

@@ -1,0 +1,3 @@
+switch (this) {
+    case ne:
+}

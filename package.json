@@ -24,9 +24,6 @@
   "bugs": {
     "url": "https://github.com/Ph0enixKM/Illiade/issues"
   },
-  "_moduleAliases": {
-    "vscode": "./monaco-languageclient/lib/vscode-compatibility"
-  },
   "homepage": "https://github.com/Ph0enixKM/Illiade#readme",
   "dependencies": {
     "@simonwep/pickr": "^1.5.1",
@@ -50,7 +47,6 @@
     "module-alias": "^2.2.2",
     "monaco-editor": "^0.18.1",
     "monaco-editor-textmate": "^2.2.1",
-    "monaco-languageclient": "^0.7.3",
     "monaco-textmate": "^3.0.1",
     "monaco-themes": "^0.3.3",
     "monaco-vim": "^0.1.7",
@@ -61,8 +57,6 @@
     "sass": "^1.23.3",
     "three": "^0.110.0",
     "tippy.js": "^5.1.2",
-    "typescript-language-server": "^0.4.0",
-    "vscode": "file:vscode",
     "xterm": "^4.4.0",
     "xterm-addon-fit": "^0.3.0",
     "xterm-addon-webgl": "0.5.0"

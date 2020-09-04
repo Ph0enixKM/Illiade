@@ -75,7 +75,7 @@ class Terminal {
             theme: {
                 background: 'transparent',
                 foreground: '#CFB8AB',
-                black: 'transparent',
+                black: '#111111',
                 red: '#C7565A',
                 green: '#B0B81A',
                 yellow: '#E0BB3F',
@@ -93,9 +93,9 @@ class Terminal {
                 lightWhite: '#CFB8AB',
                 cursor: TERM_CURSOR_COLOR.val
             }
-        })    
-        
-        // Assign the terminal 
+        })
+
+        // Assign the terminal
         // to existing terminals
         TERMINALS.push({
             xterm,
@@ -115,12 +115,12 @@ class Terminal {
                 if (term == null) return null
                 term.xterm.resize(TERM_X.val, TERM_Y.val)
                 term.ptyProcess.resize(TERM_X.val, TERM_Y.val)
-            })            
+            })
             storage.set('TERM_X', TERM_X.val)
             storage.set('TERM_Y', TERM_Y.val)
             drag.setOption('limit', document.body)
         })
-        
+
         // Update height of the terminal
         // notify client and backend and
         // persist changes to the dna
@@ -161,7 +161,7 @@ class Terminal {
                 if (e.key.toLowerCase() == 'c' && e.ctrlKey && e.shiftKey) {
                     clipboard.writeText(xterm.getSelection(), 'clipboard')
                 }
-                
+
                 // Polyfill of text pasting
                 // from the clipboard to terminal input
                 if (e.key.toLowerCase() == 'v' && e.ctrlKey && e.shiftKey) {
@@ -178,10 +178,11 @@ class Terminal {
                     if (e.key.toLowerCase() == 't' && e.altKey) {
                         TERMINAL_OPEN.val = false
                         TERMINALS.val[TERMINAL_ID.val].xterm.focus()
+                        console.log(TERMINALS.val[TERMINAL_ID.val]);
                         e.preventDefault()
                         e.stopPropagation()
                     }
-                    
+
                     // Create new tab
                     if (e.key.toLowerCase() == 't' && e.ctrlKey) {
                         this.initTerm()
@@ -189,21 +190,21 @@ class Terminal {
                         e.preventDefault()
                         e.stopPropagation()
                     }
-    
+
                     // Switch to the next tab
                     if (e.key == 'ArrowRight' && e.ctrlKey) {
                         this.changeTerm(1)
                         e.preventDefault()
                         e.stopPropagation()
                     }
-    
+
                     // Switch to the previous tab
                     if (e.key == 'ArrowLeft' && e.ctrlKey) {
                         this.changeTerm(-1)
                         e.preventDefault()
                         e.stopPropagation()
                     }
-    
+
                     // Close current tab
                     if (e.key.toLowerCase() == 'w' && e.ctrlKey) {
                         ptyProcess.kill()
@@ -243,10 +244,10 @@ class Terminal {
                     else
                     if (e.key == 'a' && !e.altKey) this.edit.resize[3] = true
                 }
-                else 
+                else
                 if (e.type == 'keyup') {
                     if (e.key == 'w' && !e.altKey) this.edit.resize[0] = false
-                    else 
+                    else
                     if (e.key == 'd' && !e.altKey) this.edit.resize[1] = false
                     else
                     if (e.key == 's' && !e.altKey) this.edit.resize[2] = false
@@ -265,10 +266,10 @@ class Terminal {
                     else
                     if (e.key == 'ArrowLeft' && !e.altKey) this.edit.move[3] = true
                 }
-                else 
+                else
                 if (e.type == 'keyup') {
                     if (e.key == 'ArrowUp' && !e.altKey) this.edit.move[0] = false
-                    else 
+                    else
                     if (e.key == 'ArrowRight' && !e.altKey) this.edit.move[1] = false
                     else
                     if (e.key == 'ArrowDown' && !e.altKey) this.edit.move[2] = false
@@ -282,6 +283,8 @@ class Terminal {
         // xterm.js and node-pty
         xterm.onData((data) => {
             if (!TERMINAL_EDIT.val) {
+                // Skip terminal invocations
+                if (data == "t") return
                 ptyProcess.write(data)
             }
         })
@@ -293,7 +296,7 @@ class Terminal {
         // to be moved using
         // keyboard
         this.editTerm(xterm)
-        
+
         // Whenver process is about to get
         // killed - remove the terminal
         ptyProcess.onExit(val => {
@@ -308,7 +311,7 @@ class Terminal {
     // succeeded - returns true.
     // Returns false otherwise.
     changeTerm(next) {
-        let len = TERMINALS.val.length    
+        let len = TERMINALS.val.length
         let index = null
 
         // Go up
@@ -368,13 +371,13 @@ class Terminal {
     // representation.
     removeTerm(ID) {
         let isLast = TERMINALS.val.filter(tab => tab != null).length == 1
-        
+
         // Handle current tab if there are no other tabs
-        if (isLast) {    
+        if (isLast) {
             this.initTerm()
-            this.changeTerm(1) 
+            this.changeTerm(1)
         }
-        
+
 
         // Regular behavior
         else {
@@ -383,7 +386,7 @@ class Terminal {
                 this.changeTerm(1)
             }
         }
-        
+
         // The actual removing part
         TERMINALS.val[ID].tab.style.display = 'none'
         TERMINALS.val[ID] = null
@@ -422,7 +425,7 @@ class Terminal {
 
                         TERM_POS.val = pos
                     })();
-                    
+
                     // Resizing
                     (() => {
                         let updown = 0
@@ -472,4 +475,11 @@ class Terminal {
     }
 }
 
-window.terminal = new Terminal()
+const timer = setTimeout(() => {
+    window.terminal = new Terminal()
+}, 500)
+
+ROOT.triggerOnce(() => {
+    clearTimeout(timer)
+    window.terminal = new Terminal()
+})
