@@ -70,7 +70,7 @@ const JAVA_LANGUAGE = {
         [/this/, 'special'],
 
         // Keywords
-        [/\b(import|interface|abstract|public|protected|private|extern|default|long|namespace||continue|for|new|switch|goto|do|if|this|super|break|throw|else|enum|return|catch|try|static|class|finally|const|while|export|case)\b/, "keyword"],
+        [/\b(import|interface|abstract|public|protected|private|extern|default|long|namespace|continue|for|new|switch|goto|do|if|this|super|break|throw|else|enum|return|catch|try|static|class|finally|const|while|export|case)\b/, "keyword"],
         [/(\*|&)(?=[^&])/, 'keyword'],
 
         // Directives
