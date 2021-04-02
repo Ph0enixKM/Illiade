@@ -73,6 +73,7 @@ new Global('always', 'BG_OPACITY', 0.5, 'Determines the opacity of jellies')
 new Global('always', 'BG_DARK', false, 'Should the background look darker?')
 new Global('always', 'CODE_EDITOR_LIGATURES', true, 'Use ligatures?')
 new Global('always', 'OPENED_LAST', [], 'Opened file - holds Objects')
+new Global('always', 'TERM_ENV', '/bin/bash', 'Terminal environment')
 
 
 new Global('brief', 'EDITOR_LOAD', false, 'Editor Loaded')

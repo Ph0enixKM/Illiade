@@ -195,7 +195,7 @@ function updateOpenedFiles(element, lastElPath) {
         }
         else {
             model.language = view.open(model.extension, model.fullpath)
-            model.model = monaco.editor.createModel(file, model.language)
+            model.model = monaco ? monaco.editor.createModel(file, model.language) : null
             editor.setModel(model.model)
             
             restoreViewState(model.fullpath)

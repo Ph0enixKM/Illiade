@@ -96,11 +96,13 @@ class DNA {
                 update() {
                     if (COLORFUL_JELLIES.val) {
                         $('#bg').style.animation = 'jelly 10s infinite'
-                        monaco.editor.setTheme('blaze-colorful')
+                        if (monaco)
+                            monaco.editor.setTheme('blaze-colorful')
                     }
                     else {
                         $('#bg').style.animation = 'none'
-                        monaco.editor.setTheme('blaze-grayscale')
+                        if (monaco)
+                            monaco.editor.setTheme('blaze-grayscale')
                     }
                 }
             },
@@ -132,14 +134,14 @@ class DNA {
                     if (BG_DARK.val) {
                         document.body.style.backgroundColor = '#000'
                         $('#terminal').style.backgroundColor = 'rgba(16, 16, 16, 0.6)'
-                        if (!COLORFUL_JELLIES.val) {
+                        if (!COLORFUL_JELLIES.val && monaco) {
                             monaco.editor.setTheme('blaze-dark')
                         }
                     }
                     else {
                         document.body.style.backgroundColor = '#2a2522'
                         $('#terminal').style.backgroundColor = 'rgba(49, 46, 38, 0.7)'
-                        if (!COLORFUL_JELLIES.val) {
+                        if (!COLORFUL_JELLIES.val && monaco) {
                             monaco.editor.setTheme('blaze-grayscale')
                         }
                     }
@@ -147,6 +149,18 @@ class DNA {
             },
 
             'Terminal',
+
+            {
+                id: 'term-env',
+                name: 'Terminal shell',
+                type: 'text',
+                attach: 'TERM_ENV',
+                trigger(value) {
+                    console.log(value);
+                    TERM_ENV.val = value;
+                },
+                update() {}
+            },
 
             {
                 id: 'term-cursor-style',

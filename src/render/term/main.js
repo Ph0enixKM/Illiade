@@ -12,7 +12,8 @@ const xtermElem = $('#xterm')
 const tabsElem = $('#term-tabs')
 const termButton = $('#panel #terminal-button')
 const termEditElem = $('#terminal #term-edit')
-const shell = process.env[os.platform() === 'win32' ? 'COMSPEC' : 'SHELL']
+// const shell = process.env[os.platform() === 'win32' ? 'COMSPEC' : 'SHELL']
+const shell = TERM_ENV.val;
 const ptyConfig = {
     name: 'xterm-color',
     cols: TERM_X.val,
