@@ -517,6 +517,19 @@ amdRequire(['vs/editor/editor.main'], () => {
         },
     })
 
+    monaco.languages.registerCompletionItemProvider('$java', {
+        provideCompletionItems: () => {
+            return { suggestions: [
+                    {
+                        label: 'String',
+                        kind: monaco.languages.CompletionItemKind.Text,
+                        insertText: 'String'
+                    }
+                ]
+            }
+        },
+    })
+
 
     monaco.languages.register({ id: '$flame', mimetypes: ['text/$flame'] })
     monaco.languages.setMonarchTokensProvider('$flame', FLAME_LANGUAGE)
@@ -557,6 +570,10 @@ amdRequire(['vs/editor/editor.main'], () => {
     monaco.languages.register({ id: '$elevate', mimetypes: ['text/$elavate'] })
     monaco.languages.setMonarchTokensProvider('$elevate', ELEVATE_LANGUAGE)
     monaco.languages.setLanguageConfiguration('$elevate', ELEVATE_CONFIG)
+
+    monaco.languages.register({ id: '$java', mimetypes: ['text/$java'] })
+    monaco.languages.setMonarchTokensProvider('$java', JAVA_LANGUAGE)
+    monaco.languages.setLanguageConfiguration('$java', JAVA_CONFIG)
 
     window.editorThemes = {}
     // Grayscale theme

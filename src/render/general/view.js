@@ -128,7 +128,11 @@ class View {
             language = '$toml'
         }
 
-        else if (['pug', 'scss', 'java', 'coffee', 'less', 'kotlin', 'markdown', 'rust', 'sql', 'xml'].includes(extension)) {
+        else if (['java'].includes(extension)) {
+            language = '$java'
+        }
+
+        else if (['pug', 'scss', 'coffee', 'less', 'kotlin', 'markdown', 'rust', 'sql', 'xml'].includes(extension)) {
             language = extension
         }
 
