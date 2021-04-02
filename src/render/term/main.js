@@ -43,6 +43,10 @@ class Terminal {
             termElem.style.transform = 'scale(0)'
             termElem.style.visibility = 'hidden'
         }, 100)
+
+        TERMINALS.trigger((v) => {
+            console.log(v);
+        })
     }
 
 
@@ -312,6 +316,7 @@ class Terminal {
     // succeeded - returns true.
     // Returns false otherwise.
     changeTerm(next) {
+        TERMINALS.val = TERMINALS.val.filter(item => item != null)
         let len = TERMINALS.val.length
         let index = null
 

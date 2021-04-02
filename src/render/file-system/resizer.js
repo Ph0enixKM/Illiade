@@ -63,7 +63,8 @@ function viewResize () {
 
     panel.style.width = fsWidth + 'px'
     view.style.width = `calc(100vw - ${fsWidth}px)`
-    window.editor.layout({width: max.width - fsWidth, height: max.height - 58})
+    if (editor)
+        window.editor.layout({width: max.width - fsWidth, height: max.height - 58})
     updateResizer()
     LEFT_PANEL_SIZE.val = fsWidth
     storage.set('LEFT_PANEL_SIZE', fsWidth)
