@@ -40,16 +40,16 @@ html(lang="en")
             .btn#max
             #title-cont
                 #title
-                #saved(data-tippy-content="Save File (CTRL + S)")
+                #saved(data-tippy-content="Save File (⌘/CTRL + S)")
         //- #quick-files
         #panel
             .big
                 .col
-                    .btn#apps-button(data-tippy-content="ALT + A")
-                    .btn#dna-button(data-tippy-content="ALT + D")
+                    .btn#apps-button(data-tippy-content="^/ALT + A")
+                    .btn#dna-button(data-tippy-content="^/ALT + S")
                 .col
-                    .btn#change-dir(data-tippy-content="ALT + R")
-                    .btn#terminal-button(data-tippy-content="ALT + T")
+                    .btn#change-dir(data-tippy-content="^/ALT + R")
+                    .btn#terminal-button(data-tippy-content="^/ALT + `")
             .compact
                 .col
                     .btn#apps-button
@@ -100,8 +100,8 @@ html(lang="en")
         #message Error: Oopsie
         #decision
             .message Do you like pancakes?
-            .choice#yes(data-tippy-content="ALT + Y") Yes
-            .choice#no(data-tippy-content="ALT + N") No
+            .choice#yes(data-tippy-content="⌘/CTRL + Y") Yes
+            .choice#no(data-tippy-content="⌘/CTRL + N") No
         #drop
             #drop-icon.no-file
         audio(loop)

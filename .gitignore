@@ -3,3 +3,4 @@ Illiade-linux-x64
 dist
 dist-app
 illiade-db/*
+**/.DS_Store

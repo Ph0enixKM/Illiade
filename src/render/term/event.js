@@ -32,10 +32,8 @@ termButton.addEventListener('click', e => {
 
 // Open termnal when
 // used shortcut
-window.addEventListener('keydown', e => {
-    if (e.key.toLowerCase() == 't' && e.altKey) {
-        TERMINAL_OPEN.val = !TERMINAL_OPEN.val
-    }
+new Shortcut('ALT `', e => {
+    TERMINAL_OPEN.val = !TERMINAL_OPEN.val
 })
 
 // Recalculate terminal position

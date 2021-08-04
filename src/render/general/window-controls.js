@@ -14,15 +14,37 @@ $('#min').addEventListener('click', () => {
 })
 
 
-// Maximize Window
-$('#max').addEventListener('click', () => {
-    if (win.isMaximized()) {
-        win.unmaximize()
-    }
-    else {
-        win.maximize()
-    }
-})
+if (process.platform === 'darwin') {
+    $('#title-cont').addEventListener('dblclick', () => {
+        if (win.isMaximized()) {
+            win.unmaximize()
+        }
+        else {
+            win.maximize()
+        }
+    })
+    $('#max').addEventListener('click', () => {
+        if (win.isFullScreen()) {
+            win.setFullScreen(false)
+        }
+        else {
+            win.setFullScreen(true)
+        }
+    })
+}
+else {
+    // Maximize Window
+    $('#max').addEventListener('click', () => {
+        if (win.isMaximized()) {
+            win.unmaximize()
+        }
+        else {
+            win.maximize()
+        }
+    })
+
+}
+
 
 // On resize - save the window dimension
 let resizeTime = null

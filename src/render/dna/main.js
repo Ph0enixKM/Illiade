@@ -85,68 +85,72 @@ class DNA {
                 update() {}
             },
 
-            {
-                id: 'colorful-jellyfish',
-                name: 'Colorful Jellyfish',
-                type: 'switch',
-                attach: 'COLORFUL_JELLIES',
-                trigger() {
-                    COLORFUL_JELLIES.val = !COLORFUL_JELLIES.val
-                },
-                update() {
-                    if (COLORFUL_JELLIES.val) {
-                        $('#bg').style.animation = 'jelly 10s infinite'
-                        if (monaco)
-                            monaco.editor.setTheme('blaze-colorful')
-                    }
-                    else {
-                        $('#bg').style.animation = 'none'
-                        if (monaco)
-                            monaco.editor.setTheme('blaze-grayscale')
-                    }
-                }
-            },
-
-            {
-                id: 'background-opacity',
-                name: 'Background Opacity',
-                attach: 'BG_OPACITY',
-                type: 'range',
-                range: [0, 0.7, 0.01],
-                value: 0.5,
-                trigger(val) {
-                    BG_OPACITY.val = val
-                },
-                update() {
-                    $('#bg').style.opacity = BG_OPACITY.val
-                }
-            },
-
-            {
-                id: 'bg-dark',
-                name: 'Dark Background',
-                type: 'switch',
-                attach: 'BG_DARK',
-                trigger() {
-                    BG_DARK.val = !BG_DARK.val
-                },
-                update() {
-                    if (BG_DARK.val) {
-                        document.body.style.backgroundColor = '#000'
-                        $('#terminal').style.backgroundColor = 'rgba(16, 16, 16, 0.6)'
-                        if (!COLORFUL_JELLIES.val && monaco) {
-                            monaco.editor.setTheme('blaze-dark')
+            // ...((process.platform === 'darwin') ? [] : [
+                {
+                    id: 'colorful-jellyfish',
+                    name: 'Colorful Jellyfish',
+                    type: 'switch',
+                    attach: 'COLORFUL_JELLIES',
+                    trigger() {
+                        COLORFUL_JELLIES.val = !COLORFUL_JELLIES.val
+                    },
+                    update() {
+                        if (COLORFUL_JELLIES.val) {
+                            $('#bg').style.animation = 'jelly 10s infinite'
+                            if (monaco)
+                                monaco.editor.setTheme('blaze-colorful')
+                        }
+                        else {
+                            $('#bg').style.animation = 'none'
+                            if (monaco)
+                                monaco.editor.setTheme('blaze-grayscale')
                         }
                     }
-                    else {
-                        document.body.style.backgroundColor = '#2a2522'
-                        $('#terminal').style.backgroundColor = 'rgba(49, 46, 38, 0.7)'
-                        if (!COLORFUL_JELLIES.val && monaco) {
-                            monaco.editor.setTheme('blaze-grayscale')
+                },
+
+                {
+                    id: 'background-opacity',
+                    name: 'Background Opacity',
+                    attach: 'BG_OPACITY',
+                    type: 'range',
+                    range: [0, 0.7, 0.01],
+                    value: 0.5,
+                    trigger(val) {
+                        BG_OPACITY.val = val
+                    },
+                    update() {
+                        $('#bg').style.opacity = BG_OPACITY.val
+                    }
+                },
+
+                {
+                    id: 'bg-dark',
+                    name: 'Dark Background',
+                    type: 'switch',
+                    attach: 'BG_DARK',
+                    trigger() {
+                        BG_DARK.val = !BG_DARK.val
+                    },
+                    update() {
+                        if (BG_DARK.val) {
+                            document.body.style.backgroundColor = '#00000088'
+                            $('#terminal').style.backgroundColor = 'rgba(16, 16, 16, 0.6)'
+                            if (!COLORFUL_JELLIES.val && monaco) {
+                                monaco.editor.setTheme('blaze-dark')
+                            }
+                        }
+                        else {
+                            document.body.style.backgroundColor = '#2a252288'
+                            $('#terminal').style.backgroundColor = 'rgba(49, 46, 38, 0.7)'
+                            if (!COLORFUL_JELLIES.val && monaco) {
+                                monaco.editor.setTheme('blaze-grayscale')
+                            }
                         }
                     }
-                }
-            },
+                },
+
+            // ]),
+
 
             'Terminal',
 
@@ -431,10 +435,7 @@ class DNA {
 
 window.dna = new DNA()
 
-
-window.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-        if (menu.busy) return null
-        dna.off()
-    }
+new Shortcut('Escape', e => {
+    if (menu.busy) return null
+    dna.off()
 })

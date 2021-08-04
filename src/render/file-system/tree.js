@@ -55,9 +55,14 @@ class TreeMaster {
             // Run on next frame paint
             setImmediate(() => {
                 if (FS_SCOPE.val) {
+                    const isAlt = (process.platform === 'darwin') ? e.ctrlKey : e.altKey
+                    console.log(e);
+                    const isDelete = (process.platform === 'darwin')
+                        ? e.key === 'Backspace' && e.metaKey
+                        : e.key === 'Delete' && !isAlt
 
                     // Entering directories
-                    if (e.key === 'ArrowRight' && !e.altKey) {
+                    if (e.key === 'ArrowRight' && !isAlt) {
                         const file = this.getFile()
                         if (!file.classList.contains('expanded')) {
                             TreeMaster.clickEvent(this.getFile())
@@ -87,14 +92,14 @@ class TreeMaster {
                     }
                     
                     // Fold directory
-                    else if (e.key.toLowerCase() === 'f' && !e.altKey) {
+                    else if (e.key.toLowerCase() === 'f' && !isAlt) {
                         const file = this.getFile()
                         if (file.getAttribute('type') === 'dir')
                             TreeMaster.clickEvent(this.getFile())
                     }
 
                     // Remove directory or file
-                    else if (e.key === 'Delete' && !e.altKey) {
+                    else if (isDelete) {
                         const file = this.getFile()
                         const name = OpenedAPI.get('name', file)
                         decision.spawn(
@@ -116,17 +121,17 @@ class TreeMaster {
                     }
 
                     // Create directory
-                    else if (e.key.toLowerCase() === 'q' && !e.altKey) {
+                    else if (e.key.toLowerCase() === 'q' && !isAlt) {
                         this.getFile().dispatchEvent(events.newDir)
                     }
 
                     // Create file
-                    else if (e.key.toLowerCase() === 'e' && !e.altKey) {
+                    else if (e.key.toLowerCase() === 'e' && !isAlt) {
                         this.getFile().dispatchEvent(events.newFile)
                     }
 
                     // Duplicate directory or file
-                    else if (e.key.toLowerCase() === 'd' && !e.altKey) {
+                    else if (e.key.toLowerCase() === 'd' && !isAlt) {
                         const file = this.getFile()
                         const name = OpenedAPI.get('name', file)
                         decision.spawn(`Do you want to duplicate file '${name}'?`, answer => {
@@ -141,7 +146,7 @@ class TreeMaster {
                     }
 
                     // Move directory or file
-                    else if (e.key.toLowerCase() === 'm' && !e.altKey) {
+                    else if (e.key.toLowerCase() === 'm' && !isAlt) {
                         // Start moving file
                         if (FS_MOVE.val === null) {
                             this.getFile().dispatchEvent(events.move)
@@ -170,7 +175,7 @@ class TreeMaster {
                     }
 
                     // Rename directory or file
-                    else if (e.key === 'F2' && !e.altKey) {
+                    else if (e.key === 'F2' && !isAlt) {
                         this.getFile().dispatchEvent(events.rename)
                     }
 

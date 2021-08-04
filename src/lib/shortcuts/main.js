@@ -53,10 +53,17 @@ export default class Shortcut {
             }
             else reqs[0] = true
 
-            // Ctrl, alt and shift key match
-            if (e.ctrlKey === ctrl) reqs[1] = true
-            if (e.altKey === alt) reqs[2] = true
-            if (e.shiftKey === shift) reqs[3] = true
+            if (process.platform == 'darwin') {
+                if (e.metaKey === ctrl) reqs[1] = true
+                if (e.ctrlKey === alt) reqs[2] = true
+                if (e.shiftKey === shift) reqs[3] = true
+            }
+            else {
+                // Ctrl, alt and shift key match
+                if (e.ctrlKey === ctrl) reqs[1] = true
+                if (e.altKey === alt) reqs[2] = true
+                if (e.shiftKey === shift) reqs[3] = true
+            }
             
             // When failed
             if (reqs.includes(false)) return null

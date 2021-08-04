@@ -8,21 +8,20 @@ class Tabs {
         this.index = 0
         this.delta = 15
         this.paths = []
-        
+
         // Hold
-        window.addEventListener('keydown', e => {
-            if (e.key === 'q' && e.altKey && !this.busy) {
-                this.init()
-            }
+        new Shortcut('CTRL W', e => {
+            this.init()
         })
         
         // Release
         window.addEventListener('keyup', e => {
-            if (e.key === 'q' && this.busy) {
+            const isCtrl = (process.platform === 'darwin') ? e.key === 'Meta' : e.ctrlKey
+            if ((e.key === 'w' || isCtrl) && this.busy) {
                 this.paths = []
                 this.enter()
                 updateChanges()
-            }
+            }          
         })
         
         // Remove
@@ -78,6 +77,7 @@ class Tabs {
     
     // Initialize the menu
     init () {
+        $('.inputarea').blur()
         this.tabs.style.visibility = 'visible'
         this.tabs.focus()
         this.busy = true

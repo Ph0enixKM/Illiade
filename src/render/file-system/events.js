@@ -265,23 +265,21 @@ changeDir.addEventListener('click', async e => {
 })
 
 // Menu "Change Directory" (keyboard shortcut)
-window.addEventListener('keydown', async e => {
-    if (e.key.toLowerCase() == 'r' && e.altKey) {
-        menu.on({
-            title: 'Change root directory',
-            subtitle: 'You can only write absolute path.',
-            placeholder: '/home/',
-            wide: true
-        })
-        
-        menu.uploadHints(ROOTS.val)
-        let inputDir = await menu.get()
-        
-        if (inputDir === null) return false
-        TREE_MAP.val = []
-        fsCont.innerHTML = ''
-        changeDirectory(inputDir)
-    }
+new Shortcut('ALT R', async e => {
+    menu.on({
+        title: 'Change root directory',
+        subtitle: 'You can only write absolute path.',
+        placeholder: '/home/',
+        wide: true
+    })
+    
+    menu.uploadHints(ROOTS.val)
+    let inputDir = await menu.get()
+    
+    if (inputDir === null) return false
+    TREE_MAP.val = []
+    fsCont.innerHTML = ''
+    changeDirectory(inputDir)
 })
 
 // Menu "Change Directory" (init load)
@@ -293,10 +291,8 @@ window.onload = async () => {
 $('#title-cont #saved').addEventListener('click', saveFileTitleUpdate)
 
 // Save File (keyboard shortcut)
-window.addEventListener('keydown', async e => {
-    if (e.key.toLowerCase() == 's' && e.ctrlKey) {
-        saveFileTitleUpdate()
-    }
+new Shortcut('CTRL S', e => {
+    saveFileTitleUpdate()
 })
 
 // Update header on file save

@@ -24,13 +24,8 @@ EDITOR_LOAD.trigger(() => {
             panel.style.borderColor = 'rgba(70, 70, 70, 1)'
             panel.style.borderWidth = '10px'
             fileSystem.style.opacity = '1'
-
-            setTimeout(() => {
-                panel.style.opacity = '1'
-                panel.style.transform = 'translate(0, 0)'
-                panel.style.borderColor = '#302B29'
-                panel.style.borderWidth = '1px'
-            }, 300)
+            panel.style.opacity = '1'
+            view.style.width = `calc(100vw - ${LEFT_PANEL_SIZE.val}px)`
 
             setTimeout(() => {
                 viewResize()

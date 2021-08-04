@@ -24,7 +24,7 @@ class Decision {
         })
 
         // When used shortcut
-        new Shortcut('ALT Y', e => {
+        new Shortcut('CTRL Y', e => {
             this.decide(true)
         })
 
@@ -36,7 +36,7 @@ class Decision {
         })
 
         // When used shortcut
-        new Shortcut('ALT N', e => {
+        new Shortcut('CTRL N', e => {
             this.decide(false)
         })
     }

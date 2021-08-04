@@ -10,14 +10,15 @@ Menu.setApplicationMenu(null)
 
 // Main Ready Call
 app.on('ready', () => {
-    
     win = new BrowserWindow ({
         width: 1280,
         height: 720,
         minWidth: 830,
         minHeight: 430, 
         frame: false,
-        backgroundColor: '#2a2522',
+        transparent: true,
+        vibrancy: 'dark',
+        backgroundColor: '#2a252288',
         webPreferences : {
             nodeIntegration: true
         },
