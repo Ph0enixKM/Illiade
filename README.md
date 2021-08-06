@@ -12,6 +12,10 @@ Once installed you can run the executable
 or if you have **Ubuntu | Debian | Lava** operating system
 you can easily run it with `illiade` or shortname `illi`
 
+## Instalation (MacOS)
+
+Download *Illiade-MacOS.zip* from (release page)[https://github.com/Ph0enixKM/Illiade/releases/latest]
+
 ## Installation (Linux)
 
 Illiade can be easily installed on linux via this command:
