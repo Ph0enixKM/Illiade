@@ -14,7 +14,7 @@ you can easily run it with `illiade` or shortname `illi`
 
 ## Instalation (MacOS)
 
-Download *Illiade-MacOS.zip* from (release page)[https://github.com/Ph0enixKM/Illiade/releases/latest]
+Download *Illiade-MacOS.zip* from [release page](https://github.com/Ph0enixKM/Illiade/releases/latest)
 
 ## Installation (Linux)
 
